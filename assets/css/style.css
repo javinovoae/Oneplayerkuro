@@ -1,0 +1,86 @@
+* {
+    font-family: "Roboto";
+}
+
+
+html, body {
+    background-color: black;
+    font-weight: 300, 500;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    flex-wrap: inherit;
+    font-weight: 300;
+    background-color: black;
+}
+
+
+.background-image {
+    position: relative;
+    width: 100%;
+}
+
+.background-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.background-image h2,
+.background-image p,
+.background-image .links {
+    position: absolute;
+    color: white;
+    text-align: center;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.background-image h2 {
+    top: 35%; 
+    font-size: 2rem;
+}
+
+.background-image .links {
+    top: 45%; 
+}
+
+.background-image .links a {
+    display: inline-block;
+    margin: 5px;
+    text-decoration: none;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.background-image .links a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: black;
+}
+
+.background-image p {
+    top: 70%; 
+    font-size: 1.2rem;
+    max-width: 80%;
+}
+
+
+footer {
+    background-color: black;
+}
+
+
+p.fot {
+    font-size: 16px;
+    padding-bottom: 22px;
+    color: rgb(101, 101, 101);
+}
