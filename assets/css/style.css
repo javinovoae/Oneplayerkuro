@@ -84,3 +84,20 @@ p.fot {
     padding-bottom: 22px;
     color: rgb(101, 101, 101);
 }
+
+
+
+.games{
+    width: 60%;
+    margin: 60px;
+}
+
+.games td {
+    width: 40%;
+    padding: 2em;
+}
+
+.games img {
+    width: 80%;
+    border: solid 1px #000000;
+}
