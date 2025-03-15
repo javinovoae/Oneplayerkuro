@@ -1,6 +1,6 @@
 # OnePlayer
 HTML y CSS
 ### integrantes
-Javiera Novoa espejo
+Javiera Novoa E.
 Camila 
 Miren
