@@ -1,6 +1,6 @@
 # OnePlayer
 HTML y CSS
 ### integrantes
-Javiera 
+Javiera Novoa
 Camila 
 Miren
