@@ -4,17 +4,18 @@
 
 
 html, body {
-   
+
     font-weight: 300, 500;
     height: 100%;
     margin: 0;
     padding: 0;
+    padding-bottom: 60px;
 }
 
 
 .navbar {
     flex-wrap: inherit;
-    font-weight: 300;
+    font-weight: 200px;
     background-color: black;
 }
 
@@ -54,8 +55,8 @@ html, body {
     display: inline-block;
     margin: 5px;
     text-decoration: none;
-    color: white;
-    background: rgba(0, 0, 0, 0.6);
+    color: rgb(255, 255, 255);
+    background: rgba(99, 63, 158, 0.6);
     padding: 10px 15px;
     border-radius: 10px;
     font-weight: bold;
@@ -63,8 +64,8 @@ html, body {
 }
 
 .background-image .links a:hover {
-    background: rgba(255, 255, 255, 0.3);
-    color: black;
+    background: rgba(40, 17, 71, 0.3);
+    color: rgb(128, 109, 206);
 }
 
 .background-image p {
@@ -76,7 +77,7 @@ html, body {
 
 footer {
     background-color: black;
-    position: fixed; /* Fijo al fondo */
+    position:  relative; 
     bottom: 0;
     width: 100%;
     height: 60px;   /* Altura del footer */
@@ -89,7 +90,6 @@ p.fot {
     color: rgb(101, 101, 101);
     text-decoration: underline;
 }
-
 
 
 
@@ -106,4 +106,25 @@ p.fot {
 .games img {
     width: 80%;
     border: solid 1px #000000;
+}
+.titlegame{
+    display: inline-block;
+    padding: 10px 10px;  
+    background-color: #815094; 
+    border: 1px solid #b8aeb5;  
+    border-radius: 20px;  
+    margin-bottom: 5px;  
+    white-space: normal; 
+    height: 60px;
+    box-sizing: border-box;
+    color: white;
+    
+}
+
+.titlegame {
+    margin: 0;  
+    font-size: 1.5rem;  
+}
+h2 {
+    color: rgb(80, 23, 80); /* Cambia el color a morado */
 }
