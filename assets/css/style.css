@@ -128,3 +128,6 @@ p.fot {
 h2 {
     color: rgb(80, 23, 80); /* Cambia el color a morado */
 }
+.registro-page {
+    padding-top: 100px; /* Ajusta el valor según el tamaño del navbar */
+}
