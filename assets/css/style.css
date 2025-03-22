@@ -121,8 +121,7 @@ p.fot {
     padding-top: 5px;
     padding-bottom: 20px;
 }
-
-
+    
 /* ENLACES */ 
 .games{
     width: 100%;
@@ -177,4 +176,32 @@ h2 {
     text-align: center;
     padding-top: 30px;
     padding-bottom: 40px;
+}
+.d-flex {
+    display: flex;
+    width: 100%; /
+}
+
+.btn-registro {
+    font-size: 0.8rem;      
+    padding: 0.4rem 1rem;
+    background-color: #4b1070;  
+    color: white;               
+    border: none;              
+    padding: 0.4rem 1rem;      
+    font-size: 1rem;         
+    cursor: pointer;           
+    border-radius: 5px;         
+}
+
+.btn-borrar {
+    font-size: 0.8rem;     
+    padding: 0.4rem 1rem; 
+    text-decoration: underline;  
+    background-color: transparent; 
+    border: none; 
+    font-size:  0.90rem; 
+    color:rgb(110, 31, 110); 
+    padding: 0; 
+    cursor: pointer; 
 }
