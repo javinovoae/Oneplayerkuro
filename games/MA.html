@@ -19,12 +19,12 @@
 <body>
     <header>
         <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark color-fondo ">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
                 <section class="container fluid">
-                    <a class="navbar-brand" href="../GAME.html">
-                        <h1> <i class="bi bi-controller"></i> ONEPLAYER</h1>
+                    <a class="navbar-brand" href="../ONEPLAYER.html">
+                        <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
                     </a>
-
+    
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
                         <div class="container-fluid">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,17 +33,31 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../GAME.html"><i class="fas fa-home"></i></i> Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../enlace/form_registro.html"><i
+                                    <!-- Usuarios no logueados -->
+                                    <li class="nav-item" id="nav-register">
+                                        <a class="nav-link" href="../auth/form_registro.html"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../enlace/inicio_sesion.html"><i
+                                    <li class="nav-item" id="nav-login">
+                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
                                                 class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                     </li>
+    
+                                    <!-- Usuarios logueados -->
+                                    <li class="nav-item" id="nav-home" style="display:none;">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-account" style="display:none;">
+                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
+                                            Cuenta</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-cart" style="display:none;">
+                                        <a class="nav-link" href="../user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
+                                            Carrito</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-logout" style="display:none;">
+                                        <a class="nav-link" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                                    </li>   
                                 </ul>
                             </div>
                         </div>
@@ -51,58 +65,60 @@
                 </section>
             </nav>
         </div>
-    </header>
+    </header>    
 
     <div class="text-left mb-4 mt-4">
-        <a class="nav-link d-inline" href="../GAME.html">
+        <a class="nav-link d-inline" href="../ONEPLAYER.html">
             <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
         </a>
     </div>
 
     <div class="games">
         <table>
-            <h2>JUEGOS FREE TO PLAY</h2>
+            <h2>JUEGOS DE MUNDO ABIERTO</h2>
             <tbody>
                 <tr>
                     <td>
-                        <img src="../assets/img/FREE.jpg" class="card-img-top" alt="">
+                        <img src="../assets/img/MA.jpg" class="card-img-top" alt="">
                     </td>
                     <td>
                         <div class="titlegame">
-                            <h3>Counter Strike 2</h3>
+                            <h3>Monster Hunter Wilds</h3>
                             <br>
                         </div>
-                        <h5><b>GRATIS </b></h5>
+                        <h5><b>Precio: $64.990</b></h5>
                         <br>
                         <p>
-                            Counter-Strike 2 es un juego de disparos táctico en equipo, donde terroristas y
-                            contraterroistas compiten en misiones como colocar bombas o rescatar rehenes.
+                            Monster Hunter es un juego de acción y aventura donde los jugadores cazan enormes monstruos
+                            en un vasto mundo abierto. Con un enfoque en el combate estratégico y la recolección de
+                            materiales, los jugadores pueden mejorar sus armas y equipo para enfrentarse a criaturas más
+                            poderosas.
                         </p>
                         <div class="i-games">
-                            <i class="fas fa-cart-plus"></i>
-                            <i class="fa-solid fa-heart"></i>
+                            <i class="fas fa-cart-plus add-to-cart" data-game="Monster Hunter Wilds" data-price="64990" ></i>
+                            <i class="fa-solid fa-heart" data-game="Monster Hunter Wilds" ></i>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <img src="../assets/img/FREE2.MARVEL.jpg" class="card-img-top" alt="">
+                        <img src="../assets/img/MA2.REDDEAD.jpg" class="card-img-top" alt="">
                     </td>
                     <td>
                         <div class="titlegame">
-                            <h3>Marvels Rivals</h3>
+                            <h3>Red Dead Redemption 2</h3>
                             <br>
                         </div>
-                        <h5><b>GRATIS</b></h5>
+                        <h5><b>Precio: $23.990</b></h5>
                         <br>
                         <p>
-                            Marvel Rivals es un juego de lucha en el que los jugadores controlan personajes icónicos del
-                            universo Marvel para enfrentarse en combates uno contra uno. Cada héroe o villano tiene
-                            habilidades únicas, y los jugadores deben usar estrategias y combos para ganar batallas.
+                            Red Dead Redemption 2 es un juego de acción y aventura en un mundo abierto, ambientado en el
+                            salvaje oeste. Los jugadores siguen la historia de Arthur Morgan, un forajido que lucha por
+                            sobrevivir mientras enfrenta dilemas morales y conflictos dentro de su banda.
                         </p>
                         <div class="i-games">
-                            <i class="fas fa-cart-plus"></i>
-                            <i class="fa-solid fa-heart"></i>
+                            <i class="fas fa-cart-plus add-to-cart" data-game="Red Dead Redemption 2" data-price="23990" ></i>
+                            <i class="fa-solid fa-heart" data-game="Red Dead Redemption 2" ></i>
                         </div>
                     </td>
                 </tr>
@@ -123,6 +139,9 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
         </p>
     </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/carrito.js"></script>
 </body>
 
 </html>
