@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
@@ -16,12 +16,12 @@
     <title>ONEPLAYER</title>
 </head>
 
-<body>
+<body class="inicio_page">
     <header>
         <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo ">
+            <nav class="navbar navbar-expand-lg navbar-dark color-fondo ">
                 <section class="container fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="../ONEPLAYER.html">
                         <h1> <i class="bi bi-controller"></i> ONEPLAYER</h1>
                     </a>
 
@@ -34,12 +34,11 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="enlace/form_registro.html"><i
-                                                class="fas fa-external-link-alt"></i> Registrarse</a>
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i></i> Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="enlace/inicio_sesion.html"><i
-                                                class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                                        <a class="nav-link" href="./form_registro.html"><i
+                                                class="fas fa-external-link-alt"></i> Registrarse</a>
                                     </li>
                                 </ul>
                             </div>
@@ -50,42 +49,38 @@
         </div>
     </header>
 
-    <div class="background-image">
-        <img src="assets/img/bg-header.jpg" alt="">
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="w-50">
+            <h2 class="text-center mb-0">INICIA SESIÓN</h2>
+            <h5 class="text-center mb-5">¿Aún no tienes cuenta? <a href="./form_registro.html"> Regístrate</a>
+            </h5>
 
-        <h2>CATEGORÍAS</h2>
+            <form id="inicio_sesion" action="form_inicio" method="POST">
 
-        <div class="links">
-            <a href="enlace/enlace_terror.html">Terror</a>
-            <a href="enlace/enlace_accion.html">Acción</a>
-            <a href="enlace/enlace_carrera.html">Carreras</a>
-            <a href="enlace/enlace_FTP.html">Free to Play</a>
-            <a href="enlace/enlace_MA.html">Mundo Abierto</a>
-            <a href="enlace/enlace_supervivencia.html">Supervivencia</a>
+                <!-- Campo: Nombre de usuario -->
+                <div class="mb-3">
+                    <label for="nombre_usuario" class="form-label">Nombre de Usuario:</label>
+                    <input type="text" id="nombre_usuario" name="nombres" class="form-control" required>
+                </div>
+
+                <!-- Campo: Contraseña -->
+                <div class="mb-3">
+                    <label for="passwordsaved" class="form-label">Contraseña:</label>
+                    <input type="password" id="passwordsaved" name="password" class="form-control" required>
+                </div>
+
+                <!-- Mensaje Error -->
+                <div id="errorMensaje" style="color: red; display: none;"></div>
+
+                <!-- Botón Iniciar Sesión -->
+                <div class="contenedor-boton">
+                    <button type="submit" class="btn-registro">Iniciar sesión</button>
+                </div>
         </div>
-
-        <p>Sumérgete en un mundo lleno de emoción, desafíos y diversión sin límites. Aquí encontrarás una increíble
-            selección de juegos para todos los gustos, desde los clásicos más queridos hasta las últimas novedades.
-            Explora, juega y compite con amigos o con jugadores de todo el mundo. ¿Estás listo para la aventura?
-            ¡Empieza ahora y disfruta de la mejor experiencia gamer!
-        </p>
-
     </div>
 
-    <section class="gallery">
-        <div class="photo">
-            <img src="assets/img/TERROR.jpg" alt="">
-        </div>
-        <div class="photo">
-            <img src="assets/img/JCARRERA.jpeg" alt="">
-        </div>
-        <div class="photo">
-            <img src="assets/img/MA.jpg" alt="">
-        </div>
-    </section>
-
-    <footer class="text-center pt-4">
-        <div class="social-media">
+    <footer class="text-center pt-5 mt-5 mb-0">
+        <div class="social-media bg-black">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
                     data-toggle="tooltip" data-placement="top" title="WhatsApp"></i></a>
             <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="about_blank"
@@ -98,6 +93,7 @@
         </p>
     </footer>
 
+    <script src="../assets/js/inicio_sesion.js"></script>
 </body>
 
 </html>

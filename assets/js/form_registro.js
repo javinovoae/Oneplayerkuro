@@ -1,14 +1,19 @@
+
 document.getElementById('formulario').addEventListener('submit', function (event) {
     event.preventDefault(); // Evitar el envío automático del formulario
 
+    const nombreUsuario = document.getElementById('nombre_usuario').value.trim();
+    const nombreCompleto = document.getElementById('nombre_completo').value.trim();
+    const fechaNacimiento = document.getElementById('fecha_nac').value;
+    const correo = document.getElementById('correo').value;
+    const direccion = document.getElementById('direccion').value.trim();
     const password = document.getElementById('password').value;
     const password2 = document.getElementById('password2').value;
-    const correo = document.getElementById('correo').value;
-    const fechaNacimiento = document.getElementById('fecha_nac').value;
     const errorMensaje = document.getElementById('errorMensaje');
 
     errorMensaje.innerText = "";
     errorMensaje.style.display = "none";
+
 
     // Validación de edad
     const fechaActual = new Date();
@@ -28,6 +33,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
         return; // Detener el envío del formulario
     }
 
+
     // Validación de correo electrónico
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexCorreo.test(correo)) {
@@ -35,6 +41,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
         errorMensaje.style.display = "block";
         return;
     }
+
 
     // Validación de contraseña
     const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,18}$/;
@@ -50,8 +57,23 @@ document.getElementById('formulario').addEventListener('submit', function (event
         return;
     }
 
-    // Si todas las validaciones pasan, redirigir a la página de inicio
-    alert("Formulario enviado correctamente.");
-    window.location.href = "./GAME.html"; 
 
+    // Guardar usuario en localStorage
+    const usuario = {
+        nombreUsuario,
+        nombreCompleto,
+        fechaNacimiento,
+        correo,
+        direccion,
+        password
+    };
+
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios.push(usuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+
+    // Mensaje de éxito y redirección
+    alert("Usuario registrado correctamente.");
+    window.location.href = "./inicio_sesion.html";
 });

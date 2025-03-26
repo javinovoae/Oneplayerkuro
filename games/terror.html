@@ -2,9 +2,6 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +16,12 @@
 <body>
     <header>
         <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark color-fondo ">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
                 <section class="container fluid">
-                    <a class="navbar-brand" href="../GAME.html">
-                        <h1> <i class="bi bi-controller"></i> ONEPLAYER</h1>
+                    <a class="navbar-brand" href="../ONEPLAYER.html">
+                        <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
                     </a>
-
+    
                     <nav class="navbar navbar-expand-lg bg-body-tertiary">
                         <div class="container-fluid">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,17 +30,31 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../GAME.html"><i class="fas fa-home"></i></i> Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../enlace/form_registro.html"><i
+                                    <!-- Usuarios no logueados -->
+                                    <li class="nav-item" id="nav-register">
+                                        <a class="nav-link" href="../auth/form_registro.html"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../enlace/inicio_sesion.html"><i
+                                    <li class="nav-item" id="nav-login">
+                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
                                                 class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                     </li>
+    
+                                    <!-- Usuarios logueados -->
+                                    <li class="nav-item" id="nav-home" style="display:none;">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-account" style="display:none;">
+                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
+                                            Cuenta</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-cart" style="display:none;">
+                                        <a class="nav-link" href="../user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
+                                            Carrito</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-logout" style="display:none;">
+                                        <a class="nav-link" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                                    </li>   
                                 </ul>
                             </div>
                         </div>
@@ -51,62 +62,59 @@
                 </section>
             </nav>
         </div>
-    </header>
+    </header>    
 
     <div class="text-left mb-4 mt-4">
-        <a class="nav-link d-inline" href="../GAME.html">
+        <a class="nav-link d-inline" href="../ONEPLAYER.html">
             <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
         </a>
     </div>
 
     <div class="games">
         <table>
-            <h2>JUEGOS DE ACCIÓN</h2>
+            <h2>JUEGOS DE TERROR</h2>
             <tbody>
                 <tr>
                     <td>
-                        <img src="../assets/img/JACCION.jpg" class="card-img-top" alt="">
+                        <img src="../assets/img/TERROR.jpg" class="card-img-top" alt="">
                     </td>
                     <td>
                         <div class="titlegame">
-                            <h3>Elden Ring</h3>
+                            <h3>Resident Evil 4</h3>
                             <br>
                         </div>
-                        <h5><b>Precio: $44.990</b></h5>
+                        <h5><b>Precio: $56.990</b></h5>
                         <br>
                         <p>
-                            Elden Ring es un juego de rol y acción en un vasto mundo abierto creado por FromSoftware.
-                            Explora las Tierras Intermedias, enfréntate a temibles jefes y descubre secretos ocultos en
-                            un universo diseñado por Hidetaka Miyazaki y George R.R. Martin. Personaliza tu personaje,
-                            domina el combate y forja tu propio destino en esta épica aventura.
+                            Resident Evil 4 es un juego de acción y supervivencia en el que los jugadores controlan a
+                            Leon S. Kennedy, quien debe rescatar a la hija del presidente de los Estados Unidos en un
+                            pueblo infectado por un virus. El juego combina exploración, resolución de acertijos y
+                            combates intensos con enemigos y jefes terroríficos.
                         </p>
                         <div class="i-games">
-                            <i class="fas fa-cart-plus"></i>
-                            <i class="fa-solid fa-heart"></i>
+                            <i class="fas fa-cart-plus add-to-cart" data-game="Resident Evil 4" data-price="56990" ></i>
+                            <i class="fa-solid fa-heart" data-game="Resident Evil 4" ></i>
                         </div>
                     </td>
-
                 </tr>
                 <tr>
                     <td>
-                        <img src="../assets/img/accion2.cyberpunk2077.jpg" class="card-img-top" alt="">
+                        <img src="../assets/img/terror2.squid.png" class="card-img-top" alt="">
                     </td>
                     <td>
                         <div class="titlegame">
-                            <h3>Cyberpunk 2077</h3>
+                            <h3>Terror Squid</h3>
                             <br>
                         </div>
-                        <h5><b>Precio: $10.990</b></h5>
+                        <h5><b>Precio: $5.990</b></h5>
                         <br>
                         <p>
-                            Cyberpunk 2077 es un RPG de acción ambientado en Night City, una ciudad futurista llena de
-                            crimen y tecnología avanzada. Juegas como V, un mercenario que busca un implante que otorga
-                            la inmortalidad. Con un mundo abierto inmersivo y decisiones que afectan la historia, ofrece
-                            una experiencia intensa y personalizada.
+                            Terror Squid es un juego de acción en el que los jugadores controlan a una criatura tipo
+                            calamar mientras navegan a través de niveles llenos de obstáculos y enemigos.
                         </p>
                         <div class="i-games">
-                            <i class="fas fa-cart-plus"></i>
-                            <i class="fa-solid fa-heart"></i>
+                            <i class="fas fa-cart-plus add-to-cart" data-game="Terror Squid" data-price="5990"></i>
+                            <i class="fa-solid fa-heart" data-game="Terror Squid"></i>
                         </div>
                     </td>
                 </tr>
@@ -127,6 +135,9 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
         </p>
     </footer>
+
+    <script src="../assets/js/navbar.js"></script>
+    <script src="../assets/js/carrito.js"></script>
 </body>
 
 </html>
