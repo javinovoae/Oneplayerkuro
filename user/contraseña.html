@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
-    <title>ONEPLAYER</title>
+    <title>Carrito de Compras</title>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
                 <section class="container fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="../ONEPLAYER.html">
                         <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
                     </a>
 
@@ -35,26 +35,32 @@
                                 <ul class="navbar-nav">
                                     <!-- Usuarios no logueados -->
                                     <li class="nav-item" id="nav-register">
-                                        <a class="nav-link" href="auth/form_registro.html"><i
+                                        <a class="nav-link" href="../auth/form_registro.html"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
                                     </li>
                                     <li class="nav-item" id="nav-login">
-                                        <a class="nav-link" href="auth/inicio_sesion.html"><i
+                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
                                                 class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                     </li>
 
                                     <!-- Usuarios logueados -->
+                                    <li class="nav-item" id="nav-home" style="display:none;">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
+                                            Home</a>
+                                    </li>
                                     <li class="nav-item" id="nav-account" style="display:none;">
-                                        <a class="nav-link" href="user/cuenta.html"><i class="fas fa-user"></i> Mi
+                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
                                             Cuenta</a>
                                     </li>
                                     <li class="nav-item" id="nav-cart" style="display:none;">
-                                        <a class="nav-link" href="user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
+                                        <a class="nav-link" href="../user/carrito.html"><i
+                                                class="fas fa-shopping-cart"></i> Mi
                                             Carrito</a>
                                     </li>
                                     <li class="nav-item" id="nav-logout" style="display:none;">
-                                        <a class="nav-link" href="ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                    </li>                                    
+                                        <a class="nav-link" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i>
+                                            Cerrar Sesión</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -64,55 +70,43 @@
         </div>
     </header>
 
-    <div class="background-image" id="categorias">
-        <img src="assets/img/bg-header.jpg" alt="">
 
-        <h2>CATEGORÍAS</h2>
+    <div class="container mt-5">
+        <div class="w-50 mx-auto">
+            <h2 class="text-center">REESTABLECER CONTRASEÑA</h2>
+            <form id="formulario" action="registro_usuario" method="POST">
+    
+                <!-- Campo: Contraseña -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña Actual:</label>
+                    <input type="password" id="edit_password_current" name="password" class="form-control" required>
+                </div>
+                
+                <!-- Campo: Contraseña -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Nueva Contraseña:</label>
+                    <input type="password" id="edit_password" name="password" class="form-control" required>
+                </div>
 
-        <div class="links">
-            <a href="games/terror.html">Terror</a>
-            <a href="games/accion.html">Acción</a>
-            <a href="games/carrera.html">Carreras</a>
-            <a href="games/FTP.html">Free to Play</a>
-            <a href="games/MA.html">Mundo Abierto</a>
-            <a href="games/supervivencia.html">Supervivencia</a>
+                <!-- Campo: Repetir Contraseña -->
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Repetir Contraseña:</label>
+                    <input type="password" id="edit_password2" name="password" class="form-control" required>
+                </div>
+
+                <!-- Mensaje de error -->
+                <div id="error_mensaje" class="mb-3" style="display:none; color: blue;"></div>
+
+                <!-- boton para ejecutar la funcion de cambio de contraseña-->
+                <div class="btn-pass-confirm">
+                    <button type="button" onclick="cambiarContraseña()">Confirmar Cambios</button> 
+                </div>
+            </div>
+            </form>
         </div>
-
-        <p>Sumérgete en un mundo lleno de emoción, desafíos y diversión sin límites. Aquí encontrarás una increíble
-            selección de juegos para todos los gustos, desde los clásicos más queridos hasta las últimas novedades.
-            Explora, juega y compite con amigos o con jugadores de todo el mundo. ¿Estás listo para la aventura?
-            ¡Empieza ahora y disfruta de la mejor experiencia gamer!
-        </p>
-
     </div>
-
-    <section class="gallery">
-        <div class="photo">
-            <img src="assets/img/TERROR.jpg" alt="">
-        </div>
-        <div class="photo">
-            <img src="assets/img/JCARRERA.jpeg" alt="">
-        </div>
-        <div class="photo">
-            <img src="assets/img/MA.jpg" alt="">
-        </div>
-    </section>
-
-    <footer class="text-center pt-4">
-        <div class="social-media">
-            <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
-                    data-toggle="tooltip" data-placement="top" title="WhatsApp"></i></a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="about_blank"
-                data-toggle="tooltip" data-placement="top" title="Instagram"><i
-                    class="fa-brands fa-instagram fa-xl"></i></a>
-            <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl" data-toggle="tooltip"
-                    data-placement="top" title="Correo Electrónico"></i></a>
-        </div>
-        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
-        </p>
-    </footer>
-
-    <script src="assets/js/navbar.js"></script>
+    
+    <script src="../assets/js/contraseña.js"></script>
+    <script src="../assets/js/navbar.js"></script>
 </body>
-
-</html>
+    

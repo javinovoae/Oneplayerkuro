@@ -229,3 +229,79 @@ h2 {
     background-color: black; 
     color: white; 
 }
+
+form input {
+    width: 100%; 
+    padding: 10px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center; 
+    margin-top: 20px;  
+}
+
+.btn-edit {
+    display: flex;
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
+    margin: 10px;  /* Espacio alrededor del contenedor */
+}
+
+.btn-edit button {
+    background-color: #d8b7d5;  
+    color: rgb(45, 28, 71);  
+    border: none; 
+    font-size: 1rem;  
+    cursor: pointer;  
+    border-radius: 5px; 
+    padding: 0.4rem 1rem;  
+    width: auto;  
+    height: auto; 
+    max-width: 100px;  
+    text-align: center;  
+}
+
+.btn-reestablecer {
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
+    margin: 10px;  /* Espacio alrededor del contenedor */
+}
+
+
+.btn-reestablecer button { 
+    color: rgb(71, 22, 145);  
+    padding: 0.4rem 1rem; 
+    width: auto; 
+    height: auto;  
+    text-align: center;  
+    white-space: nowrap;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+    max-width: 200px; 
+    background-color: transparent;  
+    border: none;  
+    cursor: pointer;
+}
+.btn-pass-confirm {
+    display: flex;
+    justify-content: center; /* Alinea el contenido a la derecha */
+    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
+    margin: 10px;  /* Espacio alrededor del contenedor */
+}
+.btn-pass-confirm button{
+    color: rgb(255, 255, 255);  
+    padding: 0.4rem 1rem; 
+    width: auto; 
+    height: auto;  
+    text-align: center;  
+    white-space: nowrap;  
+    overflow: hidden;  
+    text-overflow: ellipsis;  
+    max-width: 200px; 
+    background-color: rgb(160, 51, 160);  
+    border: none;  
+    cursor: pointer;
+}

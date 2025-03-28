@@ -20,17 +20,14 @@ document.getElementById('inicio_sesion').addEventListener('submit', function (ev
         return;
     }
 
-
-    // Guardar el usuario en sesión
     localStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
 
-
-    // Redirigir a la página principal después del inicio de sesión exitoso
     alert('Inicio de sesión exitoso. ¡Bienvenid@ ' + usuarioEncontrado.nombreUsuario + '!');
+
     window.location.href = "../ONEPLAYER.html#categorias?logged=true";
 });
 
-// Función para crear el mensaje de error 
+// Función para crear mensaje de error
 function crearErrorMensaje() {
     const errorDiv = document.createElement("div");
     errorDiv.id = 'errorMensaje';

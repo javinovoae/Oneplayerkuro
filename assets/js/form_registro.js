@@ -57,7 +57,14 @@ document.getElementById('formulario').addEventListener('submit', function (event
         return;
     }
 
+    // Guardar usuario en localStorage
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
+    // Verifica si el nombre de usuario ya existe
+    if (usuarios.some(usuario => usuario.nombreUsuario === nombreUsuario)) {
+        alert("El nombre de usuario ya está registrado.");
+        return;
+    }
     // Guardar usuario en localStorage
     const usuario = {
         nombreUsuario,
@@ -68,10 +75,10 @@ document.getElementById('formulario').addEventListener('submit', function (event
         password
     };
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     usuarios.push(usuario);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
+    localStorage.setItem("usuario", nombreUsuario);
 
     // Mensaje de éxito y redirección
     alert("Usuario registrado correctamente.");
