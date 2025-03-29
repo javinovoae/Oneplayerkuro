@@ -69,9 +69,7 @@
 
     <div class="background-image" id="categorias">
         <img src="assets/img/bg-header.jpg" alt="">
-
         <h2>CATEGORÍAS</h2>
-
         <div class="links">
             <a href="games/terror.html">Terror</a>
             <a href="games/accion.html">Acción</a>
@@ -80,13 +78,11 @@
             <a href="games/MA.html">Mundo Abierto</a>
             <a href="games/supervivencia.html">Supervivencia</a>
         </div>
-
         <p>Sumérgete en un mundo lleno de emoción, desafíos y diversión sin límites. Aquí encontrarás una increíble
             selección de juegos para todos los gustos, desde los clásicos más queridos hasta las últimas novedades.
             Explora, juega y compite con amigos o con jugadores de todo el mundo. ¿Estás listo para la aventura?
             ¡Empieza ahora y disfruta de la mejor experiencia gamer!
         </p>
-
     </div>
 
     <section class="gallery">
@@ -115,18 +111,26 @@
     </footer>
 
     <script>
-        let usuario = "admin";
+        let usuario = localStorage.getItem("usuario"); 
 
+     
         if (usuario === "admin") {
             document.getElementById("nav-account").style.display = "block";
             document.getElementById("nav-cart").style.display = "block"; 
             document.getElementById("nav-logout").style.display = "block"; 
             document.getElementById("nav-gestion").style.display = "block"; 
-        } else {
+        } else if (usuario) { 
             document.getElementById("nav-account").style.display = "block";
             document.getElementById("nav-cart").style.display = "block";
             document.getElementById("nav-logout").style.display = "block";
-            document.getElementById("nav-gestion").style.display = "none"; // Asegurarse de ocultar "Gestión" para usuarios normales
+            document.getElementById("nav-gestion").style.display = "none"; 
+        } else {
+            document.getElementById("nav-register").style.display = "block";
+            document.getElementById("nav-login").style.display = "block";
+            document.getElementById("nav-account").style.display = "none";
+            document.getElementById("nav-cart").style.display = "none";
+            document.getElementById("nav-gestion").style.display = "none";
+            document.getElementById("nav-logout").style.display = "none";
         }
     </script>
 </body>
