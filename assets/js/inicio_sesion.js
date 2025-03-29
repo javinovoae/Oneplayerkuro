@@ -2,36 +2,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener usuarios almacenados en localStorage
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    // Verificar si no existen usuarios y agregar un usuario administrador por defecto
+    // Crear usuarios por defecto si no existen en localStorage
     if (usuarios.length === 0) {
         const usuarioAdministrador = {
             nombreUsuario: 'admin',
             password: 'admin123', 
             nombreCompleto: 'Administrador', 
-            fechaNacimiento: '12-12-1991',
+            fechaNacimiento: '12/12/1991',
             correo: 'admin@oneplayer.com', 
             role: 'admin' 
         };
-        usuarios.push(usuarioAdministrador); 
-        localStorage.setItem('usuarios', JSON.stringify(usuarios)); // Guardar en localStorage
+        usuarios.push(usuarioAdministrador);
+
+        const usuarioPrueba1 = {
+            nombreUsuario: 'Prueba1',
+            password: 'test123', 
+            nombreCompleto: 'Esteban Hernández Rodríguez',
+            fechaNacimiento: '15/07/1990',
+            correo: 'esteban@prueba1.com', 
+            role: 'usuario', 
+            direccionEnvio: 'Calle Nueva 123, Depto. 890, Comuna, Ciudad' 
+        };
+        usuarios.push(usuarioPrueba1);
+
+        const usuarioPrueba2 = {
+            nombreUsuario: 'Prueba2',
+            password: 'test456', 
+            nombreCompleto: 'Ettielë Ynnocent',
+            fechaNacimiento: '22/09/1995',
+            correo: 'ettiele@prueba2.com', 
+            role: 'usuario'
+        };
+        usuarios.push(usuarioPrueba2);
+
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
 
-    // Manejador de evento para el formulario de inicio de sesión
+    //Formulario
     document.getElementById('inicio_sesion').addEventListener('submit', function (event) {
-        event.preventDefault(); // Evita el envío del formulario por defecto
+        event.preventDefault();
 
         const nombreUsuario = document.getElementById('nombre_usuario').value.trim();
         const passwordIngresado = document.getElementById('passwordsaved').value;
         const errorMensaje = document.getElementById('errorMensaje') || crearErrorMensaje();
 
-        // Validar que el formulario no esté vacío
         if (!nombreUsuario || !passwordIngresado) {
             errorMensaje.innerText = 'Por favor, ingresa un nombre de usuario y una contraseña.';
             errorMensaje.style.display = "block";
             return;
         }
 
-        // Buscar si el usuario existe y la contraseña coincide
         const usuarioEncontrado = usuarios.find(usuario => usuario.nombreUsuario === nombreUsuario && usuario.password === passwordIngresado);
 
         if (!usuarioEncontrado) {
@@ -40,22 +60,20 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Guardar la información del usuario activo en localStorage
+        //Usuario activo en localStorage
         localStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
 
         alert('Inicio de sesión exitoso. ¡Bienvenid@ ' + usuarioEncontrado.nombreUsuario + '!');
 
-let usuario = "admin";
-
-if (usuario === "admin") {
-    window.location.href = "../user/usuarios.html"; 
-} else {
-    window.location.href = "../ONEPLAYER.html#categorias?logged=true";
-}
-
+        // Redirección basada en el rol del usuario encontrado
+        if (usuarioEncontrado.role === "admin") {
+            window.location.href = "../user/usuarios.html"; // Redirigir a la página de usuarios para el admin
+        } else {
+            window.location.href = "../ONEPLAYER.html#categorias?logged=true"; // Redirigir al usuario a la página principal
+        }
     });
 
-    // Función para crear mensaje de error
+    //Mensaje de error
     function crearErrorMensaje() {
         const errorDiv = document.createElement("div");
         errorDiv.id = 'errorMensaje';

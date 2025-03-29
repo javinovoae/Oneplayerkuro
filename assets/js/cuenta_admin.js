@@ -1,25 +1,24 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Verificar si el usuario logueado es un administrador
     const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioActivo"));
 
     if (!usuarioLogueado || usuarioLogueado.role !== "admin") {
         alert("No tienes permisos para acceder a esta página.");
-        window.location.href = "../auth/inicio_sesion.html"; // Redirigir a inicio de sesión si no es admin
+        window.location.href = "../auth/inicio_sesion.html";
         return;
     }
 
-    // Mostrar la lista de usuarios en la página de administración
+ 
     mostrarUsuarios();
 
-    // Función para mostrar la lista de usuarios
+
     function mostrarUsuarios() {
         const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
         const listaUsuarios = document.getElementById("lista_usuarios");
 
-        // Limpiar lista actual
+     
         listaUsuarios.innerHTML = "";
 
-        // Agregar cada usuario a la lista
+      
         usuarios.forEach(usuario => {
             const divUsuario = document.createElement("div");
             divUsuario.classList.add("usuario-item", "mt-3", "border", "p-3");
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Función para cambiar la contraseña de un usuario con validaciones
     window.cambiarContraseñaUsuario = function(nombreUsuario) {
         const usuarios = JSON.parse(localStorage.getItem("usuarios"));
         const usuarioIndex = usuarios.findIndex(usuario => usuario.nombreUsuario === nombreUsuario);
@@ -56,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Función para validar la contraseña
     function validarContraseña(password) {
         const longitudMinima = 8;
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -74,17 +71,17 @@ document.addEventListener("DOMContentLoaded", function() {
         return true;
     }
 
-    // Función para eliminar un usuario
+    //Eliminar usuario
     window.eliminarUsuario = function(nombreUsuario) {
         const usuarios = JSON.parse(localStorage.getItem("usuarios"));
         const usuariosActualizados = usuarios.filter(usuario => usuario.nombreUsuario !== nombreUsuario);
 
-        // Confirmar la eliminación
+      
         const confirmar = confirm(`¿Estás seguro de que quieres eliminar al usuario ${nombreUsuario}?`);
         if (confirmar) {
             localStorage.setItem("usuarios", JSON.stringify(usuariosActualizados));
             alert("Usuario eliminado con éxito.");
-            mostrarUsuarios(); // Actualizar la lista
+            mostrarUsuarios(); 
         }
     }
 });
