@@ -12,7 +12,10 @@ body {
     width: 100%;
     overflow-x: hidden;
 }
-
+/* Separar el botón del header */
+.volver {
+    margin-top: 105px;  /* Ajusta según sea necesario */
+}
 .navbar {
     flex-wrap: inherit;
     font-weight: 200px;
@@ -305,3 +308,4 @@ form input {
     border: none;  
     cursor: pointer;
 }
+

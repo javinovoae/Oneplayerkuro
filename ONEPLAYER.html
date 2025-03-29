@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -52,9 +52,12 @@
                                         <a class="nav-link" href="user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
                                             Carrito</a>
                                     </li>
+                                    <li class="nav-item" id="nav-gestion" style="display:none;">
+                                        <a class="nav-link" href="user/usuarios.html"><i class="fas fa-cogs"></i> Gestión</a>
+                                    </li>
                                     <li class="nav-item" id="nav-logout" style="display:none;">
                                         <a class="nav-link" href="ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                    </li>                                    
+                                    </li>                                  
                                 </ul>
                             </div>
                         </div>
@@ -108,11 +111,24 @@
             <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl" data-toggle="tooltip"
                     data-placement="top" title="Correo Electrónico"></i></a>
         </div>
-        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
-        </p>
+        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="assets/js/navbar.js"></script>
+    <script>
+        let usuario = "admin";
+
+        if (usuario === "admin") {
+            document.getElementById("nav-account").style.display = "block";
+            document.getElementById("nav-cart").style.display = "block"; 
+            document.getElementById("nav-logout").style.display = "block"; 
+            document.getElementById("nav-gestion").style.display = "block"; 
+        } else {
+            document.getElementById("nav-account").style.display = "block";
+            document.getElementById("nav-cart").style.display = "block";
+            document.getElementById("nav-logout").style.display = "block";
+            document.getElementById("nav-gestion").style.display = "none"; // Asegurarse de ocultar "Gestión" para usuarios normales
+        }
+    </script>
 </body>
 
 </html>
