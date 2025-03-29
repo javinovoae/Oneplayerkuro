@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener usuarios almacenados en localStorage
+    //Usuarios almacenados en localStorage
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    // Crear usuarios por defecto si no existen en localStorage
+    //Usuarios por defecto en localStorage
     if (usuarios.length === 0) {
         const usuarioAdministrador = {
             nombreUsuario: 'admin',
             password: 'admin123', 
             nombreCompleto: 'Administrador', 
-            fechaNacimiento: '12/12/1991',
+            fechaNacimiento: '12-12-1991',
             correo: 'admin@oneplayer.com', 
             role: 'admin' 
         };
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nombreUsuario: 'Prueba1',
             password: 'test123', 
             nombreCompleto: 'Esteban Hernández Rodríguez',
-            fechaNacimiento: '15/07/1990',
+            fechaNacimiento: '15-07-1990',
             correo: 'esteban@prueba1.com', 
             role: 'usuario', 
             direccionEnvio: 'Calle Nueva 123, Depto. 890, Comuna, Ciudad' 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nombreUsuario: 'Prueba2',
             password: 'test456', 
             nombreCompleto: 'Ettielë Ynnocent',
-            fechaNacimiento: '22/09/1995',
+            fechaNacimiento: '22-09-1995',
             correo: 'ettiele@prueba2.com', 
             role: 'usuario'
         };
@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         alert('Inicio de sesión exitoso. ¡Bienvenid@ ' + usuarioEncontrado.nombreUsuario + '!');
 
-        // Redirección basada en el rol del usuario encontrado
+        // Redirección basada en el rol
         if (usuarioEncontrado.role === "admin") {
-            window.location.href = "../user/usuarios.html"; // Redirigir a la página de usuarios para el admin
+            window.location.href = "../user/usuarios.html";
         } else {
-            window.location.href = "../ONEPLAYER.html#categorias?logged=true"; // Redirigir al usuario a la página principal
+            window.location.href = "../user/cuenta.html"; 
         }
     });
 

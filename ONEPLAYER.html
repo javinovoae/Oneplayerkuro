@@ -15,7 +15,6 @@
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <title>ONEPLAYER</title>
 </head>
-
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -69,7 +68,9 @@
 
     <div class="background-image" id="categorias">
         <img src="assets/img/bg-header.jpg" alt="">
+
         <h2>CATEGORÍAS</h2>
+
         <div class="links">
             <a href="games/terror.html">Terror</a>
             <a href="games/accion.html">Acción</a>
@@ -78,11 +79,13 @@
             <a href="games/MA.html">Mundo Abierto</a>
             <a href="games/supervivencia.html">Supervivencia</a>
         </div>
+
         <p>Sumérgete en un mundo lleno de emoción, desafíos y diversión sin límites. Aquí encontrarás una increíble
             selección de juegos para todos los gustos, desde los clásicos más queridos hasta las últimas novedades.
             Explora, juega y compite con amigos o con jugadores de todo el mundo. ¿Estás listo para la aventura?
             ¡Empieza ahora y disfruta de la mejor experiencia gamer!
         </p>
+
     </div>
 
     <section class="gallery">
@@ -109,30 +112,41 @@
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
-
     <script>
-        let usuario = localStorage.getItem("usuario"); 
-
-     
-        if (usuario === "admin") {
-            document.getElementById("nav-account").style.display = "block";
-            document.getElementById("nav-cart").style.display = "block"; 
-            document.getElementById("nav-logout").style.display = "block"; 
-            document.getElementById("nav-gestion").style.display = "block"; 
-        } else if (usuario) { 
-            document.getElementById("nav-account").style.display = "block";
-            document.getElementById("nav-cart").style.display = "block";
-            document.getElementById("nav-logout").style.display = "block";
-            document.getElementById("nav-gestion").style.display = "none"; 
-        } else {
-            document.getElementById("nav-register").style.display = "block";
-            document.getElementById("nav-login").style.display = "block";
-            document.getElementById("nav-account").style.display = "none";
-            document.getElementById("nav-cart").style.display = "none";
-            document.getElementById("nav-gestion").style.display = "none";
-            document.getElementById("nav-logout").style.display = "none";
-        }
-    </script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+            console.log("Usuario activo en main:", usuarioActivo);
+    
+            //Menú por roles
+            if (usuarioActivo) {
+                if (usuarioActivo.role === "admin") {
+                    document.getElementById("nav-account").style.display = "block";
+                    document.getElementById("nav-cart").style.display = "block"; 
+                    document.getElementById("nav-logout").style.display = "block"; 
+                    document.getElementById("nav-gestion").style.display = "block";
+                    document.getElementById("nav-register").style.display = "none";
+                    document.getElementById("nav-login").style.display = "none"; 
+                }
+                else if (usuarioActivo.role === "usuario") {
+                    document.getElementById("nav-account").style.display = "block";
+                    document.getElementById("nav-cart").style.display = "block"; 
+                    document.getElementById("nav-logout").style.display = "block";
+                    document.getElementById("nav-gestion").style.display = "none"; 
+                    document.getElementById("nav-register").style.display = "none";
+                    document.getElementById("nav-login").style.display = "none"; 
+                }
+            } 
+            //sin loguin
+            else {
+                document.getElementById("nav-register").style.display = "block"; 
+                document.getElementById("nav-login").style.display = "block"; 
+                document.getElementById("nav-account").style.display = "none"; 
+                document.getElementById("nav-cart").style.display = "none"; 
+                document.getElementById("nav-gestion").style.display = "none"; 
+                document.getElementById("nav-logout").style.display = "none"; 
+            }
+        });
+    </script> 
 </body>
 
 </html>
