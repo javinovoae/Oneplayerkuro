@@ -1,24 +1,32 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioActivo"));
+document.addEventListener('DOMContentLoaded', function () {
+    // Cargar usuarios desde localStorage
+    let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    console.log("Usuarios cargados desde localStorage:", usuarios);
+
+    // Verificar que el usuario logueado sea un admin
+    const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioActivo'));
+    console.log("Usuario logueado:", usuarioLogueado);
 
     if (!usuarioLogueado || usuarioLogueado.role !== "admin") {
         alert("No tienes permisos para acceder a esta página.");
-        window.location.href = "../auth/inicio_sesion.html";
+        window.location.href = "../auth/inicio_sesion.html"; 
         return;
     }
 
- 
-    mostrarUsuarios();
+    // Mostrar usuarios si hay alguno registrado
+    if (usuarios.length > 0) {
+        mostrarUsuarios(usuarios);
+    } else {
+        alert("No hay usuarios registrados.");
+        document.getElementById('lista_usuarios').innerHTML = "<p>No hay usuarios registrados para mostrar.</p>";
+    }
 
-
-    function mostrarUsuarios() {
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    // Mostrar la lista de usuarios
+    function mostrarUsuarios(usuarios) {
+        console.log("Mostrando usuarios:", usuarios); 
         const listaUsuarios = document.getElementById("lista_usuarios");
+        listaUsuarios.innerHTML = "";  // Limpiar el contenido previo
 
-     
-        listaUsuarios.innerHTML = "";
-
-      
         usuarios.forEach(usuario => {
             const divUsuario = document.createElement("div");
             divUsuario.classList.add("usuario-item", "mt-3", "border", "p-3");
@@ -35,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    window.cambiarContraseñaUsuario = function(nombreUsuario) {
+    // Función para cambiar la contraseña de un usuario
+    window.cambiarContraseñaUsuario = function (nombreUsuario) {
         const usuarios = JSON.parse(localStorage.getItem("usuarios"));
         const usuarioIndex = usuarios.findIndex(usuario => usuario.nombreUsuario === nombreUsuario);
 
@@ -47,13 +56,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
                 alert("Contraseña cambiada con éxito.");
-                mostrarUsuarios();
+                mostrarUsuarios(usuarios); // Volver a mostrar la lista de usuarios
             } else {
                 alert("La contraseña no cumple con los requisitos de seguridad.");
             }
         }
-    }
+    };
 
+    // Validar que la nueva contraseña cumple los requisitos
     function validarContraseña(password) {
         const longitudMinima = 8;
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -71,17 +81,16 @@ document.addEventListener("DOMContentLoaded", function() {
         return true;
     }
 
-    //Eliminar usuario
-    window.eliminarUsuario = function(nombreUsuario) {
+    // Función para eliminar un usuario
+    window.eliminarUsuario = function (nombreUsuario) {
         const usuarios = JSON.parse(localStorage.getItem("usuarios"));
         const usuariosActualizados = usuarios.filter(usuario => usuario.nombreUsuario !== nombreUsuario);
 
-      
         const confirmar = confirm(`¿Estás seguro de que quieres eliminar al usuario ${nombreUsuario}?`);
         if (confirmar) {
             localStorage.setItem("usuarios", JSON.stringify(usuariosActualizados));
             alert("Usuario eliminado con éxito.");
-            mostrarUsuarios(); 
+            mostrarUsuarios(usuariosActualizados); // Volver a mostrar los usuarios
         }
-    }
+    };
 });

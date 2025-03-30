@@ -14,8 +14,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
     errorMensaje.innerText = "";
     errorMensaje.style.display = "none";
 
-
-    // Validación de edad
+    // Validaciones
     const fechaActual = new Date();
     const fechaIngresada = new Date(fechaNacimiento);
 
@@ -30,11 +29,9 @@ document.getElementById('formulario').addEventListener('submit', function (event
     ) {
         errorMensaje.innerText = "Debes tener al menos 13 años para registrarte.";
         errorMensaje.style.display = "block";
-        return; // Detener el envío del formulario
+        return; 
     }
 
-
-    // Validación de correo electrónico
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexCorreo.test(correo)) {
         errorMensaje.innerText = "Por favor, ingresa un correo electrónico válido.";
@@ -42,8 +39,6 @@ document.getElementById('formulario').addEventListener('submit', function (event
         return;
     }
 
-
-    // Validación de contraseña
     const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,18}$/;
     if (!regexPassword.test(password)) {
         errorMensaje.innerHTML = "La contraseña debe contener al menos:<ul><li>Entre 6 y 18 caracteres</li><li>1 número</li><li>1 letra mayúscula</li><li>1 carácter especial</li></ul>";
@@ -60,19 +55,18 @@ document.getElementById('formulario').addEventListener('submit', function (event
     // Guardar usuario en localStorage
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    // Verifica si el nombre de usuario ya existe
     if (usuarios.some(usuario => usuario.nombreUsuario === nombreUsuario)) {
         alert("El nombre de usuario ya está registrado.");
         return;
     }
-    // Guardar usuario en localStorage
     const usuario = {
         nombreUsuario,
         nombreCompleto,
         fechaNacimiento,
         correo,
         direccion,
-        password
+        password,
+        role: 'usuario' 
     };
 
     usuarios.push(usuario);
@@ -80,7 +74,13 @@ document.getElementById('formulario').addEventListener('submit', function (event
 
     localStorage.setItem("usuario", nombreUsuario);
 
-    // Mensaje de éxito y redirección
     alert("Usuario registrado correctamente.");
-    window.location.href = "./inicio_sesion.html";
+
+    const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+
+    if (usuarioActivo && usuarioActivo.role === 'admin') {
+        window.location.href = "./usuarios.html";
+    } else {
+        window.location.href = "./inicio_sesion.html";
+    }
 });

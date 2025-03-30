@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    //Usuarios almacenados en localStorage
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    console.log(usuarios);
 
     //Usuarios por defecto en localStorage
     if (usuarios.length === 0) {
