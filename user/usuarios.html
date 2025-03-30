@@ -35,8 +35,17 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item" id="iniciar-sesion">
                                         <a class="nav-link" href="../auth/inicio_sesion.html"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                                    </li>
+                                    <li class="nav-item" id="gestion" style="display:none;">
+                                        <a class="nav-link" href="#">Gestión</a>
+                                    </li>
+                                    <li class="nav-item" id="mi-cuenta" style="display:none;">
+                                        <a class="nav-link" href="#">Mi Cuenta</a>
+                                    </li>
+                                    <li class="nav-item" id="cerrar-sesion" style="display:none;">
+                                        <a class="nav-link" href="#">Cerrar Sesión</a>
                                     </li>
                                 </ul>
                             </div>
@@ -51,10 +60,37 @@
         <div class="row">
             <!-- Columna izquierda: Gestión de usuarios -->
             <div class="col-md-6">
-                <h2 class="text-center mb-4">Lista de Usuarios</h2>
+                <h2 class="text-center mb-4">Gestión de Usuarios</h2>
 
                 <!-- Lista de usuarios -->
                 <div id="lista_usuarios">
+                    <ul class="list-group" id="usuario-list">
+                        <!-- Usuarios actuales -->
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div>
+                                <strong>Usuario: usuario1</strong><br>
+                                Nombre: Juan Pérez<br>
+                                Correo: juanperez@email.com
+                            </div>
+                            <div>
+                                <button class="btn btn-info btn-sm ml-2" onclick="editarUsuario('usuario1')">Editar</button>
+                                <button class="btn btn-warning btn-sm ml-2" onclick="actualizarContrasena('usuario1')">Actualizar Contraseña</button>
+                                <button class="btn btn-danger btn-sm ml-2" onclick="eliminarUsuario('usuario1')">Eliminar</button>
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div>
+                                <strong>Usuario: usuario2</strong><br>
+                                Nombre: María López<br>
+                                Correo: marialopez@email.com
+                            </div>
+                            <div>
+                                <button class="btn btn-info btn-sm ml-2" onclick="editarUsuario('usuario2')">Editar</button>
+                                <button class="btn btn-warning btn-sm ml-2" onclick="actualizarContrasena('usuario2')">Actualizar Contraseña</button>
+                                <button class="btn btn-danger btn-sm ml-2" onclick="eliminarUsuario('usuario2')">Eliminar</button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="text-center mt-4">
@@ -66,8 +102,8 @@
             <div class="col-md-6">
                 <h2 class="text-center mb-4">Gestión de Categorías</h2>
 
-                <!-- Lista de categorías -->
-                <div id="lista_categorias">
+                 <!-- Lista de categorías -->
+                 <div id="lista_categorias">
                     <ul class="list-group" id="categoria-list">
                         <!-- Categorías actuales -->
                         <li class="list-group-item d-flex justify-content-between">
@@ -114,7 +150,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <!-- Botón para agregar categoría -->
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" onclick="agregarCategoria()">Agregar Categoría</button>
@@ -139,6 +174,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/admin.js"></script>
+
+    <script>
+        const usuarioAutenticado = true; 
+
+        if (usuarioAutenticado) {
+            document.getElementById('iniciar-sesion').style.display = 'none'; 
+            document.getElementById('gestion').style.display = 'block'; 
+            document.getElementById('mi-cuenta').style.display = 'block'; 
+            document.getElementById('cerrar-sesion').style.display = 'block';
+        } else {
+            document.getElementById('iniciar-sesion').style.display = 'block'; 
+            document.getElementById('gestion').style.display = 'none'; 
+            document.getElementById('mi-cuenta').style.display = 'none';
+            document.getElementById('cerrar-sesion').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>

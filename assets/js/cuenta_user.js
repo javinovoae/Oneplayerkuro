@@ -48,15 +48,12 @@ function guardarCuenta() {
         direccion
     };
 
-    // Guardar cambios en usuarios
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    // Actualizar la sesión
     localStorage.setItem("usuarioActivo", JSON.stringify(usuarios[usuarioIndex]));
 
     alert("¡Usuario editado con éxito!");
 
-    // Volver a desactivar campos
     document.getElementById("cuenta_nombre_completo").disabled = true;
     document.getElementById("cuenta_fecha_nac").disabled = true;
     document.getElementById("cuenta_correo").disabled = true;

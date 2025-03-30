@@ -79,7 +79,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
     const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 
     if (usuarioActivo && usuarioActivo.role === 'admin') {
-        window.location.href = "./usuarios.html";
+        window.location.href = "../user/usuarios.html";
     } else {
         window.location.href = "./inicio_sesion.html";
     }

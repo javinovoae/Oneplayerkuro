@@ -14,27 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         usuarios.push(usuarioAdministrador);
 
-        const usuarioPrueba1 = {
-            nombreUsuario: 'Prueba1',
-            password: 'test123', 
-            nombreCompleto: 'Esteban Hernández Rodríguez',
-            fechaNacimiento: '15-07-1990',
-            correo: 'esteban@prueba1.com', 
-            role: 'usuario', 
-            direccionEnvio: 'Calle Nueva 123, Depto. 890, Comuna, Ciudad' 
-        };
-        usuarios.push(usuarioPrueba1);
-
-        const usuarioPrueba2 = {
-            nombreUsuario: 'Prueba2',
-            password: 'test456', 
-            nombreCompleto: 'Ettielë Ynnocent',
-            fechaNacimiento: '22-09-1995',
-            correo: 'ettiele@prueba2.com', 
-            role: 'usuario'
-        };
-        usuarios.push(usuarioPrueba2);
-
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
     }
 
