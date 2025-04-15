@@ -16,6 +16,7 @@
     <title>ONEPLAYER</title>
 </head>
 
+
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -34,6 +35,10 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <!-- Usuarios no logueados -->
+                                    <li class="nav-item" id="nav-home-no-log">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
+                                            Home</a>
+                                    </li>
                                     <li class="nav-item" id="nav-register">
                                         <a class="nav-link" href="../auth/form_registro.html"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
@@ -42,30 +47,35 @@
                                         <a class="nav-link" href="../auth/inicio_sesion.html"><i
                                                 class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                     </li>
-    
+
                                     <!-- Usuarios logueados -->
-                                    <li class="nav-item" id="nav-home" style="display:none;">
-                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
+                                    <li class="nav-item" id="nav-home-log" style="display:none;">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
+                                            Home</a>
+                                    </li>
+                                    <li class="nav-item" id="nav-gestion" style="display:none;">
+                                        <a class="nav-link" href="../user/gestion.html"><i class="fas fa-cogs"></i> Gestión</a>
                                     </li>
                                     <li class="nav-item" id="nav-account" style="display:none;">
-                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
-                                            Cuenta</a>
+                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi Cuenta</a>
                                     </li>
                                     <li class="nav-item" id="nav-cart" style="display:none;">
-                                        <a class="nav-link" href="../user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
-                                            Carrito</a>
+                                        <a class="nav-link" href="../user/carrito.html"><i
+                                                class="fas fa-shopping-cart"></i> Mi Carrito</a>
                                     </li>
                                     <li class="nav-item" id="nav-logout" style="display:none;">
                                         <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                    </li>   
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </nav>
+
                 </section>
             </nav>
         </div>
     </header>    
+
 
     <div class="volver">
         <div class="text-left mb-4 mt-4">
@@ -74,6 +84,7 @@
             </a>
         </div>
     </div>
+
 
     <div class="games mb-5">
         <table>
@@ -128,6 +139,7 @@
         </table>
     </div>
 
+
     <footer class="text-center pt-4 ">
         <div class="social-media">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
@@ -142,8 +154,9 @@
         </p>
     </footer>
 
+
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/carrito.js"></script>
-</body>
 
+</body>
 </html>

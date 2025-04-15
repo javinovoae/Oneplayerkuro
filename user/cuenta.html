@@ -16,6 +16,7 @@
     <title>Carrito de Compras</title>
 </head>
 
+
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -33,31 +34,24 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <!-- Usuarios no logueados -->
-                                    <li class="nav-item" id="nav-register">
-                                        <a class="nav-link" href="../auth/form_registro.html"><i
-                                                class="fas fa-external-link-alt"></i> Registrarse</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-login">
-                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
-                                                class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
-                                    </li>
-
-                                    <!-- Usuarios logueados -->
-                                    <li class="nav-item" id="nav-home" style="display:none;">
+                                    <li class="nav-item" id="nav-home">
                                         <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
                                             Home</a>
                                     </li>
-                                    <li class="nav-item" id="nav-account" style="display:none;">
-                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
+
+                                    <li class="nav-item" id="nav-gestion" style="display: none;">
+                                        <a class="nav-link" href="./gestion.html"><i class="fas fa-cogs"></i> Gestión</a>
+                                    </li>
+                                    
+                                    <li class="nav-item" id="nav-account">
+                                        <a class="nav-link" href="#"><i class="fas fa-user"></i> Mi
                                             Cuenta</a>
                                     </li>
-                                    <li class="nav-item" id="nav-cart" style="display:none;">
-                                        <a class="nav-link" href="../user/carrito.html"><i
-                                                class="fas fa-shopping-cart"></i> Mi
-                                            Carrito</a>
+                                    <li class="nav-item" id="nav-cart" style="display: none;">
+                                        <a class="nav-link" href="./carrito.html"><i
+                                                class="fas fa-shopping-cart"></i> Mi Carrito</a>
                                     </li>
-                                    <li class="nav-item" id="nav-logout" style="display:none;">
+                                    <li class="nav-item" id="nav-logout">
                                         <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i>
                                             Cerrar Sesión</a>
                                     </li>
@@ -65,26 +59,20 @@
                             </div>
                         </div>
                     </nav>
+
                 </section>
             </nav>
         </div>
     </header>
 
-    <div class="volver">
-        <div class="text-left mb-4 mt-4">
-            <a class="nav-link d-inline" href="../ONEPLAYER.html">
-                <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
-            </a>
-        </div>
-    </div>
-    
-    <div class="container mt-3">
+
+    <div class="container pt-5 mt-5 mb-5">
         <div class="w-50 mx-auto">
-            <h2 class="text-center">MI CUENTA</h2>
+            <h2 class="text-center mt-5">MI CUENTA</h2>
             <form id="formulario" action="registro_usuario" method="POST">
                 
                 <!-- Mensaje de bienvenida-->
-                <div id="mensaje_bienvenida" style="font-size: 18px; font-weight: bold; color: rgb(153, 52, 167);margin-bottom: 30px; text-align: center;">
+                <div id="mensaje_bienvenida" style="font-size: 18px; font-weight: bold; color: rgb(153, 52, 167); margin-bottom: 50px; text-align: center;">
                 </div>
 
                 <!-- Campo: Nombre Completo -->
@@ -106,8 +94,8 @@
                 </div>
             
                 <!-- Campo: Dirección de Despacho -->
-                <div class="mb-3">
-                    <label for="direccion">Dirección de Despacho:</label>
+                <div class="mb-4">
+                    <label for="direccion">Dirección:</label>
                     <input type="text" id="cuenta_direccion" disabled> 
                 </div>
             
@@ -127,6 +115,7 @@
         </div>
     </div>
     
+
     <footer class="text-center pt-4 ">
         <div class="social-media">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
@@ -141,6 +130,9 @@
         </p>
     </footer>
 
+
     <script src="../assets/js/cuenta_user.js"></script>
     <script src="../assets/js/navbar.js"></script>
+
 </body>
+</html>

@@ -180,7 +180,7 @@ h2 {
     color: rgb(80, 23, 80);
     text-align: center;
     padding-top: 30px;
-    padding-bottom: 40px;
+    padding-bottom: 35px;
 }
 
 .d-flex {
@@ -276,6 +276,7 @@ form input {
 }
 
 .btn-reestablecer button { 
+    background-color: transparent; 
     color: rgb(71, 22, 145);  
     padding: 0.4rem 1rem; 
     width: auto; 
@@ -284,9 +285,9 @@ form input {
     white-space: nowrap;  
     overflow: hidden;  
     text-overflow: ellipsis;  
-    max-width: 200px; 
-    background-color: transparent;  
-    border: none;  
+    max-width: 200px;  
+    border: 2px solid rgb(153, 52, 167);
+    border-radius: 5px;
     cursor: pointer;
 }
 .btn-pass-confirm {

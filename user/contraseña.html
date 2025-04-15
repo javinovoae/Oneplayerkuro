@@ -16,6 +16,7 @@
     <title>Carrito de Compras</title>
 </head>
 
+
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -33,51 +34,40 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <!-- Usuarios no logueados -->
-                                    <li class="nav-item" id="nav-register">
-                                        <a class="nav-link" href="../auth/form_registro.html"><i
-                                                class="fas fa-external-link-alt"></i> Registrarse</a>
+                                    <li class="nav-item" id="nav-home">
+                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
                                     </li>
-                                    <li class="nav-item" id="nav-login">
-                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
-                                                class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                                    <li class="nav-item" id="nav-gestion" style="display: none;">
+                                        <a class="nav-link" href="./gestion.html"><i class="fas fa-cogs"></i> Gestión</a>
                                     </li>
-
-                                    <!-- Usuarios logueados -->
-                                    <li class="nav-item" id="nav-home" style="display:none;">
-                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
-                                            Home</a>
+                                    <li class="nav-item" id="nav-account"">
+                                        <a class="nav-link" href="./cuenta.html"><i class="fas fa-user"></i> Mi Cuenta</a>
                                     </li>
-                                    <li class="nav-item" id="nav-account" style="display:none;">
-                                        <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
-                                            Cuenta</a>
+                                    <li class="nav-item" id="nav-cart">
+                                        <a class="nav-link" href="./carrito.html"><i class="fas fa-shopping-cart" style="display: none;"></i> Mi Carrito</a>
                                     </li>
-                                    <li class="nav-item" id="nav-cart" style="display:none;">
-                                        <a class="nav-link" href="../user/carrito.html"><i
-                                                class="fas fa-shopping-cart"></i> Mi
-                                            Carrito</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-logout" style="display:none;">
-                                        <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i
-                                                class="fas fa-sign-out-alt"></i>
-                                            Cerrar Sesión</a>
+                                    <li class="nav-item" id="nav-logout">
+                                        <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </nav>
+
                 </section>
             </nav>
         </div>
     </header>
 
+
     <div class="volver">
         <div class="text-left mb-4 mt-4">
-            <a class="nav-link d-inline" href="../ONEPLAYER.html">
+            <a class="nav-link d-inline" href="./cuenta.html">
                 <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
             </a>
         </div>
     </div>
+
 
     <div class="container mt-3">
         <div class="w-50 mx-auto">
@@ -132,6 +122,7 @@
     </div>
     </div>
 
+
     <footer class="text-center pt-4 ">
         <div class="social-media">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
@@ -146,6 +137,9 @@
         </p>
     </footer>
 
+
     <script src="../assets/js/contraseña.js"></script>
     <script src="../assets/js/navbar.js"></script>
+
 </body>
+</html>

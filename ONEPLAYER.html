@@ -15,6 +15,8 @@
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <title>ONEPLAYER</title>
 </head>
+
+
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -30,9 +32,15 @@
                                 data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
+
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <!-- Usuarios no logueados -->
+                                    <!-- Elementos visibles por defecto (todos) -->
+                                    <li class="nav-item" id="nav-home">
+                                        <a class="nav-link" href="ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
+                                    </li>
+                                    
+                                    <!-- Solo no logueados -->
                                     <li class="nav-item" id="nav-register">
                                         <a class="nav-link" href="auth/form_registro.html"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
@@ -42,21 +50,22 @@
                                                 class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                     </li>
 
-                                    <!-- Usuarios logueados -->
+                                    <!-- Solo logueados -->
+                                    <li class="nav-item" id="nav-gestion" style="display:none;">
+                                        <a class="nav-link" href="user/gestion.html"><i class="fas fa-cogs"></i> Gestión</a>
+                                    </li>
                                     <li class="nav-item" id="nav-account" style="display:none;">
                                         <a class="nav-link" href="user/cuenta.html"><i class="fas fa-user"></i> Mi
                                             Cuenta</a>
                                     </li>
                                     <li class="nav-item" id="nav-cart" style="display:none;">
-                                        <a class="nav-link" href="user/carrito.html"><i class="fas fa-shopping-cart"></i> Mi
-                                            Carrito</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-gestion" style="display:none;">
-                                        <a class="nav-link" href="user/usuarios.html"><i class="fas fa-cogs"></i> Gestión</a>
+                                        <a class="nav-link" href="user/carrito.html"><i
+                                                class="fas fa-shopping-cart"></i> Mi Carrito</a>
                                     </li>
                                     <li class="nav-item" id="nav-logout" style="display:none;">
-                                        <a class="nav-link" href="ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                    </li>                                  
+                                        <a class="nav-link" href="ONEPLAYER.html" id="logoutBtn"><i
+                                                class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -66,8 +75,10 @@
         </div>
     </header>
 
+
     <div class="background-image" id="categorias">
         <img src="assets/img/bg-header.jpg" alt="">
+
 
         <h2>CATEGORÍAS</h2>
 
@@ -85,8 +96,8 @@
             Explora, juega y compite con amigos o con jugadores de todo el mundo. ¿Estás listo para la aventura?
             ¡Empieza ahora y disfruta de la mejor experiencia gamer!
         </p>
-
     </div>
+
 
     <section class="gallery">
         <div class="photo">
@@ -100,6 +111,7 @@
         </div>
     </section>
 
+
     <footer class="text-center pt-4">
         <div class="social-media">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
@@ -112,42 +124,9 @@
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-            console.log("Usuario activo en main:", usuarioActivo);
-    
-            //Menú por roles
-            if (usuarioActivo) {
-                if (usuarioActivo.role === "admin") {
-                    document.getElementById("nav-account").style.display = "block";
-                    document.getElementById("nav-cart").style.display = "none"; 
-                    document.getElementById("nav-logout").style.display = "block"; 
-                    document.getElementById("nav-gestion").style.display = "block";
-                    document.getElementById("nav-register").style.display = "none";
-                    document.getElementById("nav-login").style.display = "none"; 
-                }
-                else if (usuarioActivo.role === "usuario") {
-                    document.getElementById("nav-account").style.display = "block";
-                    document.getElementById("nav-cart").style.display = "block"; 
-                    document.getElementById("nav-logout").style.display = "block";
-                    document.getElementById("nav-gestion").style.display = "none"; 
-                    document.getElementById("nav-register").style.display = "none";
-                    document.getElementById("nav-login").style.display = "none"; 
-                }
-            } 
-            //sin loguin
-            else {
-                document.getElementById("nav-register").style.display = "block"; 
-                document.getElementById("nav-login").style.display = "block"; 
-                document.getElementById("nav-account").style.display = "none"; 
-                document.getElementById("nav-cart").style.display = "none"; 
-                document.getElementById("nav-gestion").style.display = "none"; 
-                document.getElementById("nav-logout").style.display = "none"; 
-            }
-        });
-    </script> 
-</body>
 
+
+    <script src="path/to/navbar.js"></script>
+
+</body>
 </html>
