@@ -111,11 +111,11 @@ footer {
     position: relative;
     width: 100%;
     height: 60px;
-    margin-top: 10px;
 }
 
 .social-media i {
     color: rgb(128, 109, 206);
+    background-color: black;
     margin: 5px;
 }
 
@@ -126,7 +126,6 @@ p.fot {
     padding-top: 5px;
     padding-bottom: 10px;
 }
-
 
 
 /* ENLACES */
@@ -218,6 +217,8 @@ h2 {
     padding: 0; 
 }
 
+
+/* BOTONES */
 #checkout-btn {
     border: 2px solid black; 
     background-color: white;
@@ -248,9 +249,9 @@ form input {
 
 .btn-edit {
     display: flex;
-    justify-content: flex-start; /* Alinea el contenido a la izquierda */
-    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
-    margin: 10px;  /* Espacio alrededor del contenedor */
+    justify-content: flex-start; 
+    align-items: center;  
+    margin: 10px;  
 }
 
 .btn-edit button {
@@ -269,11 +270,10 @@ form input {
 
 .btn-reestablecer {
     display: flex;
-    justify-content: flex-end; /* Alinea el contenido a la derecha */
-    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
-    margin: 10px;  /* Espacio alrededor del contenedor */
+    justify-content: flex-end; 
+    align-items: center;  
+    margin: 10px;  
 }
-
 
 .btn-reestablecer button { 
     color: rgb(71, 22, 145);  
@@ -291,9 +291,9 @@ form input {
 }
 .btn-pass-confirm {
     display: flex;
-    justify-content: center; /* Alinea el contenido a la derecha */
-    align-items: center;  /* Asegura que el contenido esté centrado verticalmente */
-    margin: 10px;  /* Espacio alrededor del contenedor */
+    justify-content: center;
+    align-items: center;  
+    margin: 10px;  
 }
 .btn-pass-confirm button{
     color: rgb(255, 255, 255);  
