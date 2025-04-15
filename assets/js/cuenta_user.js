@@ -10,7 +10,7 @@ if (usuarioLogueado) {
     // Mostrar mensaje de bienvenida con el usuario 
     const mensajeBienvenida = document.getElementById('mensaje_bienvenida');
     if (mensajeBienvenida) {
-        mensajeBienvenida.innerHTML = `Bienvenid@ ${usuarioLogueado.nombreUsuario}`;
+        mensajeBienvenida.innerHTML = `¡Bienvenid@ ${usuarioLogueado.nombreUsuario}!`;
     }
 } else {
     alert("Debes iniciar sesión en la página");

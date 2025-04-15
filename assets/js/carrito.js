@@ -1,4 +1,3 @@
-
 document.querySelectorAll(".add-to-cart").forEach(button => {
     button.addEventListener("click", () => {
         const name = button.getAttribute("data-game");

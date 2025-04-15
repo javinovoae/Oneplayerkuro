@@ -16,6 +16,7 @@
     <title>Carrito de Compras</title>
 </head>
 
+
 <body>
     <header>
         <div class="container-fluid p-0">
@@ -33,31 +34,20 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <!-- Usuarios no logueados -->
-                                    <li class="nav-item" id="nav-register">
-                                        <a class="nav-link" href="../auth/form_registro.html"><i
-                                                class="fas fa-external-link-alt"></i> Registrarse</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-login">
-                                        <a class="nav-link" href="../auth/inicio_sesion.html"><i
-                                                class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
-                                    </li>
-
-                                    <!-- Usuarios logueados -->
-                                    <li class="nav-item" id="nav-home" style="display:none;">
+                                    <li class="nav-item" id="nav-home">
                                         <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i>
                                             Home</a>
                                     </li>
-                                    <li class="nav-item" id="nav-account" style="display:none;">
+                                    <li class="nav-item" id="nav-account">
                                         <a class="nav-link" href="../user/cuenta.html"><i class="fas fa-user"></i> Mi
                                             Cuenta</a>
                                     </li>
-                                    <li class="nav-item" id="nav-cart" style="display:none;">
+                                    <li class="nav-item" id="nav-cart">
                                         <a class="nav-link" href="../user/carrito.html"><i
                                                 class="fas fa-shopping-cart"></i> Mi
                                             Carrito</a>
                                     </li>
-                                    <li class="nav-item" id="nav-logout" style="display:none;">
+                                    <li class="nav-item" id="nav-logout">
                                         <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i>
                                             Cerrar Sesión</a>
                                     </li>
@@ -69,17 +59,11 @@
             </nav>
         </div>
     </header>
-    
-    <div class="volver">
-        <div class="text-left mb-4 mt-4">
-            <a class="nav-link d-inline" href="../ONEPLAYER.html">
-                <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
-            </a>
-        </div>
-    </div>
 
-    <div class="container pt-2">
-        <h2 class="text-center mt-3">MI CARRITO</h2>
+
+    <div class="container pt-5 mt-5 mb-5">
+        <h2 class="text-center mt-5 mb-5">MI CARRITO</h2>
+
         <div class="row mt-5">
             <div class="col-md-8">
                 <div class="bg-cart py-3 d-flex flex-column align-items-center">
@@ -106,7 +90,6 @@
             </div>
         </div>
     </div>
-    
 
 
     <footer class="text-center pt-4">
@@ -123,8 +106,9 @@
         </p>
     </footer>
 
+
     <script src="../assets/js/navbar.js"></script>
     <script src="../assets/js/carrito.js"></script>
-</body>
 
+</body>
 </html>

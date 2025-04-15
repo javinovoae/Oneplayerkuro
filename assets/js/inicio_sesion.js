@@ -1,23 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     console.log(usuarios);
 
-    //Usuarios por defecto en localStorage
-    if (usuarios.length === 0) {
-        const usuarioAdministrador = {
-            nombreUsuario: 'admin',
-            password: 'admin123', 
-            nombreCompleto: 'Administrador', 
-            fechaNacimiento: '12-12-1991',
-            correo: 'admin@oneplayer.com', 
-            role: 'admin' 
-        };
-        usuarios.push(usuarioAdministrador);
-
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    }
-
-    //Formulario
+    // Formulario de inicio de sesión
     document.getElementById('inicio_sesion').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -31,7 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const usuarioEncontrado = usuarios.find(usuario => usuario.nombreUsuario === nombreUsuario && usuario.password === passwordIngresado);
+        // Buscar el usuario en el localStorage
+        const usuarioEncontrado = usuarios.find(usuario =>
+            usuario.nombreUsuario === nombreUsuario &&
+            usuario.password === passwordIngresado
+        );
 
         if (!usuarioEncontrado) {
             errorMensaje.innerText = 'Nombre de usuario o contraseña incorrectos.';
@@ -39,20 +28,22 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        //Usuario activo en localStorage
+        // Guardar usuario activo y su rol
         localStorage.setItem('usuarioActivo', JSON.stringify(usuarioEncontrado));
+        localStorage.setItem('logueado', 'true');
+        localStorage.setItem('usuario', usuarioEncontrado.tipo_usuario); // administrador o cliente
 
         alert('Inicio de sesión exitoso. ¡Bienvenid@ ' + usuarioEncontrado.nombreUsuario + '!');
 
-        // Redirección basada en el rol
-        if (usuarioEncontrado.role === "admin") {
-            window.location.href = "../user/usuarios.html";
+        // Redirección basada en el tipo de usuario
+        if (usuarioEncontrado.tipo_usuario === "administrador") {
+            window.location.href = "../user/gestion.html";
         } else {
-            window.location.href = "../user/cuenta.html"; 
+            window.location.href = "../user/cuenta.html";
         }
     });
 
-    //Mensaje de error
+    // Función para crear mensaje de error
     function crearErrorMensaje() {
         const errorDiv = document.createElement("div");
         errorDiv.id = 'errorMensaje';
