@@ -1,3 +1,17 @@
+    // Función que muestra u oculta la contraseña 
+    function togglePassword(id, btn) {
+        const input = document.getElementById(id);
+        const icon = btn.querySelector('span');
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "🙈";  // ícono de ocultar
+        } else {
+            input.type = "password";
+            icon.textContent = "👁️";  // ícono de mostrar
+        }
+    }
+
 function cambiarContraseña() {
     // Obtener el usuario logueado
     const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioActivo"));
@@ -11,7 +25,7 @@ function cambiarContraseña() {
     const passwordActualInput = document.getElementById('edit_password_current').value;
     const edit_password = document.getElementById('edit_password').value;
     const edit_password2 = document.getElementById('edit_password2').value;
-    const errorMensaje = document.getElementById('error_mensaje'); 
+    const errorMensaje = document.getElementById('error_mensaje');
 
     // Validar la coincidencia de la contraseña antigua 
     if (passwordActualInput !== passwordGuardada) {

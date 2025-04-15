@@ -58,7 +58,8 @@
                                             Carrito</a>
                                     </li>
                                     <li class="nav-item" id="nav-logout" style="display:none;">
-                                        <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i>
+                                        <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i
+                                                class="fas fa-sign-out-alt"></i>
                                             Cerrar Sesión</a>
                                     </li>
                                 </ul>
@@ -70,43 +71,81 @@
         </div>
     </header>
 
+    <div class="volver">
+        <div class="text-left mb-4 mt-4">
+            <a class="nav-link d-inline" href="../ONEPLAYER.html">
+                <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
+            </a>
+        </div>
+    </div>
 
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="w-50 mx-auto">
             <h2 class="text-center">REESTABLECER CONTRASEÑA</h2>
             <form id="formulario" action="registro_usuario" method="POST">
-    
-                <!-- Campo: Contraseña -->
+
+                <!-- Contraseña Actual -->
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña Actual:</label>
-                    <input type="password" id="edit_password_current" name="password" class="form-control" required>
-                </div>
-                
-                <!-- Campo: Contraseña -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Nueva Contraseña:</label>
-                    <input type="password" id="edit_password" name="password" class="form-control" required>
+                    <label for="edit_password_current" class="form-label">Contraseña Actual:</label>
+                    <div class="input-group">
+                        <input type="password" id="edit_password_current" name="password" class="form-control" required>
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('edit_password_current', this)">
+                            <span>👁️</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Campo: Repetir Contraseña -->
+                <!-- Nueva Contraseña -->
                 <div class="mb-3">
-                    <label for="password2" class="form-label">Repetir Contraseña:</label>
-                    <input type="password" id="edit_password2" name="password" class="form-control" required>
+                    <label for="edit_password" class="form-label">Nueva Contraseña:</label>
+                    <div class="input-group">
+                        <input type="password" id="edit_password" name="password" class="form-control" required>
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('edit_password', this)">
+                            <span>👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Repetir Contraseña -->
+                <div class="mb-5">
+                    <label for="edit_password2" class="form-label">Repetir Contraseña:</label>
+                    <div class="input-group">
+                        <input type="password" id="edit_password2" name="password" class="form-control" required>
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="togglePassword('edit_password2', this)">
+                            <span>👁️</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Mensaje de error -->
-                <div id="error_mensaje" class="mb-3" style="display:none; color: blue;"></div>
+                <div id="error_mensaje" class="mb-4" style="display:none; color: blue;"></div>
 
-                <!-- boton para ejecutar la funcion de cambio de contraseña-->
-                <div class="btn-pass-confirm">
-                    <button type="button" onclick="cambiarContraseña()">Confirmar Cambios</button> 
+                <!-- Botón para ejecutar la funcion de cambio de contraseña-->
+                <div class="btn-pass-confirm mb-5">
+                    <button type="button" onclick="cambiarContraseña()">Confirmar Cambios</button>
                 </div>
-            </div>
-            </form>
         </div>
+        </form>
     </div>
-    
+    </div>
+
+    <footer class="text-center pt-4 ">
+        <div class="social-media">
+            <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
+                    data-toggle="tooltip" data-placement="top" title="WhatsApp"></i></a>
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="about_blank"
+                data-toggle="tooltip" data-placement="top" title="Instagram"><i
+                    class="fa-brands fa-instagram fa-xl"></i></a>
+            <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl" data-toggle="tooltip"
+                    data-placement="top" title="Correo Electrónico"></i></a>
+        </div>
+        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
+        </p>
+    </footer>
+
     <script src="../assets/js/contraseña.js"></script>
     <script src="../assets/js/navbar.js"></script>
 </body>
-    
