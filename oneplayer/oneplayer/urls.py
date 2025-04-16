@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-from . import views
+from oneplayerapp import views
+
 
 urlpatterns = [
+
+    #path('admin/', admin.site.urls),
 
     # Página principal
     path('', views.oneplayer_view, name='inicio'),
@@ -28,5 +31,8 @@ urlpatterns = [
 
     # Panel administrador
     path('user/gestion/', views.gestion_view, name='gestion'),
+
+    # Logout
+    path('auth/logout/', views.logout_view, name='logout'),
 
 ]

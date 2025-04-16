@@ -20,7 +20,7 @@ body {
 
 .navbar {
     flex-wrap: inherit;
-    font-weight: 200px;
+    font-weight: 200;
     background-color: black;
 }
 
@@ -249,7 +249,7 @@ h2 {
 
 .d-flex {
     display: flex;
-    width: 100%;/
+    width: 100%;
 }
 
 .contenedor-boton {
