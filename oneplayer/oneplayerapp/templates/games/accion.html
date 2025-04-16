@@ -118,10 +118,15 @@
                             un universo diseñado por Hidetaka Miyazaki y George R.R. Martin. Personaliza tu personaje,
                             domina el combate y forja tu propio destino en esta épica aventura.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Elden Ring" data-price="44990"></i>
-                            <i class="fa-solid fa-heart" data-game="Elden Ring"></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=3 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -141,10 +146,15 @@
                             la inmortalidad. Con un mundo abierto inmersivo y decisiones que afectan la historia, ofrece
                             una experiencia intensa y personalizada.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Cyberpunk 2077" data-price="10990"></i>
-                            <i class="fa-solid fa-heart" data-game="Cyberpunk 2077"></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=4 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </tbody>
