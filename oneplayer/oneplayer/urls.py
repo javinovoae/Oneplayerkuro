@@ -1,6 +1,14 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from oneplayerapp import views
+
+from rest_framework.routers import DefaultRouter
+from .views import ClienteViewSet, AdministradorViewSet, ProductoViewSet
+
+router = DefaultRouter()
+router.register(r'clientes', ClienteViewSet)
+router.register(r'administradores', AdministradorViewSet)
+router.register(r'productos', ProductoViewSet)
 
 
 urlpatterns = [
@@ -34,5 +42,8 @@ urlpatterns = [
 
     # Logout
     path('auth/logout/', views.logout_view, name='logout'),
+
+    # API
+    path('api/', include(router.urls)),
 
 ]
