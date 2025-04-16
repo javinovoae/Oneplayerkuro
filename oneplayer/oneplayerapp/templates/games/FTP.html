@@ -116,10 +116,15 @@
                             Counter-Strike 2 es un juego de disparos táctico en equipo, donde terroristas y
                             contraterroistas compiten en misiones como colocar bombas o rescatar rehenes.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Counter Strike 2" data-price="0" ></i>
-                            <i class="fa-solid fa-heart" data-game="Counter Strike 2" ></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=7 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -138,10 +143,15 @@
                             universo Marvel para enfrentarse en combates uno contra uno. Cada héroe o villano tiene
                             habilidades únicas, y los jugadores deben usar estrategias y combos para ganar batallas.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Marvels Rivals" data-price="0" ></i>
-                            <i class="fa-solid fa-heart" data-game="Marvels Rivals" ></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=8 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </tbody>

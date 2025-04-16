@@ -2,13 +2,13 @@ from django.contrib import admin
 from django.urls import include, path
 from oneplayerapp import views
 
-from rest_framework.routers import DefaultRouter
-from .views import ClienteViewSet, AdministradorViewSet, ProductoViewSet
+#from rest_framework.routers import DefaultRouter
+#from oneplayerapp.views import ClienteViewSet, AdministradorViewSet, ProductoViewSet
 
-router = DefaultRouter()
-router.register(r'clientes', ClienteViewSet)
-router.register(r'administradores', AdministradorViewSet)
-router.register(r'productos', ProductoViewSet)
+#router = DefaultRouter()
+#router.register(r'clientes', ClienteViewSet)
+#router.register(r'administradores', AdministradorViewSet)
+#router.register(r'productos', ProductoViewSet)
 
 
 urlpatterns = [
@@ -43,7 +43,11 @@ urlpatterns = [
     # Logout
     path('auth/logout/', views.logout_view, name='logout'),
 
+    # Carrito
+    path('carrito/', views.carrito_view, name='carrito'),
+    path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+
     # API
-    path('api/', include(router.urls)),
+    #path('api/', include(router.urls)),
 
 ]

@@ -118,10 +118,15 @@
                             pueblo infectado por un virus. El juego combina exploración, resolución de acertijos y
                             combates intensos con enemigos y jefes terroríficos.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Resident Evil 4" data-price="56990"></i>
-                            <i class="fa-solid fa-heart" data-game="Resident Evil 4"></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=1 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
     
@@ -140,10 +145,15 @@
                             Terror Squid es un juego de acción en el que los jugadores controlan a una criatura tipo
                             calamar mientras navegan a través de niveles llenos de obstáculos y enemigos.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Terror Squid" data-price="5990"></i>
-                            <i class="fa-solid fa-heart" data-game="Terror Squid"></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=2 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </tbody>

@@ -118,10 +118,15 @@
                             posibilidad de jugar en línea o con amigos. Con mecánicas mejoradas y power-ups clásicos, es
                             la versión definitiva de la serie.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Mario Kart 8 Deluxe" data-price="68990" ></i>
-                            <i class="fa-solid fa-heart" data-game="Mario Kart 8 Deluxe" ></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=5 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -140,10 +145,15 @@
                             rápidos utilizando habilidades especiales y potenciadores. Ideal para disfrutar en modo
                             individual o multijugador.
                         </p>
-                        <div class="i-games">
-                            <i class="fas fa-cart-plus add-to-cart" data-game="Sonic Racing" data-price="7990" ></i>
-                            <i class="fa-solid fa-heart" data-game="Sonic Racing" ></i>
-                        </div>
+                        <form action="{% url 'agregar_al_carrito' producto_id=6 %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
+                                </button>
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </tbody>
