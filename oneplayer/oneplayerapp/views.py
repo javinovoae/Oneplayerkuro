@@ -20,34 +20,22 @@ def oneplayer_view(request):
 
 # Vista Categorías
 def accion_view(request):
-    categoria_accion = Categoria.objects.get(nombre='Acción')
-    productos_accion = Producto.objects.filter(categoria=categoria_accion)[:2]  
-    return render(request, 'games/accion.html', {'productos': productos_accion})
+    return render(request, 'games/accion.html')
 
 def carrera_view(request):
-    categoria_carrera = Categoria.objects.get(nombre='Carrera')
-    productos_carrera = Producto.objects.filter(categoria=categoria_carrera)[:2]  
-    return render(request, 'games/carrera.html', {'productos': productos_carrera})
+    return render(request, 'games/carrera.html')
 
 def ftp_view(request):
-    categoria_ftp = Categoria.objects.get(nombre='FTP')
-    productos_ftp = Producto.objects.filter(categoria=categoria_ftp)[:2] 
-    return render(request, 'games/ftp.html', {'productos': productos_ftp})
+    return render(request, 'games/ftp.html')
 
 def ma_view(request):
-    categoria_ma = Categoria.objects.get(nombre='MA')
-    productos_ma = Producto.objects.filter(categoria=categoria_ma)[:2]  
-    return render(request, 'games/ma.html', {'productos': productos_ma})
+    return render(request, 'games/ma.html')
 
 def supervivencia_view(request):
-    categoria_supervivencia = Categoria.objects.get(nombre='Supervivencia')
-    productos_supervivencia = Producto.objects.filter(categoria=categoria_supervivencia)[:2]  
-    return render(request, 'games/supervivencia.html', {'productos': productos_supervivencia})
+    return render(request, 'games/supervivencia.html')
 
 def terror_view(request):
-    categoria_terror = Categoria.objects.get(nombre='Terror')
-    productos_terror = Producto.objects.filter(categoria=categoria_terror)[:2]  
-    return render(request, 'games/terror.html', {'productos': productos_terror})
+    return render(request, 'games/terror.html')
 
 
 
