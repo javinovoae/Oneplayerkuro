@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 
 
 # Vista Página Principal
@@ -8,22 +11,22 @@ def oneplayer_view(request):
 
 # Vista Categorías
 def accion_view(request):
-    return render(request, 'game/accion.html')
+    return render(request, 'games/accion.html')
 
 def carrera_view(request):
-    return render(request, 'game/carrera.html')
+    return render(request, 'games/carrera.html')
 
 def ftp_view(request):
-    return render(request, 'game/ftp.html')
+    return render(request, 'games/ftp.html')
 
 def ma_view(request):
-    return render(request, 'game/ma.html')
+    return render(request, 'games/ma.html')
 
 def supervivencia_view(request):
-    return render(request, 'game/supervivencia.html')
+    return render(request, 'games/supervivencia.html')
 
 def terror_view(request):
-    return render(request, 'game/terror.html')
+    return render(request, 'games/terror.html')
 
 
 # Vistas Autenticación
@@ -46,3 +49,9 @@ def carrito_view(request):
 
 def gestion_view(request):
     return render(request, 'user/gestion.html')
+
+
+# Vista Logout
+def logout_view(request):
+    logout(request)
+    return redirect('inicio')
