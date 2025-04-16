@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
+from rest_framework import viewsets
+from .models import Cliente, Administrador, Producto
+from .serializers import ClienteSerializer, AdministradorSerializer, ProductoSerializer
+
 
 
 # Vista Página Principal
@@ -55,3 +59,18 @@ def gestion_view(request):
 def logout_view(request):
     logout(request)
     return redirect('inicio')
+
+
+# Vista de la API
+# Maneja GET y POS de objetos de los modelos
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+class AdministradorViewSet(viewsets.ModelViewSet):
+    queryset = Administrador.objects.all()
+    serializer_class = AdministradorSerializer
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
