@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .form_registro import RegistroUsuarioForm
+from .models import UsuariosRegistro
 
 from .models import Carrito, CarritoProducto, Cliente, Producto, Categoria, Administrador
 
@@ -42,9 +46,6 @@ def terror_view(request):
 # Vistas Autenticación
 def inicio_sesion_view(request):
     return render(request, 'auth/inicio_sesion.html')
-
-def registrarse_view(request):
-    return render(request, 'auth/form_registro.html')
 
 
 # Vistas Usuarios
@@ -126,3 +127,75 @@ def carrito_view(request):
 #class ProductoViewSet(viewsets.ModelViewSet):
 #    queryset = Producto.objects.all()
 #    serializer_class = ProductoSerializer
+
+#Vista Usuario 
+
+
+def registrarse_view(request):
+    form = RegistroUsuarioForm()  # Crea una instancia del formulario
+    return render(request, 'auth/form_registro.html', {'form': form})  # Pasa el formulario al contexto
+
+
+def registrar_usuario_vw(request):
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        print(f"¿El formulario es válido? {form.is_valid()}")
+        print(f"Errores del formulario: {form.errors}")
+        if form.is_valid():
+            nombre_usuario = form.cleaned_data['nombre_usuario']
+            email = form.cleaned_data['email']
+            nombre_completo = form.cleaned_data['nombre']
+            contraseña = form.cleaned_data['contraseña']
+            es_administrador = form.cleaned_data['es_administrador']
+            try:
+                user = User.objects.create_user(username=nombre_usuario, email=email, password=contraseña)
+                usuario = UsuariosRegistro(
+                    nombre_usuario=nombre_usuario,
+                    nombre=nombre_completo,
+                    email=email,
+                    contraseña=contraseña,  # Se hasheará al guardar
+                    es_administrador=es_administrador
+                )
+                usuario.save()
+                messages.success(request, "Usuario registrado con éxito!")
+                print("Redirigiendo a inicio_sesion")  # <--- Añade este print
+                return redirect('inicio_sesion')
+            except Exception as e:
+                print(f"Error al crear la cuenta: {e}")
+                form.add_error(None, f"Ocurrió un error inesperado al crear la cuenta: {e}")
+                print("Renderizando formulario con error (except)")  # <--- Añade este print
+                return render(request, 'auth/form_registro.html', {'form': form})
+        else:
+            print("Renderizando formulario inválido")  # <--- Añade este print
+            return render(request, 'auth/form_registro.html', {'form': form})
+    else:
+        print("Renderizando formulario GET")  # <--- Añade este print
+        form = RegistroUsuarioForm()
+        return render(request, 'auth/form_registro.html', {'form': form})
+
+# Cerrar sesión
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('inicio_sesion')
+
+
+# Editar perfil
+@login_required
+def editar_perfil(request):
+    # Obtener el perfil del usuario autenticado
+    try:
+        usuario = UsuariosRegistro.objects.get(nombre_usuario=request.user.username)
+    except UsuariosRegistro.DoesNotExist:
+        messages.error(request, "No se encontró el usuario.")
+        return redirect('menu_principal_view')  
+
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, instance=usuario)  # Rellenar con los datos actuales del usuario
+        if form.is_valid():
+            form.save()  # Guardar los cambios
+            messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
+            return redirect('micuenta_view')  # Redirigir a mi cuenta
+    else:
+        form = EditarPerfilForm(instance=usuario)  # Rellenar con los datos actuales del usuario
+
+    return render(request, 'editar_perfil.html', {'form': form})

@@ -28,11 +28,13 @@ urlpatterns = [
 
     # Autenticación
     path('auth/inicio_sesion/', views.inicio_sesion_view, name='inicio_sesion'),
-    path('auth/form_registro/', views.registrarse_view, name='registrarse'),
+    path('auth/form_registro/', views.registrarse_view, name='registrarse'), #esto es solo la vista
+    path('auth/registrar_org/', views.registrar_usuario_vw, name='registrarse_org'),
 
     # Usuarios (clientes y admin)
     path('user/cuenta/', views.cuenta_view, name='cuenta'),
     path('user/contraseña/', views.contraseña_view, name='contraseña'),
+
 
     # Solo clientes
     path('user/carrito/', views.carrito_view, name='carrito'),
