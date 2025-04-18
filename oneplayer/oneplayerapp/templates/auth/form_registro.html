@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>ONEPLAYER</title>
 </head>
 
@@ -21,114 +22,106 @@
     <header>
         <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg navbar-dark color-fondo ">
-                <section class="container fluid">
+                <div class="container-fluid">  
                     <a class="navbar-brand" href="../ONEPLAYER.html">
                         <h1> <i class="bi bi-controller"></i> ONEPLAYER</h1>
                     </a>
-
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                        <div class="container-fluid">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i></i>
-                                            Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="./inicio_sesion.html"><i
-                                                class="fas fa-sign-in-alt"></i></i> Iniciar Sesión</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </section>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i></i>
+                                    Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./inicio_sesion.html"><i
+                                        class="fas fa-sign-in-alt"></i></i> Iniciar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
 
-    <div class="container mt-5 d-flex justify-content-center">
-        <div class="w-50">
-            <h2 class="text-center">CREA TU CUENTA</h2>
-            <h5 class="text-center mb-5">¿Ya tienes una cuenta? <a href="./inicio_sesion.html"> Inicia Sesión</a></h5>
+            <!---formulario de usuario-->
+            <div class="d-flex justify-content-center align-items-center min-vh-100">
+                <div class="w-30">
+                    <h2 class="text-center font-weight-bold mb-4" id="subir">Ingrese sus Datos</h2>
+                    <form method="post" class="mb-5" action="{% url 'registrarse_org' %}">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+            
+                        <div class="mb-3">
+                            <label for="{{ form.nombre_usuario.id_for_label }}" class="form-label">{{ form.nombre_usuario.label }}</label>
+                            <br>
+                            {{ form.nombre_usuario }}
+                            {% if form.nombre_usuario.errors %}
+                                <div class="alert alert-danger">{{ form.nombre_usuario.errors }}</div>
+                            {% endif %}
+                        </div>
+            
+                        <div class="mb-3">
+                            <label for="{{ form.nombre.id_for_label }}" class="form-label">{{ form.nombre.label }}</label>
+                            <br>
+                            {{ form.nombre }}
+                            {% if form.nombre.errors %}
+                                <div class="alert alert-danger">{{ form.nombre.errors }}</div>
+                            {% endif %}
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="{{ form.email.id_for_label }}" class="form-label font-weight-bold">{{ form.email.label }}</label>
+                            <br>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="alert alert-danger">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="{{ form.contraseña.id_for_label }}" class="form-label font-weight-bold">{{ form.contraseña.label }}</label>
+                            <br>
+                            {{ form.contraseña }}
+                            {% if form.contraseña.errors %}
+                                <div class="alert alert-danger">{{ form.contraseña.errors }}</div>
+                            {% endif %}
+                        </div>
+            
+                        <div class="mb-4">
+                            <label for="{{ form.confirmar_contraseña.id_for_label }}" class="form-label font-weight-bold">{{ form.confirmar_contraseña.label }}</label>
+                            <br>
+                            {{ form.confirmar_contraseña }}
+                            {% if form.confirmar_contraseña.errors %}
+                                <div class="alert alert-danger">{{ form.confirmar_contraseña.errors }}</div>
+                            {% endif %}
+                        </div>
 
-            <form id="formulario" action="registro_usuario" method="POST">
-
-                <!-- Campo: Tipo de usuario -->
-                <div class="mb-3">
-                    <label for="tipo_usuario" class="form-label">Tipo de Usuario:</label>
-                    <select id="tipo_usuario" name="tipo_usuario" class="form-control" required>
-                        <option value="">Selecciona un tipo</option>
-                        <option value="cliente">Cliente</option>
-                        <option value="administrador">Administrador</option>
-                    </select>
+                        <div class="mb-4">
+                            <label for="{{ form.es_administrador.id_for_label }}" class="form-label font-weight-bold">{{ form.es_administrador.label }}</label>
+                            <br>
+                            {{ form.es_administrador }}
+                            {% if form.es_administrador.errors %}
+                                <div class="alert alert-danger">{{ form.es_administrador.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="button">Crear cuenta</button>
+                    </form>
                 </div>
+            </div>
 
-                <!-- Campo: Nombre de usuario -->
-                <div class="mb-3">
-                    <label for="nombre_usuario" class="form-label">Nombre de Usuario:</label>
-                    <input type="text" id="nombre_usuario" name="nombres" class="form-control" required>
-                </div>
-
-                <!-- Campo: Nombre Completo -->
-                <div class="mb-3">
-                    <label for="nombre_completo" class="form-label">Nombre Completo:</label>
-                    <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" required>
-                </div>
-
-                <!-- Campo: Fecha de nacimiento -->
-                <div class="mb-3">
-                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha_nac" name="fecha" class="form-control" required>
-                </div>
-
-                <!-- Campo: Correo Electrónico -->
-                <div class="mb-3">
-                    <label for="correo" class="form-label">Correo Electrónico:</label>
-                    <input type="email" id="correo" name="correo" class="form-control" required>
-                </div>
-
-                <!-- Campo: Dirección de despacho -->
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección de Despacho:</label>
-                    <input type="text" id="direccion" name="direccion" class="form-control">
-                </div>
-
-                <!-- Campo: Contraseña -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Nueva Contraseña:</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                </div>
-
-                <!-- Campo: Repetir Contraseña -->
-                <div class="mb-4">
-                    <label for="password2" class="form-label">Repetir Contraseña:</label>
-                    <input type="password" id="password2" name="password" class="form-control" required>
-                </div>
-
-                <!-- Mensaje de error -->
-                <div id="errorMensaje" class="mb-4" style="display:none; color: blue;"></div>
-
-                <!-- Botón Registrar -->
-                <div class="contenedor-boton mb-5">
-                    <button type="submit" class="btn-registro">Registrarse</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    </div>
-    </div>
-    </form>
-    </div>
-    </div>
-
-
+            
     <footer class="text-center pt-4">
         <div class="social-media">
             <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
@@ -142,9 +135,5 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
         </p>
     </footer>
-
-
-    <script src="../assets/js/form_registro.js"></script>
-
 </body>
 </html>

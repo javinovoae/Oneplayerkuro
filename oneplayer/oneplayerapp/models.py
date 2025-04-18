@@ -1,26 +1,34 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=100)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
+# Modelo base de la tabla de django 
+class UsuariosRegistro(models.Model):
+    nombre_usuario = models.CharField(max_length=30, unique=True)
+    nombre = models.CharField(max_length=30)
+    email = models.EmailField(max_length=50, unique=True)
+    contraseña = models.CharField(max_length=128) 
     
     # Indicamos si el usuario es un administrador o cliente
     es_administrador = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nombre
+    
+
+    def save(self, *args, **kwargs):
+        # Hashea la contraseña antes de guardar
+        self.contraseña = make_password(self.contraseña)
+        super().save(*args, **kwargs)
 
 
-class Cliente(Usuario):
+class Cliente(UsuariosRegistro):
     carrito = models.OneToOneField('Carrito', on_delete=models.CASCADE, related_name='cliente_carrito', null=True, blank=True)
     def __str__(self):
         return f"Cliente: {self.nombre}"
 
 
-class Administrador(Usuario):
+class Administrador(UsuariosRegistro):
     def __str__(self):
         return f"Administrador: {self.nombre}"
 
