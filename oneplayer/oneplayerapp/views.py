@@ -15,14 +15,9 @@ from .models import Carrito, CarritoProducto, Cliente, Producto, Categoria, Admi
 #from rest_framework import viewsets
 #from .serializers import ClienteSerializer, AdministradorSerializer, ProductoSerializer
 
-
-
-# Vista Página Principal
 def oneplayer_view(request):
     return render(request, 'ONEPLAYER.html')  
 
-
-# Vista Categorías
 def accion_view(request):
     return render(request, 'games/accion.html')
 
@@ -41,14 +36,9 @@ def supervivencia_view(request):
 def terror_view(request):
     return render(request, 'games/terror.html')
 
-
-
-# Vistas Autenticación
 def inicio_sesion_view(request):
     return render(request, 'auth/inicio_sesion.html')
 
-
-# Vistas Usuarios
 def cuenta_view(request):
     return render(request, 'user/cuenta.html')
 
@@ -61,26 +51,16 @@ def carrito_view(request):
 def gestion_view(request):
     return render(request, 'user/gestion.html')
 
-
-# Vista Logout
 def logout_view(request):
     logout(request)
     return redirect('inicio')
 
-
-# Vista para Agregar al Carrito
 @login_required(login_url='/iniciar_sesion/')
 def agregar_al_carrito(request, producto_id):
-    # Obtener el producto y el cliente
     producto = get_object_or_404(Producto, id=producto_id)
     cliente = get_object_or_404(Cliente, usuario=request.user)
-
     cantidad = int(request.POST.get('cantidad', 1))
-
-    # Obtener o crear el carrito del cliente
     carrito, creado = Carrito.objects.get_or_create(cliente=cliente, activo=True)
-
-    # Obtener o crear el producto dentro del carrito
     carrito_producto, creado = CarritoProducto.objects.get_or_create(carrito=carrito, producto=producto)
 
     if not creado:
@@ -92,8 +72,6 @@ def agregar_al_carrito(request, producto_id):
 
     return redirect('carrito')
 
-
-# Vista para Carrito
 @login_required(login_url='iniciar_sesion') 
 def carrito_view(request):
     try:
@@ -132,9 +110,8 @@ def carrito_view(request):
 
 
 def registrarse_view(request):
-    form = RegistroUsuarioForm()  # Crea una instancia del formulario
-    return render(request, 'auth/form_registro.html', {'form': form})  # Pasa el formulario al contexto
-
+    form = RegistroUsuarioForm()
+    return render(request, 'auth/form_registro.html', {'form': form})
 
 def registrar_usuario_vw(request):
     if request.method == 'POST':
@@ -153,36 +130,33 @@ def registrar_usuario_vw(request):
                     nombre_usuario=nombre_usuario,
                     nombre=nombre_completo,
                     email=email,
-                    contraseña=contraseña,  # Se hasheará al guardar
+                    contraseña=contraseña,
                     es_administrador=es_administrador
                 )
                 usuario.save()
                 messages.success(request, "Usuario registrado con éxito!")
-                print("Redirigiendo a inicio_sesion")  # <--- Añade este print
+                print("Redirigiendo a inicio_sesion") 
                 return redirect('inicio_sesion')
             except Exception as e:
                 print(f"Error al crear la cuenta: {e}")
                 form.add_error(None, f"Ocurrió un error inesperado al crear la cuenta: {e}")
-                print("Renderizando formulario con error (except)")  # <--- Añade este print
+                print("Renderizando formulario con error (except)")
                 return render(request, 'auth/form_registro.html', {'form': form})
         else:
-            print("Renderizando formulario inválido")  # <--- Añade este print
+            print("Renderizando formulario inválido")
             return render(request, 'auth/form_registro.html', {'form': form})
     else:
-        print("Renderizando formulario GET")  # <--- Añade este print
+        print("Renderizando formulario GET")
         form = RegistroUsuarioForm()
         return render(request, 'auth/form_registro.html', {'form': form})
 
-# Cerrar sesión
 def cerrar_sesion(request):
     logout(request)
     return redirect('inicio_sesion')
 
-
-# Editar perfil
 @login_required
 def editar_perfil(request):
-    # Obtener el perfil del usuario autenticado
+
     try:
         usuario = UsuariosRegistro.objects.get(nombre_usuario=request.user.username)
     except UsuariosRegistro.DoesNotExist:
@@ -190,12 +164,12 @@ def editar_perfil(request):
         return redirect('menu_principal_view')  
 
     if request.method == 'POST':
-        form = EditarPerfilForm(request.POST, instance=usuario)  # Rellenar con los datos actuales del usuario
+        form = EditarPerfilForm(request.POST, instance=usuario)
         if form.is_valid():
-            form.save()  # Guardar los cambios
+            form.save()
             messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
-            return redirect('micuenta_view')  # Redirigir a mi cuenta
+            return redirect('micuenta_view')
     else:
-        form = EditarPerfilForm(instance=usuario)  # Rellenar con los datos actuales del usuario
+        form = EditarPerfilForm(instance=usuario)
 
     return render(request, 'editar_perfil.html', {'form': form})
