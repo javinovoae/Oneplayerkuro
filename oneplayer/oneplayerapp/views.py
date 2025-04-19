@@ -132,6 +132,7 @@ def registrar_usuario_vw(request):
             nombre_usuario = form.cleaned_data['nombre_usuario']
             email = form.cleaned_data['email']
             nombre_completo = form.cleaned_data['nombre']
+            direccion = form.cleaned_data['direccion']
             contraseña = form.cleaned_data['contraseña']
             es_administrador = form.cleaned_data['es_administrador']
 
@@ -141,6 +142,7 @@ def registrar_usuario_vw(request):
                     nombre_usuario=nombre_usuario,
                     nombre=nombre_completo,
                     email=email,
+                    direccion=direccion,
                     contraseña=contraseña,
                     es_administrador=es_administrador
                 )
@@ -160,13 +162,14 @@ def cerrar_sesion(request):
     logout(request)
     return redirect('inicio_sesion')
 
+
 @login_required
-def editar_perfil(request):
+def editar_perfil_org(request):
     try:
         usuario = UsuariosRegistro.objects.get(nombre_usuario=request.user.username)
     except UsuariosRegistro.DoesNotExist:
         messages.error(request, "No se encontró el usuario.")
-        return redirect('menu_principal_view')  
+        return redirect('menu_principal_view')
 
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=usuario)
@@ -174,10 +177,11 @@ def editar_perfil(request):
             form.save()
             messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
             return redirect('micuenta_view')
+        else:
+            return render(request, 'user/editar_perfil.html', {'form': form})  
     else:
-        form = EditarPerfilForm(instance=usuario)
-
-    return render(request, 'editar_perfil.html', {'form': form})
+        form = EditarPerfilForm(instance=usuario) 
+        return render(request, 'user/editar_perfil.html', {'form': form})  
 
 def checkout_view(request):
     return render(request, 'user/checkout.html')

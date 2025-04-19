@@ -40,10 +40,10 @@
                             <ul class="navbar-nav">
                                 {% if not user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                                    <a class="nav-link" href="{% url 'inicio_sesion' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a>
+                                    <a class="nav-link" href="{% url 'registrarse' %}"><i class="fas fa-user-plus"></i> Registrarse</a>
                                 </li>
 
                                 {% else %}

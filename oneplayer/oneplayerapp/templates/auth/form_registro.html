@@ -89,6 +89,15 @@
                                 <div class="alert alert-danger">{{ form.email.errors }}</div>
                             {% endif %}
                         </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.direccion.id_for_label }}" class="form-label">{{ form.direccion.label }}</label>
+                            <br>
+                            {{ form.direccion }}
+                            {% if form.direccion.errors %}
+                                <div class="alert alert-danger">{{ form.direccion.errors }}</div>
+                            {% endif %}
+                        </div>
             
                         <div class="mb-4">
                             <label for="{{ form.contraseña.id_for_label }}" class="form-label font-weight-bold">{{ form.contraseña.label }}</label>

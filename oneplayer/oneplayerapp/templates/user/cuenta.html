@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
 
 <head>
@@ -14,8 +15,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-   
-    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Mi cuenta</title>
 
     <style>
         #checkout-btn {
@@ -68,40 +70,49 @@
             </section>
         </nav>
     </div>
+
     <div class="container pt-5 mt-5 mb-5">
         <div class="w-50 mx-auto">
             <h2 class="text-center mt-5">MI CUENTA</h2>
-            <form id="formulario" action="registro_usuario" method="POST">
-
+            <form id="formulario" action="{% url 'editar_perfil' %}" method="POST">
+                {% csrf_token %}
                 <div id="mensaje_bienvenida" style="font-size: 18px; font-weight: bold; color: rgb(153, 52, 167); margin-bottom: 50px; text-align: center;">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-
                 <div class="mb-3">
-                    <label for="nombre_completo">Nombre Completo:</label>
-                    <input type="text" id="cuenta_nombre_completo" disabled> 
+                    <label for="{{ form.nombre.id_for_label }}">Nombre Completo:</label>
+                    {{ form.nombre }}
+                    {% if form.nombre.errors %}
+                        <div class="alert alert-danger">{{ form.nombre.errors }}</div>
+                    {% endif %}
                 </div>
-
+                
                 <div class="mb-3">
-                    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                    <input type="date" id="cuenta_fecha_nac" disabled>
+                    <label for="{{ form.email.id_for_label }}">Correo Electrónico:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="alert alert-danger">{{ form.email.errors }}</div>
+                    {% endif %}
                 </div>
-
+                
                 <div class="mb-3">
-                    <label for="correo">Correo Electrónico:</label>
-                    <input type="email" id="cuenta_correo" disabled> 
-                </div>
-
-                <div class="mb-4">
-                    <label for="direccion">Dirección:</label>
-                    <input type="text" id="cuenta_direccion" disabled> 
+                    <label for="{{ form.direccion.id_for_label }}">Dirección:</label>
+                    {{ form.direccion }}
+                    {% if form.direccion.errors %}
+                        <div class="alert alert-danger">{{ form.direccion.errors }}</div>
+                    {% endif %}
                 </div>
 
                 <div class="d-flex flex-md-row flex-column btn-container mb-5">
                     <div class="btn-edit">
-                        <button type="button" onclick="editarCuenta()">Editar</button> 
+                        <button type="submit">Guardar Cambios</button>
                     </div>
                     <div class="btn-reestablecer">
-                        <button type="button" onclick="window.location.href='./contraseña.html'">Cambiar Contraseña</button> 
+                        <button type="button" onclick="window.location.href=''">Cambiar Contraseña</button>
                     </div>
                 </div>
             </form>
@@ -117,7 +128,7 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="../assets/js/cuenta_user.js"></script>
+
     <script src="../assets/js/navbar.js"></script>
 </body>
 </html>

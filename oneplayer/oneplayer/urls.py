@@ -46,5 +46,7 @@ urlpatterns = [
 
     path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
 
+    path('editar_perfil/', views.editar_perfil_org, name='editar_perfil')
+
     # path('api/', include(router.urls)),
 ]

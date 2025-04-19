@@ -54,6 +54,14 @@ class RegistroUsuarioForm(forms.Form):
         max_length=50,
     )
 
+    direccion = forms.CharField(
+        required=True,
+        label='Dirección',
+        max_length=80,
+        validators=[MinLengthValidator(2, "La dirección debe tener al menos 2 caracteres."),
+                    SoloLetrasEspaciosValidator()]
+    )
+
     contraseña = forms.CharField(
         widget=forms.PasswordInput,
         required=True,
@@ -84,25 +92,11 @@ class RegistroUsuarioForm(forms.Form):
             raise forms.ValidationError("Las contraseñas no coinciden.")
         return cleaned_data
 
+#ESTO SE ESTA EDITANDO AHORA 
 class EditarPerfilForm(forms.ModelForm):
-    contraseña = forms.CharField(
-        widget=forms.PasswordInput(render_value=True),
-        required=False, 
-        label='Contraseña nueva (opcional)'
-    )
-
     class Meta:
         model = UsuariosRegistro
-        fields = ['nombre_usuario', 'nombre', 'email', 'contraseña']
-        widgets = {
-            'contraseña': forms.PasswordInput(render_value=True),
-        }
-
-    def clean_contraseña(self):
-        contraseña = self.cleaned_data.get('contraseña')
-        if contraseña and len(contraseña) < 8:
-            raise forms.ValidationError("La contraseña debe tener al menos 8 caracteres.")
-        return contraseña
+        fields = ['nombre', 'email','direccion']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -110,10 +104,3 @@ class EditarPerfilForm(forms.ModelForm):
             user = User.objects.filter(username=self.instance.nombre_usuario).first()
             email_no_repetido_validator(email, user)
         return email
-
-    def clean_nombre_usuario(self):
-        nombre_usuario = self.cleaned_data.get('nombre_usuario')
-        if nombre_usuario:
-            user = User.objects.filter(username=self.instance.nombre_usuario).first()
-            username_no_repetido_validator(nombre_usuario, user)
-        return nombre_usuario
