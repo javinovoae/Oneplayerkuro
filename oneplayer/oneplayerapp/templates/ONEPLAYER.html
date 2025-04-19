@@ -38,42 +38,35 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
-
                                 {% if not user.is_authenticated %}
-                                <li class="nav-item" id="nav-home-no-log">
-                                    <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
-                                        Home</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
                                 </li>
-                                <li class="nav-item" id="nav-register">
-                                    <a class="nav-link" href="{% url 'registrarse' %}"><i
-                                            class="fas fa-external-link-alt"></i> Registrarse</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a>
                                 </li>
-                                <li class="nav-item" id="nav-login">
-                                    <a class="nav-link" href="{% url 'inicio_sesion' %}"><i
-                                            class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+
+                                {% else %}
+                                <li class="nav-item" id="nav-home-log">
+                                    <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a>
+                                </li>
+
+                                <li class="nav-item" id="nav-account">
+                                    <a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a>
+                                </li>
+
+                                {% if user.is_staff %}
+                                <li class="nav-item" id="nav-gestion">
+                                    <a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a>
                                 </li>
                                 {% endif %}
 
-                                {% if user.is_authenticated %}
-                                <li class="nav-item" id="nav-home-log">
-                                    <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
-                                        Home</a>
-                                </li>
-                                <li class="nav-item" id="nav-gestion">
-                                    <a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i>
-                                        Gestión</a>
-                                </li>
-                                <li class="nav-item" id="nav-account">
-                                    <a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi
-                                        Cuenta</a>
-                                </li>
                                 <li class="nav-item" id="nav-cart">
-                                    <a class="nav-link" href="{% url 'carrito' %}"><i
-                                            class="fas fa-shopping-cart"></i> Mi Carrito</a>
+                                    <a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a>
                                 </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'logout' %}"><i
-                                            class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                                    <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                                 </li>
                                 {% endif %}
                             </ul>
