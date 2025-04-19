@@ -36,7 +36,6 @@
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
 
-                                    <!-- Usuarios no logueados -->
                                     {% if not user.is_authenticated %}
                                     <li class="nav-item" id="nav-home-no-log">
                                         <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
@@ -52,7 +51,6 @@
                                     </li>
                                     {% endif %}
 
-                                    <!-- Usuarios logueados -->
                                     {% if user.is_authenticated %}
                                     <li class="nav-item" id="nav-home-log">
                                         <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>

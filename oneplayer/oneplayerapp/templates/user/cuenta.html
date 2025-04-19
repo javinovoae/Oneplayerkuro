@@ -71,43 +71,35 @@
         <div class="w-50 mx-auto">
             <h2 class="text-center mt-5">MI CUENTA</h2>
             <form id="formulario" action="registro_usuario" method="POST">
-                
-                <!-- Mensaje de bienvenida-->
+
                 <div id="mensaje_bienvenida" style="font-size: 18px; font-weight: bold; color: rgb(153, 52, 167); margin-bottom: 50px; text-align: center;">
                 </div>
 
-                <!-- Campo: Nombre Completo -->
                 <div class="mb-3">
                     <label for="nombre_completo">Nombre Completo:</label>
                     <input type="text" id="cuenta_nombre_completo" disabled> 
                 </div>
-            
-                <!-- Campo: Fecha de nacimiento -->
+
                 <div class="mb-3">
                     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                     <input type="date" id="cuenta_fecha_nac" disabled>
-                </div>
-            
-                <!-- Campo: Correo Electrónico -->
+
                 <div class="mb-3">
                     <label for="correo">Correo Electrónico:</label>
                     <input type="email" id="cuenta_correo" disabled> 
                 </div>
-            
-                <!-- Campo: Dirección de Despacho -->
+
                 <div class="mb-4">
                     <label for="direccion">Dirección:</label>
                     <input type="text" id="cuenta_direccion" disabled> 
                 </div>
-            
-                <!-- Contenedor de los botones -->
+
                 <div class="-flex flex-md-row flex-column btn-container mb-5">
-                    <!-- Botón Editar -->
+
                     <div class="btn-edit">
                         <button type="button" onclick="editarCuenta()">Editar</button> 
                     </div>
-    
-                    <!-- Botón para Restablecer Contraseña -->
+
                     <div class="btn-reestablecer">
                         <button type="button" onclick="window.location.href='./contraseña.html'">Cambiar Contraseña</button> 
                     </div>
