@@ -64,10 +64,9 @@
             <div class="col-md-12">
                 <h2 class="text-center mb-4">GESTIÓN DE CATEGORÍAS</h2>
 
-                <!-- Lista de categorías -->
                 <div id="lista_categorias">
                     <ul class="list-group" id="categoria-list">
-                        <!-- Categorías actuales -->
+
                         <li class="list-group-item d-flex justify-content-between">
                             Terror
                             <div>
@@ -136,7 +135,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- Botón para agregar categoría -->
+
                 <div class="text-center mt-5 mb-5">
                     <button class="btn btn-primary" onclick="agregarCategoria()">Agregar Categoría</button>
                 </div>
@@ -166,8 +165,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioActivo"));
-    
-            // Verificar si el usuario está autenticado
+
             if (usuarioLogueado) {
                 document.getElementById('iniciar-sesion').style.display = 'none';
                 document.getElementById('gestion').style.display = 'block';

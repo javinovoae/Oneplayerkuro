@@ -1,4 +1,4 @@
 # OnePlayer 🎮
 HTML, CSS, JavaScript y Django
 ### Desarrolladoras:
-Camila Moreno, Javiera Novoa y Anamirén Sevilla
+Camila Moreno, Javiera Novoa y Anamiren Sevilla

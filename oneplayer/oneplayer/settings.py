@@ -29,6 +29,23 @@ DATABASES = {
         },
     }
 }
+import oracledb
+
+#CONEXION A BASE DE DATOS
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': '(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.sa-santiago-1.oraclecloud.com))(connect_data=(service_name=g819c11630424b0_pocxt95gwbrf53d1_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))',
+        'USER': 'BDONEPLAYER',  
+        'PASSWORD': 'Oraclecloud889', 
+        'OPTIONS': {
+            'wallet_location': str(BASE_DIR / 'oracle_wallet'),
+        },
+    }
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -131,14 +148,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATIC_ROOT = BASE_DIR / 'staticfiles' 
 
+LOGIN_URL = '/auth/inicio_sesion/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 
 
 
