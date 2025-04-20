@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
@@ -14,53 +14,41 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Restablecer Contraseña</title>
 </head>
 
-
 <body>
-    <header>
-        <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
-                <section class="container fluid">
-                    <a class="navbar-brand" href="../ONEPLAYER.html">
-                        <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
-                    </a>
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
+            <section class="container fluid">
+                <a class="navbar-brand" href="{% url 'inicio' %}">
+                    <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
+                </a>
 
-                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                        <div class="container-fluid">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item" id="nav-home">
-                                        <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i> Home</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-gestion" style="display: none;">
-                                        <a class="nav-link" href="./gestion.html"><i class="fas fa-cogs"></i> Gestión</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-account"">
-                                        <a class="nav-link" href="./cuenta.html"><i class="fas fa-user"></i> Mi Cuenta</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-cart">
-                                        <a class="nav-link" href="./carrito.html"><i class="fas fa-shopping-cart" style="display: none;"></i> Mi Carrito</a>
-                                    </li>
-                                    <li class="nav-item" id="nav-logout">
-                                        <a class="nav-link" href="../ONEPLAYER.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                </section>
-            </nav>
-        </div>
-    </header>
-
-
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
+                            {% if user.is_staff %}
+                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </section>
+        </nav>
+    </div>
     <div class="volver">
         <div class="text-left mb-4 mt-4">
             <a class="nav-link d-inline" href="./cuenta.html">
@@ -70,54 +58,81 @@
     </div>
 
 
+    {% block content %}
     <div class="container mt-3">
         <div class="w-50 mx-auto">
             <h2 class="text-center">REESTABLECER CONTRASEÑA</h2>
-            <form id="formulario" action="registro_usuario" method="POST">
-
+                <form method="post" class="mb-5" action="{% url 'cambiar_contraseña' %}">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+    
                 <div class="mb-3">
-                    <label for="edit_password_current" class="form-label">Contraseña Actual:</label>
+                    <label for="{{ form.contraseña_actual.id_for_label }}" class="form-label">{{ form.contraseña_actual.label }}:</label>
                     <div class="input-group">
-                        <input type="password" id="edit_password_current" name="password" class="form-control" required>
+                        {{ form.contraseña_actual }}
                         <button class="btn btn-outline-secondary" type="button"
-                            onclick="togglePassword('edit_password_current', this)">
+                                onclick="togglePassword('{{ form.contraseña_actual.id }}', this)">
                             <span>👁️</span>
                         </button>
                     </div>
+                    {% if form.contraseña_actual.errors %}
+                        <div class="alert alert-danger">{{ form.contraseña_actual.errors }}</div>
+                    {% endif %}
                 </div>
-
+    
                 <div class="mb-3">
-                    <label for="edit_password" class="form-label">Nueva Contraseña:</label>
+                    <label for="{{ form.nueva_contraseña.id_for_label }}" class="form-label">{{ form.nueva_contraseña.label }}:</label>
                     <div class="input-group">
-                        <input type="password" id="edit_password" name="password" class="form-control" required>
+                        {{ form.nueva_contraseña }}
                         <button class="btn btn-outline-secondary" type="button"
-                            onclick="togglePassword('edit_password', this)">
+                                onclick="togglePassword('{{ form.nueva_contraseña.id }}', this)">
                             <span>👁️</span>
                         </button>
                     </div>
+                    {% if form.nueva_contraseña.errors %}
+                        <div class="alert alert-danger">{{ form.nueva_contraseña.errors }}</div>
+                    {% endif %}
                 </div>
-
+    
                 <div class="mb-5">
-                    <label for="edit_password2" class="form-label">Repetir Contraseña:</label>
+                    <label for="{{ form.confirmar_nueva_contraseña.id_for_label }}" class="form-label">{{ form.confirmar_nueva_contraseña.label }}:</label>
                     <div class="input-group">
-                        <input type="password" id="edit_password2" name="password" class="form-control" required>
+                        {{ form.confirmar_nueva_contraseña }}
                         <button class="btn btn-outline-secondary" type="button"
-                            onclick="togglePassword('edit_password2', this)">
+                                onclick="togglePassword('{{ form.confirmar_nueva_contraseña.id }}', this)">
                             <span>👁️</span>
                         </button>
                     </div>
+                    {% if form.confirmar_nueva_contraseña.errors %}
+                        <div class="alert alert-danger">{{ form.confirmar_nueva_contraseña.errors }}</div>
+                    {% endif %}
                 </div>
-
+    
                 <div id="error_mensaje" class="mb-4" style="display:none; color: blue;"></div>
-
+    
                 <div class="btn-pass-confirm mb-5">
-                    <button type="button" onclick="cambiarContraseña()">Cambiar</button>
+                    <button type="submit">Cambiar</button>
                 </div>
+            </form>
         </div>
-        </form>
     </div>
-    </div>
-
+    
+    <script>
+        function togglePassword(inputId, button) {
+            const passwordInput = document.getElementById(inputId);
+            const eyeSpan = button.querySelector('span');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeSpan.textContent = "👁️‍🗨️";
+            } else {
+                passwordInput.type = "password";
+                eyeSpan.textContent = "👁️";
+            }
+        }
+    </script>
+    {% endblock %}
 
     <footer class="text-center pt-4 ">
         <div class="social-media">
@@ -132,9 +147,6 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
         </p>
     </footer>
-
-
-    <script src="../assets/js/contraseña.js"></script>
     <script src="../assets/js/navbar.js"></script>
 
 </body>

@@ -3,6 +3,7 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.contrib.auth.models import User
 import re
 from .models import UsuariosRegistro
+from django.contrib.auth import authenticate, get_user_model
 
 def username_no_repetido_validator(value, user=None):
     if user is None:
@@ -30,6 +31,8 @@ class PasswordSymbolValidator:
         if not re.search(r'[!@#$%^&*(),.?":{}|<>]', value):
             raise forms.ValidationError("La contraseña debe contener al menos un caracter especial.")
 
+
+#REGISTRO DE USUARIOS
 class RegistroUsuarioForm(forms.Form):
     nombre_usuario = forms.CharField(
         max_length=30,
@@ -92,11 +95,6 @@ class RegistroUsuarioForm(forms.Form):
             raise forms.ValidationError("Las contraseñas no coinciden.")
         return cleaned_data
 
-#ESTO SE ESTA EDITANDO AHORA 
-class EditarPerfilForm(forms.ModelForm):
-    class Meta:
-        model = UsuariosRegistro
-        fields = ['nombre', 'email','direccion']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -104,3 +102,55 @@ class EditarPerfilForm(forms.ModelForm):
             user = User.objects.filter(username=self.instance.nombre_usuario).first()
             email_no_repetido_validator(email, user)
         return email
+    
+#EDICION DE INFORMACION
+class EditarPerfilForm(forms.ModelForm):
+    class Meta:
+        model = UsuariosRegistro
+        fields = ['nombre', 'email','direccion']
+
+#EDICION DE CONTRASEÑA
+
+User = get_user_model()
+
+class CambiarContraseñaForm(forms.Form):
+    contraseña_actual = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label='Contraseña Actual',
+        required=True
+    )
+    nueva_contraseña = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label='Nueva Contraseña',
+        required=True,
+        validators=[MinLengthValidator(6, "La contraseña debe tener al menos 6 caracteres."),
+                    MaxLengthValidator(12, "La contraseña no puede tener más de 12 caracteres."),
+                    PasswordSymbolValidator()] 
+    )
+    confirmar_nueva_contraseña = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label='Repetir Nueva Contraseña',
+        required=True
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        nueva_contraseña = cleaned_data.get("nueva_contraseña")
+        confirmar_nueva_contraseña = cleaned_data.get("confirmar_nueva_contraseña")
+
+        if nueva_contraseña and confirmar_nueva_contraseña and nueva_contraseña != confirmar_nueva_contraseña:
+            raise forms.ValidationError("Las nuevas contraseñas no coinciden.")
+        return cleaned_data
+
+    def clean_contraseña_actual(self):
+        contraseña_actual = self.cleaned_data.get('contraseña_actual')
+        user = self.request.user 
+        if not authenticate(username=user.username, password=contraseña_actual):
+            raise forms.ValidationError("Tu contraseña actual es incorrecta.")
+        return contraseña_actual
+
+    def save(self):
+        user = self.request.user
+        nueva_contraseña = self.cleaned_data.get('nueva_contraseña')
+        user.set_password(nueva_contraseña)
+        user.save()

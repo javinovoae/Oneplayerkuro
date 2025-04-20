@@ -34,7 +34,9 @@ urlpatterns = [
 
     path('user/cuenta/', views.cuenta_view, name='cuenta'),
 
-    path('user/contraseña/', views.contraseña_view, name='contraseña'),
+    path('user/cambiar_contraseña/', views.editar_contraseña_org, name='cambiar_contraseña'),
+
+    path('user/contraseña/', views.cambiar_contraseña_view, name='contraseña'),
 
     path('user/carrito/', views.carrito_view, name='carrito'),
 
@@ -46,7 +48,8 @@ urlpatterns = [
 
     path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
 
-    path('editar_perfil/', views.editar_perfil_org, name='editar_perfil')
+    path('editar_perfil/', views.editar_perfil_org, name='editar_perfil'),
+
 
     # path('api/', include(router.urls)),
 ]

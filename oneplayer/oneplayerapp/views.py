@@ -23,7 +23,7 @@ from .form_registro import EditarPerfilForm
 from .form_registro import RegistroUsuarioForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UsuariosRegistro, Carrito, CarritoProducto, Cliente, Producto, Categoria, Administrador
-
+from .form_registro import CambiarContraseñaForm
 @login_required
 def mi_cuenta(request):
     return render(request, 'mi_cuenta.html', {
@@ -67,11 +67,18 @@ def inicio_sesion_view(request):
 
     return render(request, 'auth/inicio_sesion.html')
 
+@login_required
 def cuenta_view(request):
-    return render(request, 'user/cuenta.html')
+    try:
+        usuario_registro = UsuariosRegistro.objects.get(nombre_usuario=request.user.username)
+        form = EditarPerfilForm(instance=usuario_registro)
+    except UsuariosRegistro.DoesNotExist:
+        form = EditarPerfilForm()  
 
-def contraseña_view(request):
-    return render(request, 'user/contraseña.html')
+    return render(request, 'user/cuenta.html', {
+        'usuario': request.user,
+        'form': form,
+    })
 
 def carrito_view(request):
     return render(request, 'user/carrito.html')
@@ -169,19 +176,39 @@ def editar_perfil_org(request):
         usuario = UsuariosRegistro.objects.get(nombre_usuario=request.user.username)
     except UsuariosRegistro.DoesNotExist:
         messages.error(request, "No se encontró el usuario.")
-        return redirect('menu_principal_view')
+        return redirect('inicio')
 
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
             messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
-            return redirect('micuenta_view')
+            return redirect('cuenta')
         else:
-            return render(request, 'user/editar_perfil.html', {'form': form})  
+            return render(request, 'editar_perfil', {'form': form})  
     else:
         form = EditarPerfilForm(instance=usuario) 
-        return render(request, 'user/editar_perfil.html', {'form': form})  
+        return render(request, 'cuenta', {'form': form})  
 
 def checkout_view(request):
     return render(request, 'user/checkout.html')
+
+@login_required
+def editar_contraseña_org(request):
+    if request.method == 'POST':
+        form = CambiarContraseñaForm(request.POST)
+        form.request = request  
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tu contraseña ha sido cambiada exitosamente.')
+            return redirect('cuenta')  
+        else:
+            return render(request, 'user/contraseña.html', {'form': form})
+    else:
+        return redirect('user/contraseña.html') 
+    
+
+@login_required
+def cambiar_contraseña_view(request):
+    form = CambiarContraseñaForm()
+    return render(request, 'user/contraseña.html', {'form': form})

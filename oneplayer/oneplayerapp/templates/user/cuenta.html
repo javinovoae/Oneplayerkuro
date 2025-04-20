@@ -73,7 +73,7 @@
 
     <div class="container pt-5 mt-5 mb-5">
         <div class="w-50 mx-auto">
-            <h2 class="text-center mt-5">MI CUENTA</h2>
+            <h2 class="text-center mt-5">EDITAR PERFIL</h2>
             <form id="formulario" action="{% url 'editar_perfil' %}" method="POST">
                 {% csrf_token %}
                 <div id="mensaje_bienvenida" style="font-size: 18px; font-weight: bold; color: rgb(153, 52, 167); margin-bottom: 50px; text-align: center;">
@@ -112,9 +112,7 @@
                         <button type="submit">Guardar Cambios</button>
                     </div>
                     <div class="btn-reestablecer">
-                        <button type="button" onclick="window.location.href=''">Cambiar Contraseña</button>
-                    </div>
-                </div>
+                        <button type="button" onclick="window.location.href='/user/contraseña/'">Cambiar Contraseña</button>                </div>
             </form>
         </div>
     </div>
