@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
-
+from django.utils import timezone
 
 # Modelo base de la tabla de django 
 class UsuariosRegistro(models.Model):
@@ -66,3 +66,12 @@ class CarritoProducto(models.Model):
     def total(self):
         return self.producto.precio * self.cantidad
 
+class Compra(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(default=timezone.now)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"Compra de {self.cliente.nombre} - Total: ${self.total} - Fecha: {self.fecha.strftime('%Y-%m-%d')}"
+    
+    

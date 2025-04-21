@@ -99,7 +99,8 @@ class RegistroUsuarioForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if email:
-            user = User.objects.filter(username=self.instance.nombre_usuario).first()
+            nombre_usuario = self.cleaned_data.get('nombre_usuario')
+            user = User.objects.filter(username=nombre_usuario).first()
             email_no_repetido_validator(email, user)
         return email
     

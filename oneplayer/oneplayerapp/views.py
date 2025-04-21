@@ -24,6 +24,12 @@ from .form_registro import RegistroUsuarioForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import UsuariosRegistro, Carrito, CarritoProducto, Cliente, Producto, Categoria, Administrador
 from .form_registro import CambiarContraseñaForm
+from django.shortcuts import render
+from decimal import Decimal
+from django.shortcuts import get_object_or_404, redirect
+from .models import Producto, Carrito, CarritoProducto, Cliente
+
+
 @login_required
 def mi_cuenta(request):
     return render(request, 'mi_cuenta.html', {
@@ -212,3 +218,70 @@ def editar_contraseña_org(request):
 def cambiar_contraseña_view(request):
     form = CambiarContraseñaForm()
     return render(request, 'user/contraseña.html', {'form': form})
+
+#CARRITO LOGICA
+
+@login_required
+def agregar_al_carrito(request, producto_id):
+    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
+    producto = get_object_or_404(Producto, id=producto_id)
+
+
+    carrito, creado = Carrito.objects.get_or_create(cliente=cliente)
+
+    item, creado = CarritoProducto.objects.get_or_create(carrito=carrito, producto=producto)
+
+    if not creado:
+        item.cantidad += 1
+        item.save()
+
+    return redirect('ver_carrito') 
+
+#mostrar el producto
+
+@login_required
+def ver_carrito(request):
+    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
+    carrito, creado = Carrito.objects.get_or_create(cliente=cliente)
+
+    productos = carrito.productos.all()
+    subtotal = sum([p.total() for p in productos])
+    
+    return render(request, 'carrito.html', {
+        'productos': productos,
+        'subtotal': subtotal,
+        'total': subtotal  
+    })
+
+#eliminar productos
+
+@login_required 
+def eliminar_producto_carrito(request, producto_id):
+    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
+    carrito = get_object_or_404(Carrito, cliente=cliente)
+
+    item = get_object_or_404(CarritoProducto, carrito=carrito, producto_id=producto_id)
+    item.delete()
+
+    return redirect('ver_carrito')
+
+#finalizar compra y vaciar carrito
+@login_required
+def finalizar_compra(request):
+    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
+    carrito = get_object_or_404(Carrito, cliente=cliente)
+
+    productos = carrito.productos.all()
+    if not productos.exists():
+        return redirect('ver_carrito')
+
+    total_compra = sum([p.total() for p in productos])
+
+    # Guardar el total de la compra
+    Compra.objects.create(cliente=cliente, total=total_compra)
+
+    # Vaciar el carrito
+    productos.delete()
+
+    return render(request, 'user/checkout.html', {'total': total_compra})
+
