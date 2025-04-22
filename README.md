@@ -1,6 +1,4 @@
-# OnePlayer
-HTML y CSS
-### integrantes
-Javiera Novoa E.
-Camila 
-Miren
+# OnePlayer 🎮
+HTML, CSS, JavaScript y Django
+### Desarrolladoras:
+Camila Moreno, Javiera Novoa y Anamiren Sevilla
