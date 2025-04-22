@@ -24,6 +24,7 @@ from django.contrib.auth.models import User
 from .models import UsuariosRegistro, Carrito, CarritoProducto, Cliente, Producto, Categoria, Administrador, Compra
 from .forms import CategoriaForm, EditarCategoriaForm
 from decimal import Decimal
+from .forms import ProductoForm 
 
 @login_required
 def mi_cuenta(request):
@@ -160,7 +161,7 @@ def finalizar_compra(request):
 @login_required
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()
-    return render(request, 'user/gestion.html', {'categorias': categorias})
+    return render(request, 'gestion', {'categorias': categorias})
 
 @login_required
 def agregar_categoria(request):
@@ -169,7 +170,7 @@ def agregar_categoria(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Categoría agregada correctamente.")
-            return redirect('gestion_categorias')
+            return redirect('gestion')
         else:
             messages.error(request, "Por favor, ingresa un nombre válido para la categoría.")
     else:
@@ -185,7 +186,7 @@ def editar_categoria(request, categoria_id):
         if form.is_valid():
             form.save()
             messages.success(request, "Categoría editada correctamente.")
-            return redirect('gestion_categorias')
+            return redirect('gestion')
     else:
         form = EditarCategoriaForm(instance=categoria)
     return render(request, 'user/editar_categoria.html', {'form': form, 'categoria': categoria})
@@ -195,7 +196,7 @@ def eliminar_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id) 
     if request.method == 'POST':
         categoria.delete() 
-        return redirect('gestion_categorias') 
+        return redirect('gestion') 
     return render(request, 'user/eliminar_categoria.html', {'categoria': categoria})
 
 def registrarse_view(request):
@@ -256,4 +257,20 @@ def editar_perfil_org(request):
     else:
         form = EditarPerfilForm(instance=usuario) 
         return render(request, 'cuenta', {'form': form})
+
+@login_required
+def agregar_juego(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Juego agregado correctamente.")
+            return redirect('gestion') 
+        else:
+            messages.error(request, "Hubo un error en el formulario.")
+            print(form.errors)
+    else:
+        form = ProductoForm()
+
+    return render(request, 'user/agregar_juego.html', {'form': form})
 
