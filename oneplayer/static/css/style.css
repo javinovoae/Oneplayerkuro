@@ -142,6 +142,7 @@ body {
 
 /* FOOTER */
 footer {
+    margin-top: auto;
     background-color: black;
     position: relative;
     width: 100%;

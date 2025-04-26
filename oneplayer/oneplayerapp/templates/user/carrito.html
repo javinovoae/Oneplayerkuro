@@ -1,78 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends 'user/base_carrito.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <title>Carrito de Compras</title>
-
-    <style>
-        #checkout-btn {
-            font-size: 1.1rem;
-            padding: 0.75rem 1.25rem;
-            transition: 0.3s ease;
-        }
-
-        #checkout-btn:hover {
-            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-        }
-
-        .bg-cart {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-    </style>
-</head>
-
-<body>
-
-    <div class="container-fluid p-0">
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
-            <section class="container fluid">
-                <a class="navbar-brand" href="{% url 'inicio' %}">
-                    <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
-                        {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
-                            {% if user.is_staff %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </section>
-        </nav>
-    </div>
-
+{% block content %}
     <div class="container pt-5 mt-5 mb-5">
-        <h2 class="text-center mt-5 mb-5">MI CARRITO</h2>
+        <h2 class="text-center mt-5 mb-5">MI CARRITO </h2>
 
         <div class="row mt-5">
             <div class="col-md-8">
@@ -84,7 +14,22 @@
                         <h5 class="fw-italic">Eliminar</h5>
                     </div>
                     <div id="cart-items" class="w-100">
-
+                        {% if productos %}
+                        <p>Cantidad de productos en el carrito: {{ productos|length }}</p>
+                            {% for item in productos %}
+                                <div class="d-flex justify-content-between w-100 px-3 py-2 border-bottom">
+                                    <p>{{ item.producto.nombre }}</p>
+                                    <p>${{ item.producto.precio }}</p>
+                                    <p>{{ item.cantidad }}</p>
+                                    <form method="post" action="{% url 'eliminar_producto_carrito' item.producto.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-center py-3">Tu carrito está vacío.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -92,9 +37,9 @@
             <div class="col-md-4 mb-4">
                 <div class="my-5 p-4 border bg-light shadow rounded text-center">
                     <h4 class="mb-4">Resumen</h4>
-                    <p id="subtotal" class="text-muted">Subtotal: $0</p>
+                    <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal }}</p>
                     <p class="text-muted">Envío: GRATIS</p>
-                    <p><strong id="total" class="text-success">Total: $0</strong></p>
+                    <p><strong id="total" class="text-success">Total: ${{ total }}</strong></p>
 
                     <button type="button" id="checkout-btn" class="btn btn-success w-100 mt-3"
                         data-bs-toggle="modal" data-bs-target="#confirmModal">
@@ -122,17 +67,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="text-center pt-4">
-        <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank"><i class="fab fa-whatsapp fa-xl"></i></a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"><i class="fab fa-instagram fa-xl"></i></a>
-            <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl"></i></a>
-        </div>
-        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
-    </footer>
-
-    <script src="{% static 'js/navbar.js' %}"></script>
-</body>
-
-</html>
+{% endblock %}

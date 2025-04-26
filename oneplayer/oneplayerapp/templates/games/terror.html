@@ -42,7 +42,7 @@
                                             Home</a>
                                     </li>
                                     <li class="nav-item" id="nav-register">
-                                        <a class="nav-link" href="{% url 'registrarse' %}"><i
+                                        <a class="nav-link" href="{% url 'registro' %}"><i
                                                 class="fas fa-external-link-alt"></i> Registrarse</a>
                                     </li>
                                     <li class="nav-item" id="nav-login">
@@ -120,7 +120,7 @@
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
-                                <button type="submit" class="btn btn-dark">
+                                <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="1">
                                     <i class="fas fa-cart-plus"></i> Agregar al carrito
                                 </button>
                             </div>
@@ -147,7 +147,7 @@
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
-                                <button type="submit" class="btn btn-dark">
+                                <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="2">
                                     <i class="fas fa-cart-plus"></i> Agregar al carrito
                                 </button>
                             </div>
@@ -180,6 +180,49 @@
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="{% static 'js/carrito.js' %}"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const botonesAgregarCarrito = document.querySelectorAll('.agregar-carrito');
+            const carritoTotalItemsSpan = document.getElementById('carrito-total-items'); // Asegúrate de tener este ID en tu header
+    
+            botonesAgregarCarrito.forEach(boton => {
+                boton.addEventListener('click', function(event) {
+                    event.preventDefault();
+    
+                    const productoId = this.dataset.productoId;
+                    const url = `/carrito/agregar/${productoId}/`;
+    
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: new URLSearchParams({
+                            'cantidad': this.previousElementSibling.value || 1
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            if (carritoTotalItemsSpan) {
+                                carritoTotalItemsSpan.textContent = data.total_items || 0;
+                            }
+                            // Redirigir al carrito después de agregar
+                            window.location.href = "{% url 'carrito' %}";
+                        } else {
+                            alert('Error al agregar al carrito.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error de conexión.');
+                    });
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

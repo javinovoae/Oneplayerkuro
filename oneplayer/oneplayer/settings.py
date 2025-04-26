@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import oracledb
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 #CONEXION A BASE DE DATOS
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,6 +95,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / "oneplayerapp/templates",
+            BASE_DIR / "oneplayerapp/templates/user",  
+            BASE_DIR / "oneplayer" / "oneplayerapp" / "templates",  
+            BASE_DIR / "oneplayer" / "oneplayerapp" / "templates" / "user",
         ],
         'APP_DIRS': True,
         'OPTIONS': {

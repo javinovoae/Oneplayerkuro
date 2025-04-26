@@ -25,6 +25,10 @@ from .models import UsuariosRegistro, Carrito, CarritoProducto, Cliente, Product
 from .forms import CategoriaForm, EditarCategoriaForm
 from decimal import Decimal
 from .forms import ProductoForm 
+from django.contrib.auth.hashers import make_password
+from django.db import IntegrityError, transaction  
+from django.http import JsonResponse
+
 
 @login_required
 def mi_cuenta(request):
@@ -82,9 +86,6 @@ def cuenta_view(request):
         'form': form,
     })
 
-def carrito_view(request):
-    return render(request, 'user/carrito.html')
-
 def gestion_view(request):
     return render(request, 'user/gestion.html')
 
@@ -92,10 +93,11 @@ def logout_view(request):
     logout(request)
     return redirect('inicio_sesion')
 
+
 @login_required(login_url='/auth/inicio_sesion/')
 def agregar_al_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
-    cliente = get_object_or_404(Cliente, usuario=request.user)
+    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
     cantidad = int(request.POST.get('cantidad', 1))
 
     carrito, creado = Carrito.objects.get_or_create(cliente=cliente, activo=True)
@@ -107,21 +109,26 @@ def agregar_al_carrito(request, producto_id):
         carrito_producto.cantidad = cantidad
 
     carrito_producto.save()
+
+    # Devolvemos una respuesta JSON indicando éxito y la nueva cantidad en el carrito (opcional)
+    total_items_carrito = carrito.productos.count()
+    return JsonResponse({'status': 'success', 'message': f"'{producto.nombre}' añadido al carrito.", 'total_items': total_items_carrito})
     return redirect('carrito')
 
-@login_required(login_url='/auth/inicio_sesion/')
-def ver_carrito(request):
-    cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
-    carrito, creado = Carrito.objects.get_or_create(cliente=cliente)
+@login_required
+def carrito_view(request):
+    try:
+        cliente = Cliente.objects.get(usuariosregistro_ptr_id=request.user.id)
+        carrito = Carrito.objects.get(cliente=cliente, activo=True)
+        items_carrito = CarritoProducto.objects.filter(carrito=carrito)
+        subtotal = sum([item.total() for item in items_carrito])
+        total = subtotal
+        return render(request, 'carrito.html', {'productos': items_carrito, 'subtotal': subtotal, 'total': total})
+    except Cliente.DoesNotExist:
+        return render(request, 'carrito.html', {'productos': [], 'mensaje': 'Tu perfil de cliente no existe.'})
+    except Carrito.DoesNotExist:
+        return render(request, 'carrito.html', {'productos': [], 'mensaje': 'Tu carrito está vacío.'})
 
-    productos = carrito.productos.all()
-    subtotal = sum([p.total() for p in productos])
-    
-    return render(request, 'carrito.html', {
-        'productos': productos,
-        'subtotal': subtotal,
-        'total': subtotal  
-    })
 
 @login_required
 def eliminar_producto_carrito(request, producto_id):
@@ -202,14 +209,70 @@ def eliminar_categoria(request, categoria_id):
 def registrarse_view(request):
     form = RegistroUsuarioForm()
     return render(request, 'auth/form_registro.html', {'form': form})
+
 def registrar_usuario_vw(request):
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
+            print(f"Valor de es_administrador recibido (ignorado): {form.cleaned_data.get('es_administrador')}")
+            nombre_usuario = form.cleaned_data['nombre_usuario']
+            nombre = form.cleaned_data['nombre']
+            email = form.cleaned_data['email']
+            direccion = form.cleaned_data['direccion']
+            contraseña = form.cleaned_data['contraseña']
+            # No necesitamos leer es_administrador del formulario
 
-            form.save()
-            messages.success(request, "Registro exitoso.")
-            return redirect('inicio_sesion')
+            # Usamos una transacción para asegurar la atomicidad
+            try:
+                with transaction.atomic():
+                    # 1. Crear el registro base del usuario
+                    usuario_registro = UsuariosRegistro.objects.create(
+                        nombre_usuario=nombre_usuario,
+                        nombre=nombre,
+                        email=email,
+                        contraseña=make_password(contraseña),
+                        es_administrador=False,  # Forzamos es_administrador a False
+                        direccion=direccion
+                    )
+
+                    # 2. Crear el usuario de Django para la autenticación
+                    user = User.objects.create_user(
+                        username=nombre_usuario,
+                        email=email,
+                        password=contraseña
+                    )
+
+                    # 3. Crear Cliente
+                Cliente.objects.create(
+                    usuariosregistro_ptr_id=usuario_registro.id,
+                    nombre_usuario=nombre_usuario,
+                    nombre=nombre,
+                    email=email,
+                    direccion=direccion,
+                    contraseña=contraseña
+                )
+
+                # **** CREAR EL CARRITO ACTIVO PARA EL CLIENTE ****
+                cliente = Cliente.objects.get(usuariosregistro_ptr_id=usuario_registro.id) # Obtener el cliente recién creado
+                carrito = Carrito.objects.create(cliente=cliente, activo=True)
+                print(f"Carrito creado para el cliente {cliente.id} con ID {carrito.id}")
+
+                messages.success(request, "Registro de cliente exitoso.")
+                return redirect('inicio_sesion')
+
+            except IntegrityError as e:
+                # Manejo de la excepción de unicidad violada
+                if 'unique constraint' in str(e).lower() and 'nombre_usuario' in str(e).lower():
+                    form.add_error('nombre_usuario', "Este nombre de usuario ya está en uso.")
+                elif 'unique constraint' in str(e).lower() and 'email' in str(e).lower():
+                    form.add_error('email', "Este correo electrónico ya está registrado.")
+                else:
+                    messages.error(request, "Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.")
+                return render(request, 'auth/form_registro.html', {'form': form})
+        else:
+            # Imprime los errores del formulario para ver qué está fallando en la validación
+            print(f"Errores del formulario: {form.errors}")
+            return render(request, 'auth/form_registro.html', {'form': form})
     else:
         form = RegistroUsuarioForm()
     return render(request, 'auth/form_registro.html', {'form': form})

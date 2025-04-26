@@ -18,34 +18,31 @@
     <title>ONEPLAYER</title>
 </head>
 
-<body class="registro-page">
+
+<body class="inicio_page">
     <header>
-        <div class="container-fluid p-0">
-            <nav class="navbar navbar-expand-lg navbar-dark color-fondo ">
-                <div class="container-fluid">  
-                    <a class="navbar-brand" href="../ONEPLAYER.html">
-                        <h1> <i class="bi bi-controller"></i> ONEPLAYER</h1>
-                    </a>
-    
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="../ONEPLAYER.html"><i class="fas fa-home"></i></i>
-                                    Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./inicio_sesion.html"><i
-                                        class="fas fa-sign-in-alt"></i></i> Iniciar Sesión</a>
-                            </li>
-                        </ul>
-                    </div>
+        <nav class="navbar navbar-expand-lg navbar-dark color-fondo">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'inicio' %}">
+                    <h1><i class="bi bi-controller"></i> ONEPLAYER</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-external-link-alt"></i> Registrarse</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     </header>
 
 
@@ -117,14 +114,6 @@
                             {% endif %}
                         </div>
 
-                        <div class="mb-4">
-                            <label for="{{ form.es_administrador.id_for_label }}" class="form-label font-weight-bold">{{ form.es_administrador.label }}</label>
-                            <br>
-                            {{ form.es_administrador }}
-                            {% if form.es_administrador.errors %}
-                                <div class="alert alert-danger">{{ form.es_administrador.errors }}</div>
-                            {% endif %}
-                        </div>
                         <button type="submit" class="button">Crear cuenta</button>
                     </form>
                 </div>
@@ -144,5 +133,6 @@
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservadoss.
         </p>
     </footer>
+    <script src="{% static 'js/navbar.js' %}"></script>
 </body>
 </html>

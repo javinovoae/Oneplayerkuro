@@ -24,7 +24,7 @@ def email_no_repetido_validator(value, user=None):
 class SoloLetrasEspaciosValidator:
     def __call__(self, value):
         if not re.match(r'^[a-zA-Z\s]+$', value):
-            raise forms.ValidationError("El nombre solo puede contener letras y espacios.")
+            raise forms.ValidationError("Solo puede contener letras y espacios.")
 
 class PasswordSymbolValidator:
     def __call__(self, value):
@@ -61,8 +61,6 @@ class RegistroUsuarioForm(forms.Form):
         required=True,
         label='Dirección',
         max_length=80,
-        validators=[MinLengthValidator(2, "La dirección debe tener al menos 2 caracteres."),
-                    SoloLetrasEspaciosValidator()]
     )
 
     contraseña = forms.CharField(
@@ -81,9 +79,10 @@ class RegistroUsuarioForm(forms.Form):
     )
 
     es_administrador = forms.ChoiceField(
-        label='Tipo de Cuenta',
         choices=[(False, 'Cliente'), (True, 'Administrador')],
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.RadioSelect,
+        required=False,  
+        initial=False    
     )
 
     def clean(self):
