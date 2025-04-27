@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    
     const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioActivo"));
 
     // Elementos del navbar
@@ -40,5 +41,5 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.reload();  
         });
     }
-});
 
+});
