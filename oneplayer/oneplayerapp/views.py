@@ -28,6 +28,7 @@ from .forms import ProductoForm
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError, transaction  
 from django.http import JsonResponse
+from django.utils import timezone
 
 
 @login_required
@@ -135,36 +136,39 @@ def eliminar_producto_carrito(request, producto_id):
     cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
     carrito = get_object_or_404(Carrito, cliente=cliente)
 
-    item = get_object_or_404(CarritoProducto, carrito=carrito, producto_id=producto_id)
-    item.delete()
+    try:
+        item = CarritoProducto.objects.get(carrito=carrito, producto_id=producto_id)
+        item.delete()
+    except CarritoProducto.DoesNotExist:
+        # Si no existe el producto en el carrito, no hacer nada, solo seguir
+        pass
 
-    return redirect('ver_carrito')
+    return redirect('carrito')
 
 @login_required
 def finalizar_compra(request):
-    cliente = get_object_or_404(Cliente, usuario=request.user)
+    cliente = get_object_or_404(Cliente, usuariosregistro_ptr_id=request.user.id)
     carrito = get_object_or_404(Carrito, cliente=cliente, activo=True)
+    items_carrito = CarritoProducto.objects.filter(carrito=carrito)
 
-    productos = carrito.productos.all()
-    if not productos.exists():
+    if not items_carrito.exists():
         messages.error(request, "El carrito está vacío. No puedes realizar la compra.")
-        return redirect('ver_carrito')
+        return redirect('carrito')
 
-    total_compra = sum([p.total() for p in productos])
+    total_compra = sum([item.total() for item in items_carrito])
 
     try:
-        compra = Compra.objects.create(cliente=cliente, total=total_compra)
+        compra = Compra.objects.create(cliente=cliente, total=total_compra, fecha=timezone.now()) 
         carrito.activo = False
         carrito.save()
-
-        productos.delete()
+        items_carrito.delete() 
 
         messages.success(request, f"Compra realizada con éxito. Total: ${total_compra}")
-        return redirect('checkout_view')
+        return redirect('checkout') 
     except Exception as e:
         messages.error(request, f"Ocurrió un error al procesar la compra: {e}")
-        return redirect('ver_carrito')
-
+        return redirect('checkout', compra_id=compra.id)
+    
 @login_required
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()
