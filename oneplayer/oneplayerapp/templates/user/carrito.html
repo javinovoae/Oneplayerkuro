@@ -4,6 +4,13 @@
     <div class="container pt-5 mt-5 mb-5">
         <h2 class="text-center mt-5 mb-5">MI CARRITO </h2>
 
+        <!-- Mostrar mensaje de error si existe -->
+        {% if mensaje_error %}
+            <div class="alert alert-danger">
+                {{ mensaje_error }}
+            </div>
+        {% endif %}
+
         <div class="row mt-5">
             <div class="col-md-8">
                 <div class="bg-cart py-3 d-flex flex-column align-items-center">
@@ -33,14 +40,14 @@
                     </div>
                 </div>
             </div>
-
+        
             <div class="col-md-4 mb-4">
                 <div class="my-5 p-4 border bg-light shadow rounded text-center">
                     <h4 class="mb-4">Resumen</h4>
                     <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal }}</p>
                     <p class="text-muted">Envío: GRATIS</p>
                     <p><strong id="total" class="text-success">Total: ${{ total }}</strong></p>
-
+        
                     <button type="button" id="checkout-btn" class="btn btn-success w-100 mt-3"
                         data-bs-toggle="modal" data-bs-target="#confirmModal">
                         <i class="bi bi-cash-coin me-2"></i> Ir a pagar
@@ -48,7 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

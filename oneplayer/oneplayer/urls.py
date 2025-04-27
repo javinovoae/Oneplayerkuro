@@ -10,7 +10,7 @@ from oneplayerapp import views
 
 urlpatterns = [
 
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     path('', views.oneplayer_view, name='inicio'),
     path('games/accion/', views.accion_view, name='accion'),
@@ -32,7 +32,6 @@ urlpatterns = [
     path('user/gestion/', views.gestion_view, name='gestion'),
     path('checkout/', views.checkout_view, name='checkout'),
     path('editar_perfil/', views.editar_perfil_org, name='editar_perfil'),
-
 
     path('agregar_al_carrito/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
     path('carrito/agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
