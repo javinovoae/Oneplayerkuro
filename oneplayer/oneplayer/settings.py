@@ -15,9 +15,6 @@ import os
 import oracledb
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-#CONEXION A BASE DE DATOS
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASES = {
@@ -33,8 +30,6 @@ DATABASES = {
 }
 import oracledb
 
-#CONEXION A BASE DE DATOS
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASES = {
@@ -49,7 +44,6 @@ DATABASES = {
     }
 }
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
@@ -63,9 +57,6 @@ SECRET_KEY = 'django-insecure-xnwk512=&16kzjk%4-$lw%*)o9*#w@9xj7yr347gib1!8cyv=q
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
