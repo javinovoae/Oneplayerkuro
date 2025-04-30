@@ -1,16 +1,17 @@
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 from oneplayerapp import views
-# from rest_framework.routers import DefaultRouter
-# from oneplayerapp.views import ClienteViewSet, AdministradorViewSet, ProductoViewSet
-# router = DefaultRouter()
-# router.register(r'clientes', ClienteViewSet)
-# router.register(r'administradores', AdministradorViewSet)
-# router.register(r'productos', ProductoViewSet)
+from oneplayerapp.api_views import ProductoViewSet, CategoriaViewSet, ClienteViewSet, AdministradorViewSet
+from rest_framework.authtoken.views import obtain_auth_token
+
+router = DefaultRouter()
+router.register(r'productos', ProductoViewSet)
+router.register(r'categorias', CategoriaViewSet)
+router.register(r'clientes', ClienteViewSet)
+router.register(r'administradores', AdministradorViewSet)
 
 urlpatterns = [
-
-    # path('admin/', admin.site.urls),
 
     path('', views.oneplayer_view, name='inicio'),
     path('games/accion/', views.accion_view, name='accion'),
@@ -41,8 +42,11 @@ urlpatterns = [
     path('categorias/agregar/', views.agregar_categoria, name='agregar_categoria'),
     path('categorias/editar/<int:categoria_id>/', views.editar_categoria, name='editar_categoria'),
     path('categorias/eliminar/<int:categoria_id>/', views.eliminar_categoria, name='eliminar_categoria'),
+
     path('user/agregar_juego/<int:categoria_id>/', views.agregar_juego, name='agregar_juego'),
     path('checkout/<int:compra_id>/', views.checkout_view, name='checkout'),
 
-    # path('api/', include(router.urls)),
+    path('api/', include(router.urls)), 
+    path('api/token/', obtain_auth_token, name='api_token'),
+
 ]

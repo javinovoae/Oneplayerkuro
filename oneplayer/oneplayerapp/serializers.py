@@ -1,17 +1,22 @@
-#from rest_framework import serializers
-from .models import Cliente, Administrador, Producto
+from rest_framework import serializers
+from .models import Producto, Categoria, Cliente, Administrador
 
-#class ClienteSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = Cliente
-#        fields = ['id', 'nombre', 'apellido', 'email', 'carrito']  
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = '__all__'
 
-#class AdministradorSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = Administrador
-#        fields = ['id', 'nombre', 'apellido', 'email']
+class CategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = '__all__'
 
-#class ProductoSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = Producto
-#        fields = '__all__'  
+class ClienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+
+class AdministradorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Administrador
+        fields = '__all__'

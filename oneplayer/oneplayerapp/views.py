@@ -1,35 +1,19 @@
-# from rest_framework import viewsets
-# from .serializers import ClienteSerializer, AdministradorSerializer, ProductoSerializer
-
-# Vista de la API
-# class ClienteViewSet(viewsets.ModelViewSet):
-#     queryset = Cliente.objects.all()
-#     serializer_class = ClienteSerializer
-
-# class AdministradorViewSet(viewsets.ModelViewSet):
-#     queryset = Administrador.objects.all()
-#     serializer_class = AdministradorSerializer
-
-# class ProductoViewSet(viewsets.ModelViewSet):
-#     queryset = Producto.objects.all()
-#     serializer_class = ProductoSerializer
-
-from .form_registro import EditarPerfilForm, RegistroUsuarioForm, CambiarContraseñaForm
-from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .models import UsuariosRegistro, Carrito, CarritoProducto, Cliente, Producto, Categoria, Administrador, Compra
-from .forms import CategoriaForm, EditarCategoriaForm
 from decimal import Decimal
-from .forms import ProductoForm 
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.hashers import make_password
-from django.db import IntegrityError, transaction  
+from django.contrib.auth.models import User
+from django.db import IntegrityError, transaction
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
+from .form_registro import CambiarContraseñaForm, EditarPerfilForm, RegistroUsuarioForm
+from .forms import CategoriaForm, EditarCategoriaForm, ProductoForm
+from .models import Administrador, Carrito, CarritoProducto, Categoria, Cliente, Compra, Producto, UsuariosRegistro
 
 @login_required
 def mi_cuenta(request):
@@ -38,7 +22,7 @@ def mi_cuenta(request):
     })
 
 def oneplayer_view(request):
-    return render(request, 'ONEPLAYER.html')  
+    return render(request, 'ONEPLAYER.html')
 
 def accion_view(request):
     return render(request, 'games/accion.html')
@@ -92,11 +76,9 @@ def gestion_view(request):
     categorias = Categoria.objects.all()
     return render(request, 'user/gestion.html', {'categorias': categorias})
 
-
 def logout_view(request):
     logout(request)
     return redirect('inicio_sesion')
-
 
 @login_required(login_url='/auth/inicio_sesion/')
 def agregar_al_carrito(request, producto_id):
@@ -131,7 +113,6 @@ def carrito_view(request):
         return render(request, 'carrito.html', {'productos': [], 'mensaje': 'Tu perfil de cliente no existe.'})
     except Carrito.DoesNotExist:
         return render(request, 'carrito.html', {'productos': [], 'mensaje': 'Tu carrito está vacío.'})
-
 
 @login_required
 def eliminar_producto_carrito(request, producto_id):
@@ -169,7 +150,7 @@ def finalizar_compra(request):
     except Exception as e:
         messages.error(request, f"Ocurrió un error al procesar la compra: {e}")
         return redirect('checkout', compra_id=compra.id)
-    
+
 @login_required
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()
@@ -267,7 +248,6 @@ def registrar_usuario_vw(request):
                     messages.error(request, "Ocurrió un error durante el registro. Por favor, inténtalo de nuevo.")
                 return render(request, 'auth/form_registro.html', {'form': form})
         else:
-
             print(f"Errores del formulario: {form.errors}")
             return render(request, 'auth/form_registro.html', {'form': form})
     else:
@@ -288,7 +268,7 @@ def editar_contraseña_org(request):
     else:
         form = CambiarContraseñaForm()
         return render(request, 'user/contraseña.html', {'form': form})
-    
+
 @login_required
 def cambiar_contraseña_view(request):
     form = CambiarContraseñaForm()
@@ -338,8 +318,8 @@ def agregar_juego(request, categoria_id):
 
     return render(request, 'user/agregar_juego.html', {'form': form, 'categoria': categoria})
 
-
 @login_required
 def gestion_view(request):
     categorias = Categoria.objects.prefetch_related('productos').all()
     return render(request, 'user/gestion.html', {'categorias': categorias})
+
