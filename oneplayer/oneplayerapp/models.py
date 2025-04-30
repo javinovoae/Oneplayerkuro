@@ -3,7 +3,6 @@ from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-
 class Categoria(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
@@ -14,30 +13,20 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-class Producto(models.Model):
+class Carrito(models.Model):
     id = models.BigAutoField(primary_key=True)
-    nombre = models.CharField(max_length=255)
-    descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.PositiveIntegerField() 
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, related_name='carritos')
+    activo = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'ONEPLAYERAPP_PRODUCTO'  
-
-    def __str__(self):
-        return self.nombre
-
-class Carrito(models.Model):
-    cliente = models.OneToOneField('Cliente', on_delete=models.CASCADE, related_name='carrito_cliente')
-    activo = models.BooleanField(default=True)
+        unique_together = ('cliente', 'activo')
 
     def __str__(self):
         return f"Carrito de {self.cliente.nombre}"
 
 class CarritoProducto(models.Model):
-    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='productos')
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey('Producto', on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
 
     def __str__(self):
@@ -78,3 +67,17 @@ class Cliente(UsuariosRegistro):
 class Administrador(UsuariosRegistro):
     def __str__(self):
         return f"Administrador: {self.nombre}"
+    
+class Producto(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    nombre = models.CharField(max_length=255)
+    descripcion = models.TextField()
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    stock = models.PositiveIntegerField() 
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
+
+    class Meta:
+        db_table = 'ONEPLAYERAPP_PRODUCTO'  
+
+    def __str__(self):
+        return self.nombre

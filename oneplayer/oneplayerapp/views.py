@@ -87,8 +87,11 @@ def cuenta_view(request):
         'form': form,
     })
 
+@login_required
 def gestion_view(request):
-    return render(request, 'user/gestion.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'user/gestion.html', {'categorias': categorias})
+
 
 def logout_view(request):
     logout(request)
@@ -111,7 +114,7 @@ def agregar_al_carrito(request, producto_id):
 
     carrito_producto.save()
 
-    total_items_carrito = carrito.productos.count()
+    total_items_carrito = carrito.items.count()
     return JsonResponse({'status': 'success', 'message': f"'{producto.nombre}' añadido al carrito.", 'total_items': total_items_carrito})
     return redirect('carrito')
 
@@ -316,11 +319,15 @@ def editar_perfil_org(request):
         return render(request, 'cuenta', {'form': form})
 
 @login_required
-def agregar_juego(request):
+def agregar_juego(request, categoria_id):
+    categoria = get_object_or_404(Categoria, id=categoria_id)
+
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            juego = form.save(commit=False)
+            juego.categoria = categoria 
+            juego.save()
             messages.success(request, "Juego agregado correctamente.")
             return redirect('gestion') 
         else:
@@ -329,5 +336,10 @@ def agregar_juego(request):
     else:
         form = ProductoForm()
 
-    return render(request, 'user/agregar_juego.html', {'form': form})
+    return render(request, 'user/agregar_juego.html', {'form': form, 'categoria': categoria})
 
+
+@login_required
+def gestion_view(request):
+    categorias = Categoria.objects.prefetch_related('productos').all()
+    return render(request, 'user/gestion.html', {'categorias': categorias})

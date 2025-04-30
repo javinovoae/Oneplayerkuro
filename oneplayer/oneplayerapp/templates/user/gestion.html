@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 {% load static %}
+{% load l10n %}
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap" rel="stylesheet">
@@ -16,27 +15,9 @@
     <script src="https://kit.fontawesome.com/a009c454f8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gestion.css' %}">
 
-    <title>Gestión de categorías - ONEPLAYER</title>
- 
-    <style>
-        #checkout-btn {
-            font-size: 1.1rem;
-            padding: 0.75rem 1.25rem;
-            transition: 0.3s ease;
-        }
-
-        #checkout-btn:hover {
-            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-        }
-
-        .bg-cart {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-    </style>
+    <title>Gestión de categorías - ONEPLAYER</title>  
 </head>
 
 <body>
@@ -71,44 +52,69 @@
         </nav>
     </div>
 
-    <div class="container mt-5">
-        <div class="col-md-12">
-            <h2 class="text-center mb-4">GESTIÓN DE CATEGORÍAS</h2>
-
-            <div id="lista_categorias">
-                <ul class="list-group" id="categoria-list">
-                    {% for categoria in categorias %}
-                        <li class="list-group-item d-flex justify-content-between">
-                            {{ categoria.nombre }}
-                            <div>
-                                <a href="{% url 'agregar_juegos' categoria.id %}" class="btn btn-success btn-sm ml-2">Agregar juegos</a>
-                                <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info btn-sm ml-2">Editar</a>
-                                <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger btn-sm ml-2" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</a>
-                            </div>
-                        </li>
-                    {% empty %}
-                        <li class="list-group-item">No hay categorías disponibles.</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div class="text-center mt-5 mb-5">
-                <a href="{% url 'agregar_categoria' %}" class="btn btn-primary">Agregar categoría</a>
+    <div class="main-content">
+        <div class="container mt-5">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">GESTIÓN DE CATEGORÍAS</h2>
+                <div class="text-center mb-4">
+                    <a href="{% url 'agregar_categoria' %}" class="btn btn-info btn-lg">
+                        <i class="bi bi-plus-circle"></i> Agregar categoría
+                    </a>
+                </div>
+                <div id="lista_categorias">
+                    <ul class="list-group" id="categoria-list">
+                        {% for categoria in categorias %}
+                            <li class="categoria-card">
+                                <div>
+                                    <i class="bi bi-controller"></i> <strong>{{ categoria.nombre }}</strong>
+                                    <div>
+                                        {% if categoria.productos.all %}
+                                        <ul class="mt-2">
+                                            {% for producto in categoria.productos.all %}
+                                                <li class="producto-card">
+                                                    <strong>{{ producto.nombre }}</strong><br>
+                                                    Precio: <span class="precio">${{ producto.precio|floatformat:0|localize }}</span>
+                                                    Stock: <span class="stock">{{ producto.stock }} unidades</span><br>
+                                                </li>
+                                            {% empty %}
+                                                <li>No hay productos disponibles en esta categoría.</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>No hay productos en esta categoría.</p>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                <div class="categoria-botones">
+                                    <a href="{% url 'agregar_juego' categoria.id %}" class="btn btn-success">Agregar juego</a>
+                                    <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info">Editar</a>
+                                    <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</a>
+                                </div>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No hay categorías disponibles.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"></i></a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="about_blank"><i class="fa-brands fa-instagram fa-xl"></i></a>
-            <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl"></i></a>
+            <a href="https://wa.me/56987654321" target="_blank">
+                <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
+            </a>
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"
+                data-toggle="tooltip" data-placement="top" title="Instagram">
+                <i class="fa-brands fa-instagram fa-xl"></i>
+            </a>
+            <a href="mailto:oneplayer@gmail.com">
+                <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
+                    title="Correo Electrónico"></i>
+            </a>
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/admin.js"></script>
 </body>
 
 </html>

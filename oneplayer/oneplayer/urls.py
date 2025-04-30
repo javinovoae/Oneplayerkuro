@@ -41,7 +41,7 @@ urlpatterns = [
     path('categorias/agregar/', views.agregar_categoria, name='agregar_categoria'),
     path('categorias/editar/<int:categoria_id>/', views.editar_categoria, name='editar_categoria'),
     path('categorias/eliminar/<int:categoria_id>/', views.eliminar_categoria, name='eliminar_categoria'),
-    path('user/agregar_juego/', views.agregar_juego, name='agregar_juego'),
+    path('user/agregar_juego/<int:categoria_id>/', views.agregar_juego, name='agregar_juego'),
     path('checkout/<int:compra_id>/', views.checkout_view, name='checkout'),
 
     # path('api/', include(router.urls)),
