@@ -378,3 +378,58 @@ form input {
     border: none;
     cursor: pointer;
 }
+
+.content-with-news {
+    display: flex; /* Usamos Flexbox para la disposición lado a lado */
+    flex-wrap: wrap; /* Permitimos que los elementos se envuelvan en pantallas pequeñas */
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+    padding: 20px;
+}
+
+.news-column {
+    flex: 1 0 300px; /* Ocupa al menos 300px de ancho y crece/se encoge */
+    margin-right: 20px; /* Espacio entre la columna de noticias y la galería */
+}
+
+.gallery {
+    flex: 1 0 auto; /* Ocupa el espacio restante */
+    display: flex;
+    gap: 10px;
+}
+
+.photo {
+    flex: 1; /* Las fotos se expanden para llenar el espacio disponible */
+    overflow: hidden; /* Evita que las imágenes se desborden */
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+    display: block; /* Elimina el espacio extra debajo de la imagen */
+}
+
+/* Estilos adicionales para las noticias */
+.news-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.news-item:last-child {
+    border-bottom: none;
+}
+
+.news-item h3 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.news-item h3 a:hover {
+    text-decoration: underline;
+}
+
+.news-item small {
+    color: #777;
+    display: block;
+    margin-top: 5px;
+}

@@ -107,7 +107,15 @@
                         <div class="titlegame">
                             <h3>Monster Hunter Wilds</h3>
                             <br>
+                            {% if monster.video_url %}
+                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ monster.video_url }}" data-game-title="Monster Hunter">
+                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                            </button>
+                            {% endif %}
                         </div>
+                        <br>
+                        <br>
+                        <br>
                         <h5><b>Precio: $64.990</b></h5>
                         <br>
                         <p class="game-description">
@@ -135,7 +143,15 @@
                         <div class="titlegame">
                             <h3>Red Dead Redemption 2</h3>
                             <br>
+                            {% if red.video_url %}
+                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ red.video_url }}" data-game-title="Red Dead Redemption 2">
+                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                            </button>
+                            {% endif %}
                         </div>
+                        <br>
+                        <br>
+                        <br>
                         <h5><b>Precio: $23.990</b></h5>
                         <br>
                         <p class="game-description">
@@ -224,6 +240,24 @@
             });
         });
     </script>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trailerButtons = document.querySelectorAll('.ver-trailer-btn');
+
+        trailerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const trailerUrl = this.dataset.trailerUrl;
+                if (trailerUrl) {
+                    window.open(trailerUrl, '_blank');
+                } else {
+                    alert('La URL del tráiler no está disponible.');
+                }
+            });
+        });
+    });
+</script>
     
 </body>
 </html>

@@ -88,12 +88,12 @@
 
         <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
             <div class="links">
-                <a href="{% url 'terror' %}" class="col-12 col-sm-auto text-center">Terror</a> 
-                <a href="{% url 'accion' %}" class="col-12 col-sm-auto text-center">Acción</a> 
-                <a href="{% url 'carrera' %}" class="col-12 col-sm-auto text-center">Carreras</a> 
-                <a href="{% url 'ftp' %}" class="col-12 col-sm-auto text-center">Free to Play</a> 
-                <a href="{% url 'ma' %}" class="col-12 col-sm-auto text-center">Mundo Abierto</a> 
-                <a href="{% url 'supervivencia' %}" class="col-12 col-sm-auto text-center">Supervivencia</a> 
+                <a href="{% url 'listar_terror' %}" class="col-12 col-sm-auto text-center">Terror</a> 
+                <a href="{% url 'listar_accion' %}" class="col-12 col-sm-auto text-center">Acción</a> 
+                <a href="{% url 'listar_carrera' %}" class="col-12 col-sm-auto text-center">Carreras</a> 
+                <a href="{% url 'listar_ftp' %}" class="col-12 col-sm-auto text-center">Free to Play</a> 
+                <a href="{% url 'listar_ma' %}" class="col-12 col-sm-auto text-center">Mundo Abierto</a> 
+                <a href="{% url 'listar_supervivencia' %}" class="col-12 col-sm-auto text-center">Supervivencia</a> 
             </div>
         </div>
 
@@ -105,19 +105,38 @@
         </p>
     </div>
 
-
-    <section class="gallery">
-        <div class="photo">
-            <img src="{% static 'img/TERROR.jpg' %}" alt="">   
+    <section class="content-with-news">
+        <div class="news-column">
+            <h2>Últimas Noticias</h2>
+            <div id="news-container">
+                {% for noticia in noticias_vandal %}
+                    <div class="news-item">
+                        <h3><a href="{{ noticia.link }}">{{ noticia.titulo }}</a></h3>
+                        {% if noticia.imagen_url %}
+                            <img src="{{ noticia.imagen_url }}" alt="Imagen de la noticia" style="max-width: 100px; float: left; margin-right: 10px;">
+                        {% endif %}
+                        <p>{{ noticia.descripcion }} <a href="{{ noticia.link }}">Leer más</a></p>
+                        <small>Publicado: {{ noticia.fecha }}</small>
+                        <hr>
+                    </div>
+                {% empty %}
+                    <p>No hay noticias disponibles de Vandal en este momento.</p>
+                {% endfor %}
+            </div>
+            <a href="https://vandal.elespanol.com/" target="_blank">Ver más noticias de Vandal</a>
         </div>
-        <div class="photo">
-            <img src="{% static 'img/JCARRERA.jpeg' %}" alt=""> 
-        </div>
-        <div class="photo">
-            <img src="{% static 'img/MA.jpg' %}" alt=""> 
-        </div>
+        <section class="gallery">
+            <div class="photo">
+                <img src="{% static 'img/TERROR.jpg' %}" alt="">
+            </div>
+            <div class="photo">
+                <img src="{% static 'img/JCARRERA.jpeg' %}" alt="">
+            </div>
+            <div class="photo">
+                <img src="{% static 'img/MA.jpg' %}" alt="">
+            </div>
+        </section>
     </section>
-
 
     <footer class="text-center pt-4">
         <div class="social-media">

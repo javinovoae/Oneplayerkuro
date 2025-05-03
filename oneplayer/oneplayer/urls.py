@@ -13,7 +13,22 @@ router.register(r'administradores', AdministradorViewSet)
 
 urlpatterns = [
 
-    path('', views.oneplayer_view, name='inicio'),
+
+    path('productos/accion/', views.listar_accion, name='listar_accion'),
+    path('productos/carrera/', views.listar_carrera, name='listar_carrera'),
+    path('productos/free-to-play/', views.listar_ftp, name='listar_ftp'),
+    path('productos/mundo-abierto/', views.listar_ma, name='listar_ma'),
+    path('productos/supervivencia/', views.listar_supervivencia, name='listar_supervivencia'),
+    path('productos/terror/', views.listar_terror, name='listar_terror'),
+    path('inicio/noticias', views.vandal_noticias_view, name='inicio_noti'),
+
+    
+
+    #path('', views.oneplayer_view, name='inicio'),
+
+    path('', views.vandal_noticias_view, name='inicio'),  # ¡Aquí está el cambio!
+    path('home/', views.oneplayer_view, name='home'),
+
     path('games/accion/', views.accion_view, name='accion'),
     path('games/carrera/', views.carrera_view, name='carrera'),
     path('games/FTP/', views.ftp_view, name='ftp'),

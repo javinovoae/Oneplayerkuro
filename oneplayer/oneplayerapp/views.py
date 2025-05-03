@@ -10,6 +10,11 @@ from django.db import IntegrityError, transaction
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+import feedparser
+import requests
+from django.utils.timezone import make_aware
+import datetime
+import re
 
 from .form_registro import CambiarContraseñaForm, EditarPerfilForm, RegistroUsuarioForm
 from .forms import CategoriaForm, EditarCategoriaForm, ProductoForm
@@ -323,3 +328,193 @@ def gestion_view(request):
     categorias = Categoria.objects.prefetch_related('productos').all()
     return render(request, 'user/gestion.html', {'categorias': categorias})
 
+
+def listar_accion(request):
+    context = {}
+    try:
+        context['elden_ring'] = Producto.objects.get(nombre="Elden Ring")
+    except Producto.DoesNotExist:
+        context['elden_ring'] = None
+
+    try:
+        context['cyberpunk'] = Producto.objects.get(nombre="Cyberpunk 2077")
+    except Producto.DoesNotExist:
+        context['cyberpunk'] = None
+
+    return render(request, 'games/accion.html', context)
+
+
+def listar_carrera(request):
+    context = {}
+    try:
+        context['mario_kart'] = Producto.objects.get(nombre="Mario Kart 8 Deluxe")
+    except Producto.DoesNotExist:
+        context['mario_kart'] = None
+
+    try:
+        context['sonic'] = Producto.objects.get(nombre="Sonic Racing")
+    except Producto.DoesNotExist:
+        context['sonic'] = None
+
+    return render(request, 'games/carrera.html', context)
+
+
+def listar_supervivencia(request):
+    context = {}
+    try:
+        context['baldur'] = Producto.objects.get(nombre="Baldur's Gate 3")
+    except Producto.DoesNotExist:
+        context['baldur'] = None
+
+    try:
+        context['resident'] = Producto.objects.get(nombre="Resident Evil 4") # Usando Resident Evil como ejemplo de rol/terror
+    except Producto.DoesNotExist:
+        context['resident'] = None
+
+    return render(request, 'games/supervivencia.html', context)
+
+
+
+def listar_ftp(request):
+    context = {}
+    try:
+        context['counter'] = Producto.objects.get(nombre="Counter-Strike 2")
+    except Producto.DoesNotExist:
+        context['counter'] = None
+
+    try:
+        context['marvel'] = Producto.objects.get(nombre="Marvel Rivals") 
+    except Producto.DoesNotExist:
+        context['marvel'] = None
+
+    return render(request, 'games/FTP.html', context)
+
+
+def listar_ma(request):
+    context = {}
+    try:
+        context['monster'] = Producto.objects.get(nombre="Monster Hunter Wilds")
+    except Producto.DoesNotExist:
+        context['monster'] = None
+
+    try:
+        context['red'] = Producto.objects.get(nombre="Red Dead Redemption 2") 
+    except Producto.DoesNotExist:
+        context['red'] = None
+
+    return render(request, 'games/MA.html', context)
+
+
+def listar_terror(request):
+    context = {}
+    try:
+        context['resident'] = Producto.objects.get(nombre="Resident Evil 4")
+    except Producto.DoesNotExist:
+        context['resident'] = None
+
+    try:
+        context['squid'] = Producto.objects.get(nombre="Terror Squid") 
+    except Producto.DoesNotExist:
+        context['squid'] = None
+
+    return render(request, 'games/terror.html', context)
+
+
+
+def vandal_noticias_view(request):
+    vandal_feed_url = "https://vandal.elespanol.com/xml.cgi"
+    
+    # User-Agent personalizado
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; MyApp/1.0; +https://example.com)'
+    }
+    try:
+        response = requests.get(vandal_feed_url, headers=headers, timeout=10)
+        response.raise_for_status() 
+        feed = feedparser.parse(response.content)
+    except Exception as e:
+        print(f"Error al obtener o parsear el feed: {e}")
+        feed = feedparser.parse("") 
+
+    noticias_vandal = []
+    for entry in feed.entries[:5]:
+        titulo = entry.get('title', 'Sin título')
+        link = entry.get('link', '#')
+        descripcion = entry.get('description', 'Sin descripción')
+        fecha_str = entry.get('published') or entry.get('pubdate')
+        fecha = None
+        if fecha_str:
+            try:
+                fecha = make_aware(datetime.datetime(*feedparser._parse_date(fecha_str)[:6]))
+            except Exception as e:
+                print(f"Error al parsear la fecha: {e}")
+                fecha = 'Fecha desconocida'
+        else:
+            fecha = 'Fecha desconocida'
+
+        imagen_url = None
+        descripcion_resumen = 'Sin descripción'
+        if descripcion:
+            img_match = re.search(r'<img.*?src="(.*?)"', descripcion)
+            if img_match:
+                imagen_url = img_match.group(1)
+            descripcion_sin_html = re.sub('<[^<]+?>', '', descripcion).strip()
+            descripcion_resumen = descripcion_sin_html[:150] + '...' if len(descripcion_sin_html) > 150 else descripcion_sin_html
+
+        noticia = {
+            'titulo': titulo,
+            'link': link,
+            'descripcion': descripcion_resumen,
+            'fecha': fecha if not isinstance(fecha, str) else fecha,
+            'imagen_url': imagen_url
+        }
+        noticias_vandal.append(noticia)
+
+    context = {'noticias_vandal': noticias_vandal, 'fuente': 'Vandal'}
+    return render(request, 'ONEPLAYER.html', context)
+
+
+
+'''
+def vandal_noticias_view(request):
+    vandal_feed_url = "https://vandal.elespanol.com/xml.cgi"
+    feed = feedparser.parse(vandal_feed_url)
+    noticias_vandal = []
+    for entry in feed.entries[:5]:
+        titulo = entry.get('title', 'Sin título')
+        link = entry.get('link', '#')
+        descripcion = entry.get('description', 'Sin descripción')
+        fecha_str = entry.get('published') or entry.get('pubdate')
+        fecha = None
+        if fecha_str:
+            try:
+                fecha = make_aware(datetime.datetime(*feedparser._parse_date(fecha_str)[:6]))
+            except Exception as e:
+                print(f"Error al parsear la fecha: {e}")
+                fecha = 'Fecha desconocida'
+        else:
+            fecha = 'Fecha desconocida'
+
+        # Intenta extraer la primera imagen de la descripción (más robusto)
+        imagen_url = None
+        if descripcion:
+            img_match = re.search(r'<img.*?src="(.*?)"', descripcion)
+            if img_match:
+                imagen_url = img_match.group(1)
+            # Elimina las etiquetas HTML de la descripción para mostrar un resumen
+            descripcion_sin_html = re.sub('<[^<]+?>', '', descripcion).strip()
+            # Trunca la descripción para el resumen
+            descripcion_resumen = descripcion_sin_html[:150] + '...' if len(descripcion_sin_html) > 150 else descripcion_sin_html
+
+        noticia = {
+            'titulo': titulo,
+            'link': link,
+            'descripcion': descripcion_resumen, # Usamos el resumen
+            'fecha': fecha if not isinstance(fecha, str) else fecha,
+            'imagen_url': imagen_url
+        }
+        noticias_vandal.append(noticia)
+
+    context = {'noticias_vandal': noticias_vandal, 'fuente': 'Vandal'}
+    return render(request, 'inicio', context)
+'''

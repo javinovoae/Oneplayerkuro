@@ -107,7 +107,15 @@
                         <div class="titlegame">
                             <h3>Counter Strike 2</h3>
                             <br>
+                            {% if counter.video_url %}
+                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ counter.video_url }}" data-game-title="Counter Strike">
+                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                            </button>
+                            {% endif %}
                         </div>
+                        <br>
+                        <br>
+                        <br>
                         <h5><b>GRATIS </b></h5>
                         <br>
                         <p class="game-description">
@@ -131,9 +139,17 @@
                     </td>
                     <td>
                         <div class="titlegame">
-                            <h3>Marvels Rivals</h3>
+                            <h3>Marvel Rivals</h3>
                             <br>
+                            {% if marvel.video_url %}
+                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ marvel.video_url }}" data-game-title="Marvel Rivals">
+                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                            </button>
+                            {% endif %}
                         </div>
+                        <br>
+                        <br>
+                        <br>
                         <h5><b>GRATIS</b></h5>
                         <br>
                         <p class="game-description">
@@ -221,6 +237,24 @@
             });
         });
     </script>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const trailerButtons = document.querySelectorAll('.ver-trailer-btn');
+
+        trailerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const trailerUrl = this.dataset.trailerUrl;
+                if (trailerUrl) {
+                    window.open(trailerUrl, '_blank');
+                } else {
+                    alert('La URL del tráiler no está disponible.');
+                }
+            });
+        });
+    });
+</script>
     
 </body>
 </html>
