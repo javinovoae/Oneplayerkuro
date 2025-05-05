@@ -83,10 +83,9 @@
     <div class="background-image" id="categorias">
         <img src="{% static 'img/bg-header.jpg' %}" alt="" class="img-fluid mb-4"> 
 
-
         <h2>CATEGORÍAS</h2>
 
-        <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
             <div class="links">
                 <a href="{% url 'listar_terror' %}" class="col-12 col-sm-auto text-center">Terror</a> 
                 <a href="{% url 'listar_accion' %}" class="col-12 col-sm-auto text-center">Acción</a> 
@@ -105,49 +104,58 @@
         </p>
     </div>
 
+
     <section class="content-with-news">
-        <div class="news-column">
-            <h2>Últimas Noticias</h2>
-            <div id="news-container">
+        <div class="news-column mt-3 mb-3">
+            <h2>ÚLTIMAS NOTICIAS</h2>
+        </div>
+
+            <div id="news-container mt-3 mb-3">
                 {% for noticia in noticias_vandal %}
                     <div class="news-item">
                         <h3><a href="{{ noticia.link }}">{{ noticia.titulo }}</a></h3>
                         {% if noticia.imagen_url %}
-                            <img src="{{ noticia.imagen_url }}" alt="Imagen de la noticia" style="max-width: 100px; float: left; margin-right: 10px;">
+                            <img src="{{ noticia.imagen_url }}" alt="Imagen de la noticia" style="max-width: 100px; float: left; margin-right: 20px;">
                         {% endif %}
-                        <p>{{ noticia.descripcion }} <a href="{{ noticia.link }}">Leer más</a></p>
+                        <p>{{ noticia.descripcion }} <a href="{{ noticia.link }}" style="color: rgb(128, 109, 206);"> Leer más</a></p>
                         <small>Publicado: {{ noticia.fecha }}</small>
                         <hr>
                     </div>
                 {% empty %}
                     <p>No hay noticias disponibles de Vandal en este momento.</p>
                 {% endfor %}
-            </div>
-            <a href="https://vandal.elespanol.com/" target="_blank">Ver más noticias de Vandal</a>
+
+            <div class="mb-3">
+            <a href="https://vandal.elespanol.com/" style="color: rgb(128, 109, 206);" target="_blank"> Ver más noticias de Vandal</a>
         </div>
-        <section class="gallery">
-            <div class="photo">
-                <img src="{% static 'img/TERROR.jpg' %}" alt="">
-            </div>
-            <div class="photo">
-                <img src="{% static 'img/JCARRERA.jpeg' %}" alt="">
-            </div>
-            <div class="photo">
-                <img src="{% static 'img/MA.jpg' %}" alt="">
-            </div>
-        </section>
+
+        </div>
     </section>
+
+
+    <section class="gallery">
+        <div class="photo">
+            <img src="{% static 'img/TERROR.jpg' %}" alt="">
+        </div>
+        <div class="photo">
+            <img src="{% static 'img/JCARRERA.jpeg' %}" alt="">
+        </div>
+        <div class="photo">
+            <img src="{% static 'img/MA.jpg' %}" alt="">
+        </div>
+    </section>
+
 
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
                 <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
             </a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;" target="_blank"
                 data-toggle="tooltip" data-placement="top" title="Instagram">
                 <i class="fa-brands fa-instagram fa-xl"></i>
             </a>
-            <a href="mailto:oneplayer@gmail.com">
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
                 <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
                     title="Correo Electrónico"></i>
             </a>

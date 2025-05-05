@@ -90,10 +90,27 @@ body {
 }
 
 
-
 .lead {
     font-size: 1.25rem;
     font-weight: 300;
+}
+
+
+@media (max-width: 768px) {
+    .background-image h2 {
+        top: 20%; 
+        font-size: 1.5rem;
+    }
+
+    .background-image .links {
+        top: 35%; 
+    }
+
+    .background-image .links a {
+        margin: 8px; 
+        padding: 8px 12px; 
+        font-size: 0.9rem;
+    }
 }
 
 
@@ -284,6 +301,7 @@ h2 {
 }
 
 
+
 /* BOTONES */
 #checkout-btn {
     border: 2px solid black;
@@ -379,33 +397,27 @@ form input {
     cursor: pointer;
 }
 
+
+
+/* NEWS */ 
 .content-with-news {
-    display: flex; /* Usamos Flexbox para la disposición lado a lado */
-    flex-wrap: wrap; /* Permitimos que los elementos se envuelvan en pantallas pequeñas */
-    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
-    padding: 20px;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    padding: 35px;
+    background-color: hsl(0, 0%, 95%);
 }
 
 .news-column {
     flex: 1 0 300px; /* Ocupa al menos 300px de ancho y crece/se encoge */
-    margin-right: 20px; /* Espacio entre la columna de noticias y la galería */
+    margin-right: 40px; 
+    text-align: center;
 }
 
-.gallery {
-    flex: 1 0 auto; /* Ocupa el espacio restante */
-    display: flex;
-    gap: 10px;
-}
-
-.photo {
-    flex: 1; /* Las fotos se expanden para llenar el espacio disponible */
-    overflow: hidden; /* Evita que las imágenes se desborden */
-}
-
-.photo img {
-    width: 100%;
-    height: auto;
-    display: block; /* Elimina el espacio extra debajo de la imagen */
+.new-container {
+    align-items: center;
+    text-align: center;
+    margin-right: 40px; 
 }
 
 /* Estilos adicionales para las noticias */
@@ -422,6 +434,7 @@ form input {
 .news-item h3 a {
     color: #333;
     text-decoration: none;
+    margin-bottom: 20px;
 }
 
 .news-item h3 a:hover {
@@ -432,4 +445,5 @@ form input {
     color: #777;
     display: block;
     margin-top: 5px;
+    margin-bottom: 10px;
 }
