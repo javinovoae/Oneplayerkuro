@@ -367,9 +367,9 @@ def listar_supervivencia(request):
         context['baldur'] = None
 
     try:
-        context['resident'] = Producto.objects.get(nombre="Resident Evil 4") # Usando Resident Evil como ejemplo de rol/terror
+        context['rust'] = Producto.objects.get(nombre="Rust") 
     except Producto.DoesNotExist:
-        context['resident'] = None
+        context['rust'] = None
 
     return render(request, 'games/supervivencia.html', context)
 
