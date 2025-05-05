@@ -26,7 +26,7 @@ urlpatterns = [
 
     #path('', views.oneplayer_view, name='inicio'),
 
-    path('', views.vandal_noticias_view, name='inicio'),  # ¡Aquí está el cambio!
+    path('', views.vandal_noticias_view, name='inicio'), 
     path('home/', views.oneplayer_view, name='home'),
 
     path('games/accion/', views.accion_view, name='accion'),

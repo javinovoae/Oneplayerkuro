@@ -49,19 +49,21 @@
             </section>
         </nav>
     </div>
+
+
     <div class="volver">
         <div class="text-left mb-4 mt-4">
-            <a class="nav-link d-inline" href="./cuenta.html">
-                <button type="submit" class="btn btn-white">VOLVER <i class="bi bi-arrow-return-left"></i></button>
+            <a href="{% url 'cuenta' %}" class="btn btn-white">
+                VOLVER <i class="bi bi-arrow-return-left"></i>
             </a>
         </div>
     </div>
-
+    
 
     {% block content %}
     <div class="container mt-3">
         <div class="w-50 mx-auto">
-            <h2 class="text-center">RECUPERAR CONTRASEÑA</h2>
+            <h2 class="text-center">CAMBIAR CONTRASEÑA</h2>
                 <form method="post" class="mb-5" action="{% url 'cambiar_contraseña' %}">
                 {% csrf_token %}
                 {% if form.non_field_errors %}
@@ -112,13 +114,13 @@
     
                 <div id="error_mensaje" class="mb-4" style="display:none; color: blue;"></div>
     
-                <div class="btn-pass-confirm mb-5">
+                <div class="btn-pass-confirm mb-5 pb-5">
                     <button type="submit">Cambiar</button>
                 </div>
             </form>
         </div>
     </div>
-    
+
     <script>
         function togglePassword(inputId, button) {
             const passwordInput = document.getElementById(inputId);
@@ -134,20 +136,24 @@
     </script>
     {% endblock %}
 
+
     <footer class="text-center pt-4 ">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="about_blank"><i class="fab fa-whatsapp fa-xl"
+            <a href="https://wa.me/56987654321" style="color:black;" target="about_blank"><i class="fab fa-whatsapp fa-xl"
                     data-toggle="tooltip" data-placement="top" title="WhatsApp"></i></a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="about_blank"
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;" target="about_blank"
                 data-toggle="tooltip" data-placement="top" title="Instagram"><i
                     class="fa-brands fa-instagram fa-xl"></i></a>
-            <a href="mailto:oneplayer@gmail.com"><i class="fas fa-envelope fa-xl" data-toggle="tooltip"
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank"><i class="fas fa-envelope fa-xl" data-toggle="tooltip"
                     data-placement="top" title="Correo Electrónico"></i></a>
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.
         </p>
     </footer>
+
+
     <script src="../assets/js/navbar.js"></script>
+
 
 </body>
 </html>

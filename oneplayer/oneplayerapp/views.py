@@ -296,12 +296,12 @@ def editar_perfil_org(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
-            return redirect('cuenta')
+            return redirect('user/cuenta.html')
         else:
             return render(request, 'editar_perfil', {'form': form})  
     else:
         form = EditarPerfilForm(instance=usuario) 
-        return render(request, 'cuenta', {'form': form})
+        return render(request, 'user/cuenta.html', {'form': form})
 
 @login_required
 def agregar_juego(request, categoria_id):
