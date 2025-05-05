@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -97,94 +99,95 @@
 
     <div class="games mb-5">
         <h2>JUEGOS DE TERROR</h2>
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src="{% static 'img/TERROR.jpg' %}" class="card-img-top" alt="Juego de terror">
-                    </td>
-                    <td>
-                        <div class="titlegame">
-                            <h3>Resident Evil 4</h3>
-                            <br>
-                            {% if resident.video_url %}
-                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ resident.video_url }}" data-game-title="Resident Evil 4">
-                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
-                            </button>
-                            {% endif %}
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <h5><b>Precio: $56.990</b></h5>
-                        <br>
-                        <p class="game-description">
-                            Resident Evil 4 es un juego de acción y supervivencia en el que los jugadores controlan a
-                            Leon S. Kennedy, quien debe rescatar a la hija del presidente de los Estados Unidos en un
-                            pueblo infectado por un virus. El juego combina exploración, resolución de acertijos y
-                            combates intensos con enemigos y jefes terroríficos.
-                        </p>
-                        <form action="{% url 'agregar_al_carrito' producto_id=1 %}" method="post">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
-                                <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="1">
-                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
-                                </button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-    
-                <tr>
-                    <td>
-                        <img src="{% static 'img/terror2.squid.png' %}" class="card-img-top" alt="Juego de terror">
-                    </td>
-                    <td>
-                        <div class="titlegame">
-                            <h3>Terror Squid</h3>
-                            <br>
-                            {% if squid.video_url %}
-                            <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ squid.video_url }}" data-game-title="Terror Squid">
-                            <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
-                            </button>
-                            {% endif %}
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <h5><b>Precio: $5.990</b></h5>
-                        <br>
-                        <p class="game-description">
-                            Terror Squid es un juego de acción en el que los jugadores controlan a una criatura tipo
-                            calamar mientras navegan a través de niveles llenos de obstáculos y enemigos.
-                        </p>
-                        <form action="{% url 'agregar_al_carrito' producto_id=2 %}" method="post">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
-                                <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="2">
-                                    <i class="fas fa-cart-plus"></i> Agregar al carrito
-                                </button>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="game-card d-flex flex-column flex-md-row mb-4">
+            <div class="game-img text-center">
+                <img src="{% static 'img/TERROR.jpg' %}" class="card-img-top" alt="Juego de terror">
+            </div>
+
+            <div class="game-info ps-md-4 pt-3 pt-md-0">
+                <div class="titlegame mt-3 mb-3">
+                    <h3>Resident Evil 4</h3>
+                </div>
+
+                <div class="trailer mb-3">
+                {% if resident.video_url %}
+                    <button class="btn btn-lg btn-outline-info ver-trailer-btn mb-3"
+                        data-trailer-url="{{ resident.video_url }}" data-game-title="Resident Evil 4">
+                        <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                    </button>
+                    {% endif %}
+                </div>
+
+                <h5><b>Precio: $56.990</b></h5>
+                <p class="game-description mt-3">
+                    Resident Evil 4 es un juego de acción y supervivencia en el que los jugadores controlan a
+                    Leon S. Kennedy, quien debe rescatar a la hija del presidente de los Estados Unidos en un
+                    pueblo infectado por un virus. El juego combina exploración, resolución de acertijos y
+                    combates intensos con enemigos y jefes terroríficos.
+                </p>
+
+                <form action="{% url 'agregar_al_carrito' producto_id=1 %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mt-2">
+                        <input type="number" name="cantidad" value="1" min="1" class="form-control"
+                            style="width: 80px;">
+                        <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="1">
+                            <i class="fas fa-cart-plus"></i> Agregar al carrito
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="game-card d-flex flex-column flex-md-row mb-4">
+            <div class="game-img text-center">
+                <img src="{% static 'img/terror2.squid.png' %}" class="card-img-top" alt="Juego de terror">
+            </div>
+            <div class="game-info ps-md-4 pt-3 pt-md-0">
+                <div class="titlegame mt-3 mb-3">
+                    <h3>Terror Squid</h3>
+                </div>
+                
+                <div class="trailer mb-3">
+                    {% if squid.video_url %}
+                <button class="btn btn-lg btn-outline-info ver-trailer-btn mb-3"
+                        data-trailer-url="{{ squid.video_url }}" data-game-title="Terror Squid">
+                        <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
+                    </button>
+                    {% endif %}
+                    </div>
+                <h5><b>Precio: $5.990</b></h5>
+                <p class="game-description mt-3">
+                    Terror Squid es un juego de acción en el que los jugadores controlan a una criatura tipo
+                    calamar mientras navegan a través de niveles llenos de obstáculos y enemigos.
+                </p>
+                <form action="{% url 'agregar_al_carrito' producto_id=2 %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mt-2">
+                        <input type="number" name="cantidad" value="1" min="1" class="form-control"
+                            style="width: 80px;">
+                        <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="2">
+                            <i class="fas fa-cart-plus"></i> Agregar al carrito
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    
+
 
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
                 <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
             </a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"
-                data-toggle="tooltip" data-placement="top" title="Instagram">
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;"
+                target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram">
                 <i class="fa-brands fa-instagram fa-xl"></i>
             </a>
-            <a href="mailto:oneplayer@gmail.com">
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
                 <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
                     title="Correo Electrónico"></i>
             </a>
@@ -194,20 +197,20 @@
 
 
     <script src="{% static 'js/navbar.js' %}"></script>
-    <script src="{% static 'js/carrito.js' %}"></script>
+
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const botonesAgregarCarrito = document.querySelectorAll('.agregar-carrito');
-            const carritoTotalItemsSpan = document.getElementById('carrito-total-items'); // Asegúrate de tener este ID en tu header
-    
+            const carritoTotalItemsSpan = document.getElementById('carrito-total-items');
+
             botonesAgregarCarrito.forEach(boton => {
-                boton.addEventListener('click', function(event) {
+                boton.addEventListener('click', function (event) {
                     event.preventDefault();
-    
+
                     const productoId = this.dataset.productoId;
                     const url = `/carrito/agregar/${productoId}/`;
-    
+
                     fetch(url, {
                         method: 'POST',
                         headers: {
@@ -218,46 +221,47 @@
                             'cantidad': this.previousElementSibling.value || 1
                         })
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert(data.message);
-                            if (carritoTotalItemsSpan) {
-                                carritoTotalItemsSpan.textContent = data.total_items || 0;
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                alert(data.message);
+                                if (carritoTotalItemsSpan) {
+                                    carritoTotalItemsSpan.textContent = data.total_items || 0;
+                                }
+                                // Redirigir al carrito después de agregar
+                                window.location.href = "{% url 'carrito' %}";
+                            } else {
+                                alert('Error al agregar al carrito.');
                             }
-                            // Redirigir al carrito después de agregar
-                            window.location.href = "{% url 'carrito' %}";
-                        } else {
-                            alert('Error al agregar al carrito.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error de conexión.');
-                    });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error de conexión.');
+                        });
                 });
             });
         });
     </script>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const trailerButtons = document.querySelectorAll('.ver-trailer-btn');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const trailerButtons = document.querySelectorAll('.ver-trailer-btn');
 
-        trailerButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const trailerUrl = this.dataset.trailerUrl;
-                if (trailerUrl) {
-                    window.open(trailerUrl, '_blank');
-                } else {
-                    alert('La URL del tráiler no está disponible.');
-                }
+            trailerButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const trailerUrl = this.dataset.trailerUrl;
+                    if (trailerUrl) {
+                        window.open(trailerUrl, '_blank');
+                    } else {
+                        alert('La URL del tráiler no está disponible.');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 
 </body>
+
 </html>

@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -96,62 +98,65 @@
 
 
     <div class="games mb-5">
-        <table>
             <h2>JUEGOS DE CARRERAS</h2>
-            <tbody>
-                <tr>
-                    <td>
+
+            <div class="game-card d-flex flex-column flex-md-row mb-4">
+                <div class="game-img text-center">
                         <img src="{% static 'img/JCARRERA.jpeg' %}" class="card-img-top" alt=""> 
-                    </td>
-                    <td>
-                        <div class="titlegame">
+</div>
+
+<div class="game-info ps-md-4 pt-3 pt-md-0">
+    <div class="titlegame mt-3 mb-3">
                             <h3>Mario Kart 8 Deluxe</h3>
-                            <br>
+    </div>
+
+    <div class="trailer mb-3">
                             {% if mario_kart.video_url %}
                             <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ mario_kart.video_url }}" data-game-title="Mario Kart">
                             <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
                             </button>
                             {% endif %}
                         </div>
-                        <br>
-                        <br>
-                        <br>
+
                         <h5><b>Precio: $68.990</b></h5>
-                        <br>
                         <p class="game-description">
                             Mario Kart 8 Deluxe es un juego de carreras para Nintendo Switch donde compites en coloridos
                             circuitos con personajes icónicos de Nintendo. Incluye nuevos modos, más pistas y la
                             posibilidad de jugar en línea o con amigos. Con mecánicas mejoradas y power-ups clásicos, es
                             la versión definitiva de la serie.
                         </p>
+
                         <form action="{% url 'agregar_al_carrito' producto_id=5 %}" method="post">
                             {% csrf_token %}
-                            <div class="input-group">
+                            <div class="input-group mt-2">
                                 <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
                                 <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="5">
                                     <i class="fas fa-cart-plus"></i> Agregar al carrito
                                 </button>
                             </div>
                         </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
+
+</div>
+            </div>
+
+            <div class="game-card d-flex flex-column flex-md-row mb-4">
+                <div class="game-img text-center">
                         <img src="{% static 'img/CARRERA2.sonic.jpg' %}" class="card-img-top" alt=""> 
-                    </td>
-                    <td>
-                        <div class="titlegame">
+                </div>
+
+                <div class="game-info ps-md-4 pt-3 pt-md-0">
+                    <div class="titlegame mt-3 mb-3">
                             <h3>Sonic Racing</h3>
-                            <br>
+                    </div>
+
+                    <div class="trailer mb-3">
                             {% if sonic.video_url %}
                             <button class="btn btn-lg btn-outline-info ver-trailer-btn" data-trailer-url="{{ sonic.video_url }}" data-game-title="Sonic">
                             <i class="bi bi-play-circle-fill me-2"></i> Ver Trailer
                             </button>
                             {% endif %}
                         </div>
-                        <br>
-                        <br>
-                        <br>
+
                         <h5><b>Precio: $7.990</b></h5>
                         <br>
                         <p class="game-description">
@@ -159,32 +164,31 @@
                             rápidos utilizando habilidades especiales y potenciadores. Ideal para disfrutar en modo
                             individual o multijugador.
                         </p>
+
                         <form action="{% url 'agregar_al_carrito' producto_id=6 %}" method="post">
                             {% csrf_token %}
-                            <div class="input-group">
+                            <div class="input-group mt-2">
                                 <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width: 80px;">
                                 <button type="button" class="btn btn-dark agregar-carrito" data-producto-id="6">
                                     <i class="fas fa-cart-plus"></i> Agregar al carrito
                                 </button>
                             </div>
                         </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
     </div>
 
 
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
                 <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
             </a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;" target="_blank"
                 data-toggle="tooltip" data-placement="top" title="Instagram">
                 <i class="fa-brands fa-instagram fa-xl"></i>
             </a>
-            <a href="mailto:oneplayer@gmail.com">
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
                 <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
                     title="Correo Electrónico"></i>
             </a>
@@ -194,13 +198,13 @@
 
 
     <script src="{% static 'js/navbar.js' %}"></script>
-    <script src="{% static 'js/carrito.js' %}"></script>
+
 
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const botonesAgregarCarrito = document.querySelectorAll('.agregar-carrito');
-            const carritoTotalItemsSpan = document.getElementById('carrito-total-items'); // Asegúrate de tener este ID en tu header
+            const carritoTotalItemsSpan = document.getElementById('carrito-total-items'); 
     
             botonesAgregarCarrito.forEach(boton => {
                 boton.addEventListener('click', function(event) {
@@ -258,6 +262,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>
