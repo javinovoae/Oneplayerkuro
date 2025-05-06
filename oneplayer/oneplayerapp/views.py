@@ -441,16 +441,14 @@ def vandal_noticias_view(request):
         titulo = entry.get('title', 'Sin título')
         link = entry.get('link', '#')
         descripcion = entry.get('description', 'Sin descripción')
-        fecha_str = entry.get('published') or entry.get('pubdate')
-        fecha = None
-        if fecha_str:
+
+        fecha = 'Fecha desconocida'
+        published_parsed = entry.get('published_parsed') or entry.get('updated_parsed')
+        if published_parsed:
             try:
-                fecha = make_aware(datetime.datetime(*feedparser._parse_date(fecha_str)[:6]))
+                fecha = make_aware(datetime.datetime(*published_parsed[:6]))
             except Exception as e:
-                print(f"Error al parsear la fecha: {e}")
-                fecha = 'Fecha desconocida'
-        else:
-            fecha = 'Fecha desconocida'
+                print(f"Error al convertir la fecha: {e}")
 
         imagen_url = None
         descripcion_resumen = 'Sin descripción'
