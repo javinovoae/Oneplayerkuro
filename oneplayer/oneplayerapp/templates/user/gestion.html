@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/gestion.css' %}">
 
-    <title>Gestión de categorías - ONEPLAYER</title>  
+    <title>Gestión de categorías - ONEPLAYER</title>
 </head>
 
 <body>
@@ -35,22 +35,30 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i
+                                    class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i
+                                    class="fas fa-user-plus"></i> Registrarse</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
-                            {% if user.is_staff %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
+                                Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i>
+                                Mi Cuenta</a></li>
+                        {% if user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i>
+                                Gestión</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i
+                                    class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
             </section>
         </nav>
     </div>
+
 
     <div class="main-content">
         <div class="container mt-5">
@@ -61,59 +69,68 @@
                         <i class="bi bi-plus-circle"></i> Agregar categoría
                     </a>
                 </div>
+
                 <div id="lista_categorias">
-                    <ul class="list-group" id="categoria-list">
+                    <div id="categoria-list">
                         {% for categoria in categorias %}
-                            <li class="categoria-card">
+                        <div class="categoria-card">
+                            <div>
+                                <i class="bi bi-controller"></i> <strong>{{ categoria.nombre }}</strong>
                                 <div>
-                                    <i class="bi bi-controller"></i> <strong>{{ categoria.nombre }}</strong>
-                                    <div>
-                                        {% if categoria.productos.all %}
-                                        <ul class="mt-2">
-                                            {% for producto in categoria.productos.all %}
-                                                <li class="producto-card">
-                                                    <strong>{{ producto.nombre }}</strong><br>
-                                                    Precio: <span class="precio">${{ producto.precio|floatformat:0|localize }}</span>
-                                                    Stock: <span class="stock">{{ producto.stock }} unidades</span><br>
-                                                </li>
-                                            {% empty %}
-                                                <li>No hay productos disponibles en esta categoría.</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                        <p>No hay productos en esta categoría.</p>
-                                    {% endif %}
+                                    {% if categoria.productos.all %}
+                                    <div class="mt-2">
+                                        {% for producto in categoria.productos.all %}
+                                        <div class="producto-card">
+                                            <strong>{{ producto.nombre }}</strong><br>
+                                            Precio: <span class="precio">${{ producto.precio|floatformat:0|localize
+                                                }}</span><br>
+                                            Stock: <span class="stock">{{ producto.stock }} unidades</span><br>
+                                        </div>
+                                        {% empty %}
+                                        <p>No hay productos disponibles en esta categoría.</p>
+                                        {% endfor %}
                                     </div>
+                                    {% else %}
+                                    <p>No hay productos en esta categoría.</p>
+                                    {% endif %}
                                 </div>
-                                <div class="categoria-botones">
-                                    <a href="{% url 'agregar_juego' categoria.id %}" class="btn btn-success">Agregar juego</a>
-                                    <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info">Editar</a>
-                                    <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</a>
-                                </div>
-                            </li>
+                            </div>
+                            <div class="categoria-botones">
+                                <a href="{% url 'agregar_juego' categoria.id %}" class="btn btn-success">Agregar
+                                    juego</a>
+                                <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info">Editar</a>
+                                <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger"
+                                    onclick="return confirm('¿Estás seguro de eliminar esta categoría?');">Eliminar</a>
+                            </div>
+                        </div>
                         {% empty %}
-                            <li class="list-group-item">No hay categorías disponibles.</li>
+                        <p>No hay categorías disponibles.</p>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
                 <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
             </a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank"
-                data-toggle="tooltip" data-placement="top" title="Instagram">
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;"
+                target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram">
                 <i class="fa-brands fa-instagram fa-xl"></i>
             </a>
-            <a href="mailto:oneplayer@gmail.com">
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
                 <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
                     title="Correo Electrónico"></i>
             </a>
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
+
+
 </body>
+
 </html>

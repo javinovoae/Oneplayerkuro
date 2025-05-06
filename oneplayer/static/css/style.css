@@ -10,9 +10,15 @@ body {
     font-weight: 300, 500;
     height: 100%;
     margin: 0;
+    padding: 0;
     width: 100%;
     overflow-x: hidden;
 }
+
+main {
+    flex: 1;
+}
+
 
 /* Separar el botón del header */
 .volver {
@@ -99,17 +105,17 @@ body {
 
 @media (max-width: 768px) {
     .background-image h2 {
-        top: 20%; 
+        top: 20%;
         font-size: 1.5rem;
     }
 
     .background-image .links {
-        top: 35%; 
+        top: 35%;
     }
 
     .background-image .links a {
-        margin: 8px; 
-        padding: 8px 12px; 
+        margin: 8px;
+        padding: 8px 12px;
         font-size: 0.9rem;
     }
 }
@@ -213,7 +219,7 @@ p.fot {
 }
 
 .game-img {
-    flex: 1; 
+    flex: 1;
 }
 
 .game-img img {
@@ -267,13 +273,13 @@ p.fot {
 }
 
 .input-group {
-    justify-content: flex-end; 
+    justify-content: flex-end;
     gap: 8px;
     margin-top: 1rem;
 }
 
 .input-group input {
-    width: 40px; 
+    width: 40px;
     padding: 2px 4px;
     font-size: 0.9rem;
 }
@@ -478,25 +484,26 @@ form input {
 
 
 
-/* NEWS */ 
+/* NEWS */
 .content-with-news {
-    display: flex; 
-    flex-wrap: wrap; 
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     padding: 35px;
     background-color: hsl(0, 0%, 95%);
 }
 
 .news-column {
-    flex: 1 0 300px; /* Ocupa al menos 300px de ancho y crece/se encoge */
-    margin-right: 40px; 
+    flex: 1 0 300px;
+    /* Ocupa al menos 300px de ancho y crece/se encoge */
+    margin-right: 40px;
     text-align: center;
 }
 
 .new-container {
     align-items: center;
     text-align: center;
-    margin-right: 40px; 
+    margin-right: 40px;
 }
 
 /* Estilos adicionales para las noticias */

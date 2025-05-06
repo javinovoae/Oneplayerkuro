@@ -32,16 +32,23 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i
+                                    class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i
+                                    class="fas fa-user-plus"></i> Registrarse</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
-                            {% if user.is_staff %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
+                                Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i>
+                                Mi Cuenta</a></li>
+                        {% if user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i>
+                                Gestión</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i
+                                    class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -49,37 +56,43 @@
         </nav>
     </div>
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Agregar Nuevo Juego</h2>
+
+    <div class="container pt-5 mb-4">
+        <h2 class="text-center mt-5 mb-4">AGREGAR NUEVO JUEGO</h2>
         {% if messages %}
-            <div class="alert alert-info">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
+        <div class="alert alert-info">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
         {% endif %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-success">Guardar Juego</button>
+            <button type="submit" class="btn btn-success mb-4">Guardar Juego</button>
         </form>
-        <a href="{% url 'gestion' %}" class="btn btn-secondary mt-3">Volver</a>
+        <a href="{% url 'gestion' %}" class="btn btn-secondary mb-4">Volver</a>
     </div>
+
 
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" target="_blank">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
                 <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
             </a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram">
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;"
+                target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram">
                 <i class="fa-brands fa-instagram fa-xl"></i>
             </a>
-            <a href="mailto:oneplayer@gmail.com">
-                <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top" title="Correo Electrónico"></i>
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
+                <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
+                    title="Correo Electrónico"></i>
             </a>
         </div>
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
     </footer>
+
+
 </body>
 
 </html>

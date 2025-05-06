@@ -20,7 +20,8 @@
     <title>Editar Categoría</title>
 </head>
 
-<body>
+
+<body class="d-flex flex-column min-vh-100">
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top color-fondo">
             <section class="container fluid">
@@ -35,59 +36,71 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i
+                                    class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i
+                                    class="fas fa-user-plus"></i> Registrarse</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
-                            {% if user.is_staff %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
+                                Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i>
+                                Mi Cuenta</a></li>
+                        {% if user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i>
+                                Gestión</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i
+                                    class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
             </section>
         </nav>
     </div>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Editar Categoría: {{ categoria.nombre }}</h2>
+
+
+    <div class="container pt-5 mb-2 flex-grow-1">
+        <h2 class="text-center mt-5 mb-4">Editar Categoría: {{ categoria.nombre }}</h2>
 
         {% if messages %}
-            <div class="alert alert-info">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
+        <div class="alert alert-info">
+            {% for message in messages %}
+            <p>{{ message }}</p>
+            {% endfor %}
+        </div>
         {% endif %}
 
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }} 
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mb-4">Guardar Cambios</button>
         </form>
 
-        <a href="{% url 'gestion' %}" class="btn btn-secondary mt-3">Regresar</a>
+        <a href="{% url 'gestion' %}" class="btn btn-secondary">Regresar</a>
     </div>
+
+
+
+    <footer class="text-center py-2 mt-auto">
+        <div class="social-media">
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
+                <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
+            </a>
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;"
+                target="_blank" data-toggle="tooltip" data-placement="top" title="Instagram">
+                <i class="fa-brands fa-instagram fa-xl"></i>
+            </a>
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
+                <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
+                    title="Correo Electrónico"></i>
+            </a>
+        </div>
+        <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
+    </footer>
+
+
 </body>
 
-<footer class="text-center pt-4">
-    <div class="social-media">
-        <a href="https://wa.me/56987654321" style="color:black;" target="_blank">
-            <i class="fab fa-whatsapp fa-xl" data-toggle="tooltip" data-placement="top" title="WhatsApp"></i>
-        </a>
-        <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;" target="_blank"
-            data-toggle="tooltip" data-placement="top" title="Instagram">
-            <i class="fa-brands fa-instagram fa-xl"></i>
-        </a>
-        <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank">
-            <i class="fas fa-envelope fa-xl" data-toggle="tooltip" data-placement="top"
-                title="Correo Electrónico"></i>
-        </a>
-    </div>
-    <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
-
-
-</footer>
 </html>
