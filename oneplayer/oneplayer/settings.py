@@ -18,8 +18,8 @@ DATABASES = {
 }
 
 SECRET_KEY = 'django-insecure-xnwk512=&16kzjk%4-$lw%*)o9*#w@9xj7yr347gib1!8cyv=q'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+ALLOWED_HOSTS = [os.environ.get('HEROKU_APP_DOMAIN', '*')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +43,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'oneplayer.urls'
