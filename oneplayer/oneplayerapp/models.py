@@ -48,7 +48,7 @@ class UsuariosRegistro(models.Model):
     nombre = models.CharField(max_length=30)
     email = models.EmailField(max_length=50, unique=True)
     direccion = models.CharField(max_length=80)
-    contraseña = models.CharField(max_length=30)
+    contraseña = models.CharField(max_length=256)
 
     es_administrador = models.BooleanField(default=False)
 
