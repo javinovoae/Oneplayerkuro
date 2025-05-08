@@ -1,19 +1,19 @@
 from pathlib import Path
 import os
 import oracledb
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': '(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.sa-santiago-1.oraclecloud.com))(connect_data=(service_name=g819c11630424b0_pocxt95gwbrf53d1_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))',
-        'USER': 'BDONEPLAYER',
-        'PASSWORD': 'Oraclecloud889',
-        'OPTIONS': {
-            'wallet_location': str(BASE_DIR / 'oracle_wallet'),
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
