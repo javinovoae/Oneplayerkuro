@@ -63,6 +63,7 @@ def inicio_sesion_view(request):
 
     return render(request, 'auth/inicio_sesion.html')
 
+
 @login_required
 def cuenta_view(request):
     try:
@@ -76,14 +77,17 @@ def cuenta_view(request):
         'form': form,
     })
 
+
 @login_required
 def gestion_view(request):
     categorias = Categoria.objects.all()
     return render(request, 'user/gestion.html', {'categorias': categorias})
 
+
 def logout_view(request):
     logout(request)
     return redirect('inicio_sesion')
+
 
 @login_required(login_url='/auth/inicio_sesion/')
 def agregar_al_carrito(request, producto_id):
@@ -105,6 +109,7 @@ def agregar_al_carrito(request, producto_id):
     return JsonResponse({'status': 'success', 'message': f"'{producto.nombre}' añadido al carrito.", 'total_items': total_items_carrito})
     return redirect('carrito')
 
+
 @login_required
 def carrito_view(request):
     try:
@@ -119,10 +124,14 @@ def carrito_view(request):
     except Carrito.DoesNotExist:
         return render(request, 'carrito.html', {'productos': [], 'mensaje': 'Tu carrito está vacío.'})
 
+
 @login_required
 def eliminar_producto_carrito(request, producto_id):
     cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
-    carrito = get_object_or_404(Carrito, cliente=cliente)
+    carrito = Carrito.objects.filter(cliente=cliente, activo=True).order_by('-id').first()
+
+    if not carrito:
+        return redirect('carrito') 
 
     try:
         item = CarritoProducto.objects.get(carrito=carrito, producto_id=producto_id)
@@ -132,34 +141,46 @@ def eliminar_producto_carrito(request, producto_id):
 
     return redirect('carrito')
 
+
 @login_required
 def finalizar_compra(request):
     cliente = get_object_or_404(Cliente, usuariosregistro_ptr_id=request.user.id)
-    carrito = get_object_or_404(Carrito, cliente=cliente, activo=True)
+    
+    try:
+        carrito = Carrito.objects.get(cliente=cliente, activo=True)
+    except Carrito.DoesNotExist:
+        messages.error(request, "No tienes un carrito activo.")
+        return redirect('carrito')
+
     items_carrito = CarritoProducto.objects.filter(carrito=carrito)
 
     if not items_carrito.exists():
-        messages.error(request, "El carrito está vacío. No puedes realizar la compra.")
+        messages.error(request, "Debes añadir productos a tu carrito para poder realizar la compra!")
         return redirect('carrito')
 
     total_compra = sum([item.total() for item in items_carrito])
 
     try:
         compra = Compra.objects.create(cliente=cliente, total=total_compra, fecha=timezone.now()) 
+        
         carrito.activo = False
         carrito.save()
-        items_carrito.delete() 
+
+        items_carrito.delete()
 
         messages.success(request, f"Compra realizada con éxito. Total: ${total_compra}")
         return redirect('checkout') 
+    
     except Exception as e:
         messages.error(request, f"Ocurrió un error al procesar la compra: {e}")
-        return redirect('checkout', compra_id=compra.id)
+        return redirect('checkout')
+
 
 @login_required
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'gestion', {'categorias': categorias})
+
 
 @login_required
 def agregar_categoria(request):
@@ -175,6 +196,7 @@ def agregar_categoria(request):
         form = CategoriaForm()
     return render(request, 'user/agregar_categoria.html', {'form': form})
 
+
 @login_required
 def editar_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
@@ -189,6 +211,7 @@ def editar_categoria(request, categoria_id):
         form = EditarCategoriaForm(instance=categoria)
     return render(request, 'user/editar_categoria.html', {'form': form, 'categoria': categoria})
 
+
 @login_required
 def eliminar_categoria(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id) 
@@ -197,9 +220,11 @@ def eliminar_categoria(request, categoria_id):
         return redirect('gestion') 
     return render(request, 'user/eliminar_categoria.html', {'categoria': categoria})
 
+
 def registrarse_view(request):
     form = RegistroUsuarioForm()
     return render(request, 'auth/form_registro.html', {'form': form})
+
 
 def registrar_usuario_vw(request):
     if request.method == 'POST':
@@ -259,6 +284,7 @@ def registrar_usuario_vw(request):
         form = RegistroUsuarioForm()
     return render(request, 'auth/form_registro.html', {'form': form})
 
+
 @login_required
 def editar_contraseña_org(request):
     if request.method == 'POST':
@@ -274,14 +300,17 @@ def editar_contraseña_org(request):
         form = CambiarContraseñaForm()
         return render(request, 'user/contraseña.html', {'form': form})
 
+
 @login_required
 def cambiar_contraseña_view(request):
     form = CambiarContraseñaForm()
     return render(request, 'user/contraseña.html', {'form': form})
 
+
 @login_required
 def checkout_view(request):
     return render(request, 'user/checkout.html')
+
 
 @login_required
 def editar_perfil_org(request):
@@ -303,6 +332,7 @@ def editar_perfil_org(request):
         form = EditarPerfilForm(instance=usuario) 
         return render(request, 'user/cuenta.html', {'form': form})
 
+
 @login_required
 def agregar_juego(request, categoria_id):
     categoria = get_object_or_404(Categoria, id=categoria_id)
@@ -322,6 +352,7 @@ def agregar_juego(request, categoria_id):
         form = ProductoForm()
 
     return render(request, 'user/agregar_juego.html', {'form': form, 'categoria': categoria})
+
 
 @login_required
 def gestion_view(request):
@@ -372,7 +403,6 @@ def listar_supervivencia(request):
         context['rust'] = None
 
     return render(request, 'games/supervivencia.html', context)
-
 
 
 def listar_ftp(request):

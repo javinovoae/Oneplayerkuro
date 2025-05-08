@@ -35,6 +35,13 @@
             padding: 1rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
+
+        @media (max-width: 767.98px) {
+            #cart-titles h5 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -51,20 +58,27 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         {% if not user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i
+                                    class="fas fa-sign-in-alt"></i> Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}"><i
+                                    class="fas fa-user-plus"></i> Registrarse</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i> Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i> Mi Cuenta</a></li>
-                            {% if user.is_staff %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i> Gestión</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}"><i class="fas fa-home"></i>
+                                Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cuenta' %}"><i class="fas fa-user"></i>
+                                Mi Cuenta</a></li>
+                        {% if user.is_staff %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gestion' %}"><i class="fas fa-cogs"></i>
+                                Gestión</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'carrito' %}"><i
+                                    class="fas fa-shopping-cart"></i> Mi Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i
+                                    class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -74,59 +88,101 @@
     </div>
 
 
-    <!-- Contenido del carrito -->
-    <div class="container pt-5 mt-5 mb-5">
-        <h2 class="text-center mt-5 mb-5">MI CARRITO </h2>
+    {% load humanize %}
 
-        <div class="row mt-5">
-            <!-- Productos -->
-            <div class="col-md-8">
-                <div class="bg-cart py-3 d-flex flex-column align-items-center">
-                    <div class="d-flex flex-wrap justify-content-between text-center w-100 px-3 py-2 border-bottom mb-4">
-                        <h5 class="fw-italic">Juego</h5>
-                        <h5 class="fw-italic">Precio</h5>
-                        <h5 class="fw-italic">Cantidad</h5>
-                        <h5 class="fw-italic">Eliminar</h5>
-                    </div>
 
-                    <div id="cart-items" class="w-100">
-                        {% if productos %}
-                            <p>Cantidad de productos en el carrito: {{ productos|length }}</p>
-                            {% for item in productos %}
-                                <div class="d-flex flex-wrap justify-content-between text-center w-100 px-3 py-2 border-bottom">
-                                    <p class="col-6 col-md-3">{{ item.producto.nombre }}</p>
-                                    <p class="col-6 col-md-3">${{ item.producto.precio }}</p>
-                                    <p class="col-6 col-md-3">{{ item.cantidad }}</p>
-                                    <form class="col-6 col-md-3" method="post" action="{% url 'eliminar_producto_carrito' item.producto.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-center py-3">Tu carrito está vacío.</p>
-                        {% endif %}
-                    </div>
+<!-- Contenido del carrito -->
+<div class="container pt-5 mt-5 mb-5">
+    <h2 class="text-center mt-5 mb-5">MI CARRITO</h2>
+
+
+    <div class="row">
+        <!-- Productos -->
+        <div class="col-12 col-md-8">
+            <!-- Títulos -->
+            <div class="row text-center px-3 py-2 border-bottom mb-4 d-none d-md-flex">
+                <div class="col-md-2">
+                    <h5 class="fw-italic m-0">Juego</h5>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-italic m-0">Precio</h5>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-italic m-0">Cantidad</h5>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="fw-italic m-0">Eliminar</h5>
                 </div>
             </div>
 
+            <!-- Lista de productos -->
+            <div id="cart-items" class="w-100">
+                {% if productos %}
+                    {% for item in productos %}
+                        <div class="row text-center px-3 py-2 border-bottom align-items-center">
+                            <!-- Juego -->
+                            <div class="col-6 col-md-3 text-md-start">
+                                <span class="fw-bold d-md-none">Juego:</span>
+                                <p class="mb-0">{{ item.producto.nombre }}</p>
+                            </div>
+                            <!-- Precio -->
+                            <div class="col-6 col-md-3 text-md-start">
+                                <span class="fw-bold d-md-none">Precio:</span>
+                                <p class="mb-0">${{ item.producto.precio|intcomma }}</p>
+                            </div>
+                            <!-- Cantidad -->
+                            <div class="col-6 col-md-3 text-md-start">
+                                <span class="fw-bold d-md-none">Cantidad:</span>
+                                <p class="mb-0">{{ item.cantidad }}</p>
+                            </div>
+                            <!-- Eliminar -->
+                            <div class="col-6 col-md-3 text-md-start">
+                                <span class="fw-bold d-md-none">Eliminar:</span>
+                                <form method="post" action="{% url 'eliminar_producto_carrito' item.producto.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm mt-1 mt-md-0">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-center py-3">Tu carrito está vacío.</p>
+                {% endif %}
 
-            <!-- Resumen -->
-            <div class="col-md-4 mb-4">
-                <div class="my-5 p-4 border bg-light shadow rounded text-center">
-                    <h4 class="mb-4">Resumen</h4>
-                    <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal }}</p>
-                    <p class="text-muted">Envío: GRATIS</p>
-                    <p><strong id="total" class="text-success">Total: ${{ total }}</strong></p>
+                {% if messages %}
+    <div class="messages mb-4 text-center">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="color: purple;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
-                    <button type="button" id="checkout-btn" class="btn btn-success w-100 mt-3"
-                        data-bs-toggle="modal" data-bs-target="#confirmModal">
-                        <i class="bi bi-cash-coin me-2"></i> Ir a pagar
-                    </button>
-                </div>
+            </div>
+        </div>
+
+
+        <!-- Resumen de compra -->
+        <div class="col-12 col-md-4">
+            <div class="my-5 p-4 border bg-light shadow rounded text-center">
+                <h4 class="mb-4">Resumen</h4>
+                <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal|intcomma}}</p>
+                <p class="text-muted">Envío: GRATIS</p>
+                <p><strong id="total" class="text-success">Total: ${{ total|intcomma }}</strong></p>
+
+                <button type="button" id="checkout-btn" class="btn btn-success w-100 mt-3" data-bs-toggle="modal"
+                    data-bs-target="#confirmModal">
+                    <i class="bi bi-cash-coin me-2"></i> Ir a pagar
+                </button>
             </div>
         </div>
     </div>
+</div>
+
+
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center">
@@ -152,9 +208,12 @@
     <!-- Footer -->
     <footer class="text-center pt-4">
         <div class="social-media">
-            <a href="https://wa.me/56987654321" style="color:black;" target="_blank"><i class="fab fa-whatsapp fa-xl"></i></a>
-            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;" target="_blank"><i class="fab fa-instagram fa-xl"></i></a>
-            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank"><i class="fas fa-envelope fa-xl"></i></a>
+            <a href="https://wa.me/56987654321" style="color:black;" target="_blank"><i
+                    class="fab fa-whatsapp fa-xl"></i></a>
+            <a href="https://www.instagram.com/explore/search/keyword/?q=%23videogames" style="color:black;"
+                target="_blank"><i class="fab fa-instagram fa-xl"></i></a>
+            <a href="mailto:oneplayer@gmail.com" style="color:black;" target="_blank"><i
+                    class="fas fa-envelope fa-xl"></i></a>
         </div>
 
         <p class="fot">© 2025 ONEPLAYER. Todos los derechos reservados.</p>
@@ -163,4 +222,5 @@
     <script src="{% static 'js/navbar.js' %}"></script>
 
 </body>
+
 </html>

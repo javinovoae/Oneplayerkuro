@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 class Categoria(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
@@ -13,6 +14,7 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class Carrito(models.Model):
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE, related_name='carritos')
@@ -20,9 +22,11 @@ class Carrito(models.Model):
 
     class Meta:
         unique_together = ('cliente', 'activo')
+        
 
     def __str__(self):
         return f"Carrito de {self.cliente.nombre}"
+
 
 class CarritoProducto(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
@@ -35,6 +39,7 @@ class CarritoProducto(models.Model):
     def total(self):
         return self.producto.precio * self.cantidad
 
+
 class Compra(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
     fecha = models.DateTimeField(default=timezone.now)
@@ -42,6 +47,7 @@ class Compra(models.Model):
 
     def __str__(self):
         return f"Compra de {self.cliente.nombre} - Total: ${self.total} - Fecha: {self.fecha.strftime('%Y-%m-%d')}"
+
 
 class UsuariosRegistro(models.Model):
     nombre_usuario = models.CharField(max_length=30, unique=True)
@@ -59,6 +65,7 @@ class UsuariosRegistro(models.Model):
         self.contraseña = make_password(self.contraseña)
         super().save(*args, **kwargs)
 
+
 class Cliente(UsuariosRegistro):
     def __str__(self):
         return f"Cliente: {self.nombre}"
@@ -67,6 +74,7 @@ class Cliente(UsuariosRegistro):
 class Administrador(UsuariosRegistro):
     def __str__(self):
         return f"Administrador: {self.nombre}"
+    
     
 class Producto(models.Model):
     id = models.BigAutoField(primary_key=True)
