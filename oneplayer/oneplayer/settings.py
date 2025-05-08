@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import oracledb
 from decouple import config
 import dj_database_url
 
@@ -11,9 +10,9 @@ DATABASES = {
     'default': dj_database_url.config(default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}", conn_max_age=600)
 }
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = 'django-insecure-xnwk512=&16kzjk%4-$lw%*)o9*#w@9xj7yr347gib1!8cyv=q'
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = [os.environ.get('HEROKU_APP_DOMAIN', '*')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

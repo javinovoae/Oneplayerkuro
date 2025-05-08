@@ -5,6 +5,7 @@ import re
 from .models import UsuariosRegistro
 from django.contrib.auth import authenticate, get_user_model
 
+
 def username_no_repetido_validator(value, user=None):
     if user is None:
         if User.objects.filter(username=value).exists():
@@ -43,6 +44,7 @@ class RegistroUsuarioForm(forms.Form):
                     MaxLengthValidator(15, "El nombre de usuario no puede tener más de 15 caracteres.")]
     )
 
+
     nombre = forms.CharField(
         required=True,
         label='Nombre Completo',
@@ -51,17 +53,20 @@ class RegistroUsuarioForm(forms.Form):
                     SoloLetrasEspaciosValidator()]
     )
 
+
     email = forms.EmailField(
         required=True,
         label='Correo Electrónico',
         max_length=50,
     )
 
+
     direccion = forms.CharField(
         required=True,
         label='Dirección',
         max_length=80,
     )
+
 
     contraseña = forms.CharField(
         widget=forms.PasswordInput,
@@ -72,11 +77,13 @@ class RegistroUsuarioForm(forms.Form):
                     PasswordSymbolValidator()]
     )
 
+
     confirmar_contraseña = forms.CharField(
         widget=forms.PasswordInput,
         required=True,
         label='Confirmar Contraseña'
     )
+
 
     es_administrador = forms.ChoiceField(
         choices=[(False, 'Cliente'), (True, 'Administrador')],
@@ -84,6 +91,7 @@ class RegistroUsuarioForm(forms.Form):
         required=False,  
         initial=False    
     )
+
 
     def clean(self):
         cleaned_data = super().clean()
@@ -103,32 +111,33 @@ class RegistroUsuarioForm(forms.Form):
             email_no_repetido_validator(email, user)
         return email
     
-#EDICION DE INFORMACION
+
+# EDICIÓN DE INFORMACIÓN
 class EditarPerfilForm(forms.ModelForm):
     class Meta:
         model = UsuariosRegistro
         fields = ['nombre', 'email','direccion']
 
-#EDICION DE CONTRASEÑA
 
+# EDICION DE CONTRASEÑA
 User = get_user_model()
 
 class CambiarContraseñaForm(forms.Form):
     contraseña_actual = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'id': 'id_contraseña_actual', 'class': 'form-control'}),
         label='Contraseña Actual',
         required=True
     )
     nueva_contraseña = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'id': 'id_nueva_contraseña', 'class': 'form-control'}),
         label='Nueva Contraseña',
         required=True,
         validators=[MinLengthValidator(6, "La contraseña debe tener al menos 6 caracteres."),
                     MaxLengthValidator(12, "La contraseña no puede tener más de 12 caracteres."),
-                    PasswordSymbolValidator()] 
+                    PasswordSymbolValidator()]
     )
     confirmar_nueva_contraseña = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'id': 'id_confirmar_nueva_contraseña', 'class': 'form-control'}),
         label='Repetir Nueva Contraseña',
         required=True
     )
@@ -137,14 +146,20 @@ class CambiarContraseñaForm(forms.Form):
         cleaned_data = super().clean()
         nueva_contraseña = cleaned_data.get("nueva_contraseña")
         confirmar_nueva_contraseña = cleaned_data.get("confirmar_nueva_contraseña")
+        contraseña_actual = cleaned_data.get("contraseña_actual")
 
         if nueva_contraseña and confirmar_nueva_contraseña and nueva_contraseña != confirmar_nueva_contraseña:
             raise forms.ValidationError("Las nuevas contraseñas no coinciden.")
+
+        # Validar que la nueva contraseña no sea igual a la actual
+        if contraseña_actual and nueva_contraseña and contraseña_actual == nueva_contraseña:
+            raise forms.ValidationError("La nueva contraseña no puede ser igual a la contraseña actual.")
+
         return cleaned_data
 
     def clean_contraseña_actual(self):
         contraseña_actual = self.cleaned_data.get('contraseña_actual')
-        user = self.request.user 
+        user = self.request.user
         if not authenticate(username=user.username, password=contraseña_actual):
             raise forms.ValidationError("Tu contraseña actual es incorrecta.")
         return contraseña_actual

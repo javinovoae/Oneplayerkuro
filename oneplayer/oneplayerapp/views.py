@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,7 @@ import re
 from .form_registro import CambiarContraseñaForm, EditarPerfilForm, RegistroUsuarioForm
 from .forms import CategoriaForm, EditarCategoriaForm, ProductoForm
 from .models import Administrador, Carrito, CarritoProducto, Categoria, Cliente, Compra, Producto, UsuariosRegistro
+
 
 @login_required
 def mi_cuenta(request):
@@ -323,14 +324,18 @@ def editar_perfil_org(request):
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=usuario)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
-            return redirect('user/cuenta.html')
+            # Verificar si los datos realmente cambiaron
+            if form.has_changed():
+                form.save()
+                messages.success(request, 'Tu perfil ha sido actualizado correctamente.')
+            else:
+                messages.info(request, 'No se realizaron cambios en tu perfil.')
+            return redirect('cuenta')  
         else:
-            return render(request, 'editar_perfil', {'form': form})  
+            return render(request, 'editar_perfil.html', {'form': form})
     else:
-        form = EditarPerfilForm(instance=usuario) 
-        return render(request, 'user/cuenta.html', {'form': form})
+        form = EditarPerfilForm(instance=usuario)
+        return render(request, 'editar_perfil.html', {'form': form})
 
 
 @login_required

@@ -61,11 +61,13 @@
             <h5 class="text-center mb-4">¿Aún no tienes cuenta? <a href="{% url 'registro' %}"> Regístrate</a></h5>
 
 
-            <!-- Mensajes de error desde Django -->
+            <!-- Mensajes desde Django -->
             {% if messages %}
-            <div class="alert alert-danger">
+            <div class="messages">
                 {% for message in messages %}
-                {{ message }}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
                 {% endfor %}
             </div>
             {% endif %}

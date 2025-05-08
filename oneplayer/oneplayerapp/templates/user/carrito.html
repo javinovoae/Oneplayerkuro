@@ -128,7 +128,7 @@
                             <!-- Precio -->
                             <div class="col-6 col-md-3 text-md-start">
                                 <span class="fw-bold d-md-none">Precio:</span>
-                                <p class="mb-0">${{ item.producto.precio|intcomma }}</p>
+                                <p class="mb-0">${{ item.producto.precio|floatformat:0|intcomma }}</p>
                             </div>
                             <!-- Cantidad -->
                             <div class="col-6 col-md-3 text-md-start">
@@ -169,9 +169,9 @@
         <div class="col-12 col-md-4">
             <div class="my-5 p-4 border bg-light shadow rounded text-center">
                 <h4 class="mb-4">Resumen</h4>
-                <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal|intcomma}}</p>
+                <p id="subtotal" class="text-muted">Subtotal: ${{ subtotal|floatformat:0|intcomma }}</p>
                 <p class="text-muted">Envío: GRATIS</p>
-                <p><strong id="total" class="text-success">Total: ${{ total|intcomma }}</strong></p>
+                <p><strong id="total" class="text-success">Total: ${{ total|floatformat:0|intcomma }}</strong></p>
 
                 <button type="button" id="checkout-btn" class="btn btn-success w-100 mt-3" data-bs-toggle="modal"
                     data-bs-target="#confirmModal">

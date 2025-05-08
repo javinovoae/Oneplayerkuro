@@ -64,18 +64,19 @@
     <div class="container mt-3">
         <div class="w-50 mx-auto">
             <h2 class="text-center">CAMBIAR CONTRASEÑA</h2>
-                <form method="post" class="mb-5" action="{% url 'cambiar_contraseña' %}">
+            <form method="post" class="mb-5" action="{% url 'cambiar_contraseña' %}">
                 {% csrf_token %}
+                
                 {% if form.non_field_errors %}
                     <div class="alert alert-danger">{{ form.non_field_errors }}</div>
                 {% endif %}
     
                 <div class="mb-3">
-                    <label for="{{ form.contraseña_actual.id_for_label }}" class="form-label">{{ form.contraseña_actual.label }}:</label>
+                    <label for="id_contraseña_actual" class="form-label">{{ form.contraseña_actual.label }}:</label>
                     <div class="input-group">
                         {{ form.contraseña_actual }}
                         <button class="btn btn-outline-secondary" type="button"
-                                onclick="togglePassword('{{ form.contraseña_actual.id }}', this)">
+                                onclick="togglePassword('id_contraseña_actual', this)">
                             <span>👁️</span>
                         </button>
                     </div>
@@ -85,11 +86,11 @@
                 </div>
     
                 <div class="mb-3">
-                    <label for="{{ form.nueva_contraseña.id_for_label }}" class="form-label">{{ form.nueva_contraseña.label }}:</label>
+                    <label for="id_nueva_contraseña" class="form-label">{{ form.nueva_contraseña.label }}:</label>
                     <div class="input-group">
                         {{ form.nueva_contraseña }}
                         <button class="btn btn-outline-secondary" type="button"
-                                onclick="togglePassword('{{ form.nueva_contraseña.id }}', this)">
+                                onclick="togglePassword('id_nueva_contraseña', this)">
                             <span>👁️</span>
                         </button>
                     </div>
@@ -99,11 +100,11 @@
                 </div>
     
                 <div class="mb-5">
-                    <label for="{{ form.confirmar_nueva_contraseña.id_for_label }}" class="form-label">{{ form.confirmar_nueva_contraseña.label }}:</label>
+                    <label for="id_confirmar_nueva_contraseña" class="form-label">{{ form.confirmar_nueva_contraseña.label }}:</label>
                     <div class="input-group">
                         {{ form.confirmar_nueva_contraseña }}
                         <button class="btn btn-outline-secondary" type="button"
-                                onclick="togglePassword('{{ form.confirmar_nueva_contraseña.id }}', this)">
+                                onclick="togglePassword('id_confirmar_nueva_contraseña', this)">
                             <span>👁️</span>
                         </button>
                     </div>
@@ -113,18 +114,19 @@
                 </div>
     
                 <div id="error_mensaje" class="mb-4" style="display:none; color: blue;"></div>
-    
+
                 <div class="btn-pass-confirm mb-5 pb-5">
-                    <button type="submit">Cambiar</button>
+                    <button type="submit" class="btn btn-primary">Cambiar</button>
                 </div>
             </form>
         </div>
     </div>
-
+    
     <script>
         function togglePassword(inputId, button) {
             const passwordInput = document.getElementById(inputId);
             const eyeSpan = button.querySelector('span');
+    
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
                 eyeSpan.textContent = "👁️‍🗨️";
@@ -135,8 +137,9 @@
         }
     </script>
     {% endblock %}
-
-
+    
+    
+    
     <footer class="text-center pt-4 ">
         <div class="social-media">
             <a href="https://wa.me/56987654321" style="color:black;" target="about_blank"><i class="fab fa-whatsapp fa-xl"

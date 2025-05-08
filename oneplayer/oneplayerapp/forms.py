@@ -1,6 +1,7 @@
 from django import forms
 from .models import Categoria, Producto
 
+
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
@@ -14,6 +15,7 @@ class ProductoForm(forms.ModelForm):
         self.fields['stock'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Stock inicial'})
         self.fields['categoria'].widget.attrs.update({'class': 'form-control'})
 
+
 class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
@@ -24,6 +26,7 @@ class CategoriaForm(forms.ModelForm):
             'class': 'form-control',
             'placeholder': 'Ingrese el nombre de la categoría',
         })
+
 
 class EditarCategoriaForm(forms.ModelForm):
     class Meta:

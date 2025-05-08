@@ -533,3 +533,24 @@ form input {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+
+
+/* MESSAGES */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+/* Éxito: celeste */
+.alert-success {
+    background-color: #5bc0de; 
+    color: white;
+}
+
+/* Error: rojo */
+.alert-danger {
+    background-color: #f44336;
+    color: white;
+}
