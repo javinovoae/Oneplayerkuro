@@ -1,1 +1,1 @@
-web: gunicorn oneplayer.wsgi:application --log-file -
+web: gunicorn oneplayer.wsgi:application

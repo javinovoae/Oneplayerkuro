@@ -8,12 +8,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 DATABASES = {
-    'default': dj_database_url.config(default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}", conn_max_age=600)
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
+
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
