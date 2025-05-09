@@ -49,6 +49,7 @@ class RegistroUsuarioForm(forms.Form):
         required=True,
         label='Nombre Completo',
         max_length=30,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
         validators=[MinLengthValidator(2, "El nombre debe tener al menos 2 caracteres."),
                     SoloLetrasEspaciosValidator()]
     )
@@ -58,6 +59,7 @@ class RegistroUsuarioForm(forms.Form):
         required=True,
         label='Correo Electrónico',
         max_length=50,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
 
 
@@ -65,11 +67,12 @@ class RegistroUsuarioForm(forms.Form):
         required=True,
         label='Dirección',
         max_length=80,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
     )
 
 
     contraseña = forms.CharField(
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         required=True,
         label='Contraseña',
         validators=[MinLengthValidator(6, "La contraseña debe tener al menos 6 caracteres."),
@@ -79,7 +82,7 @@ class RegistroUsuarioForm(forms.Form):
 
 
     confirmar_contraseña = forms.CharField(
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         required=True,
         label='Confirmar Contraseña'
     )

@@ -91,7 +91,7 @@ def logout_view(request):
 
 
 @login_required(login_url='/auth/inicio_sesion/')
-def agregar_al_carrito(request, producto_id):
+def agregar_al_carrito(request, producto_id):    
     producto = get_object_or_404(Producto, id=producto_id)
     cliente = get_object_or_404(Cliente, nombre_usuario=request.user.username)
     cantidad = int(request.POST.get('cantidad', 1))
